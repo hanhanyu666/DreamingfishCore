@@ -45,8 +45,8 @@ public class Packet_SyncFullTaskData implements net.minecraft.network.protocol.c
             TaskPlayerData task = entry.getValue();
 
             buf.writeInt(taskId);
-            buf.writeUtf(task.getTaskName());
-            buf.writeUtf(task.getTaskContent());
+            buf.writeUtf(safeUtf(task.getTaskName()));
+            buf.writeUtf(safeUtf(task.getTaskContent()));
             buf.writeLong(task.getTaskStartTime());
             buf.writeLong(task.getTaskEndTime());
             buf.writeBoolean(task.isPlayerFinished(packet.playerUUID));
@@ -59,8 +59,8 @@ public class Packet_SyncFullTaskData implements net.minecraft.network.protocol.c
 
             // 编码阶段基本信息
             buf.writeInt(stage.getStageId());
-            buf.writeUtf(stage.getStageName());
-            buf.writeUtf(stage.getStageDescription());
+            buf.writeUtf(safeUtf(stage.getStageName()));
+            buf.writeUtf(safeUtf(stage.getStageDescription()));
 
             // 编码怪物数值调整
             StoryStageData.MonsterModifier modifier = stage.getMonsterModifier();
@@ -82,8 +82,8 @@ public class Packet_SyncFullTaskData implements net.minecraft.network.protocol.c
                 buf.writeInt(tasks.size());
                 for (StoryTaskData task : tasks) {
                     buf.writeInt(task.getTaskId());
-                    buf.writeUtf(task.getTaskName());
-                    buf.writeUtf(task.getTaskContent());
+                    buf.writeUtf(safeUtf(task.getTaskName()));
+                    buf.writeUtf(safeUtf(task.getTaskContent()));
                     buf.writeLong(task.getStartTime());
                     buf.writeLong(task.getEndTime());
                     buf.writeBoolean(task.isTaskState());
@@ -94,7 +94,7 @@ public class Packet_SyncFullTaskData implements net.minecraft.network.protocol.c
                     buf.writeInt(task.getFinishedPlayerCount());
                     if (task.getFinishedPlayers() != null) {
                         for (StoryTaskData.FinishedPlayer fp : task.getFinishedPlayers()) {
-                            buf.writeUtf(fp.getPlayerName());
+                            buf.writeUtf(safeUtf(fp.getPlayerName()));
                             buf.writeUUID(fp.getPlayerUUID());
                         }
                     }
@@ -192,6 +192,10 @@ public class Packet_SyncFullTaskData implements net.minecraft.network.protocol.c
             com.hhy.dreamingfishcore.client.cache.ClientCacheManager.setPlayerTasks(packet.getTaskPlayerData());
             com.hhy.dreamingfishcore.client.cache.ClientCacheManager.setStoryStages(packet.getStoryStageData());
         });
+    }
+
+    private static String safeUtf(String value) {
+        return value == null ? "" : value;
     }
 
     public UUID getPlayerUUID() {

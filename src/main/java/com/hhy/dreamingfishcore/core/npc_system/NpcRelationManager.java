@@ -2,6 +2,9 @@ package com.hhy.dreamingfishcore.core.npc_system;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.hhy.dreamingfishcore.EconomySystem;
 
@@ -10,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,6 +22,7 @@ public class NpcRelationManager {
     private static final File RELATION_DATA_FILE = new File("config/dreamingfishcore/data/npc_relation_data.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     private static final Type RELATION_MAP_TYPE = new TypeToken<Map<String, NpcRelationData>>() {}.getType();
+    private static final Type LEGACY_RELATION_LIST_TYPE = new TypeToken<List<NpcRelationData>>() {}.getType();
 
     private static Map<String, NpcRelationData> relationCache = new ConcurrentHashMap<>();
 
@@ -44,13 +49,35 @@ public class NpcRelationManager {
     public static void load() {
         ensureFile();
         try (FileReader reader = new FileReader(RELATION_DATA_FILE)) {
-            Map<String, NpcRelationData> loaded = GSON.fromJson(reader, RELATION_MAP_TYPE);
-            relationCache = loaded == null ? new ConcurrentHashMap<>() : new ConcurrentHashMap<>(loaded);
+            JsonElement root = JsonParser.parseReader(reader);
+            relationCache = new ConcurrentHashMap<>();
+
+            if (root == null || root.isJsonNull()) {
+                save();
+            } else if (root.isJsonObject()) {
+                Map<String, NpcRelationData> loaded = GSON.fromJson(root, RELATION_MAP_TYPE);
+                if (loaded != null) {
+                    loaded.forEach((key, data) -> putIfValid(key, data));
+                }
+            } else if (root.isJsonArray()) {
+                List<NpcRelationData> legacyRelations = GSON.fromJson(root, LEGACY_RELATION_LIST_TYPE);
+                if (legacyRelations != null) {
+                    for (NpcRelationData relation : legacyRelations) {
+                        putIfValid(relation);
+                    }
+                }
+                save();
+            } else {
+                EconomySystem.LOGGER.warn("NPC关系数据格式无效，已重置: {}", RELATION_DATA_FILE.getPath());
+                save();
+            }
+
             relationCache.values().forEach(NpcRelationData::refreshRelationType);
             EconomySystem.LOGGER.info("NPC关系数据加载完成，共 {} 条", relationCache.size());
-        } catch (IOException e) {
+        } catch (IOException | JsonSyntaxException | IllegalStateException e) {
             relationCache = new ConcurrentHashMap<>();
             EconomySystem.LOGGER.error("加载NPC关系数据失败", e);
+            save();
         }
     }
 
@@ -65,6 +92,20 @@ public class NpcRelationManager {
 
     private static String makeKey(int npcId, UUID playerUUID) {
         return npcId + ":" + playerUUID;
+    }
+
+    private static void putIfValid(NpcRelationData relation) {
+        if (relation == null || relation.getNpcId() <= 0 || relation.getTargetPlayerUUID() == null) {
+            return;
+        }
+        putIfValid(makeKey(relation.getNpcId(), relation.getTargetPlayerUUID()), relation);
+    }
+
+    private static void putIfValid(String key, NpcRelationData relation) {
+        if (key == null || relation == null || relation.getNpcId() <= 0 || relation.getTargetPlayerUUID() == null) {
+            return;
+        }
+        relationCache.put(key, relation);
     }
 
     private static void ensureFile() {

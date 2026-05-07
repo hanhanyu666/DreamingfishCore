@@ -77,10 +77,17 @@ public class TaskDataManager {
         //加载玩家任务数据
         try (FileReader reader = new FileReader(TASK_PLAYER_DATA_FILE)) {
             Map<Integer, TaskPlayerData> loadedData = GSON.fromJson(reader, playerMapType);
-            TASK_PLAYER_DATA_CACHE = loadedData != null ? loadedData : new ConcurrentHashMap<>();
-        } catch (IOException e) {
+            TASK_PLAYER_DATA_CACHE = loadedData != null ? new ConcurrentHashMap<>(loadedData) : new ConcurrentHashMap<>();
+            int beforeSize = TASK_PLAYER_DATA_CACHE.size();
+            TASK_PLAYER_DATA_CACHE.entrySet().removeIf(entry -> !isValidTask(entry.getKey(), entry.getValue()));
+            if (TASK_PLAYER_DATA_CACHE.size() != beforeSize) {
+                EconomySystem.LOGGER.warn("玩家任务数据包含无效旧数据，已清理 {} 条", beforeSize - TASK_PLAYER_DATA_CACHE.size());
+                savePlayerTaskData();
+            }
+        } catch (IOException | RuntimeException e) {
             EconomySystem.LOGGER.error("加载玩家任务数据失败", e);
             TASK_PLAYER_DATA_CACHE = new ConcurrentHashMap<>();
+            savePlayerTaskData();
         }
         calculateMaxTaskIDs();
     }
@@ -92,6 +99,15 @@ public class TaskDataManager {
         } catch (IOException e) {
             EconomySystem.LOGGER.error("保存玩家任务数据失败", e);
         }
+    }
+
+    private static boolean isValidTask(Integer taskId, TaskPlayerData task) {
+        return taskId != null
+                && taskId > 0
+                && task != null
+                && task.getTaskId() > 0
+                && task.getTaskName() != null
+                && task.getTaskContent() != null;
     }
 
     //添加一个所有玩家的个人任务
