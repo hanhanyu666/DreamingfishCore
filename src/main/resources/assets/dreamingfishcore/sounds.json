@@ -1,0 +1,36 @@
+{
+  "entity.hive_zombie.ambient": {
+    "subtitle": "subtitles.dreamingfishcore.hive_zombie_ambient",
+    "sounds": [
+      {"name": "dreamingfishcore:hive_zombie_ambient_1", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_2", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_3", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_4", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_5", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_6", "volume": 0.8},
+      {"name": "dreamingfishcore:hive_zombie_ambient_7", "volume": 0.8}
+    ],
+    "stream": false
+  },
+  "entity.hive_zombie.death": {
+    "subtitle": "subtitles.dreamingfishcore.hive_zombie_death",
+    "sounds": [
+      "dreamingfishcore:hive_zombie_death"
+    ],
+    "stream": false
+  },
+  "entity.hive_zombie.hive_call": {
+    "subtitle": "subtitles.dreamingfishcore.hive_call",
+    "sounds": [
+      "dreamingfishcore:hive_zombie_hive_call"
+    ],
+    "stream": false
+  },
+  "entity.hive_zombie.hurt": {
+    "subtitle": "subtitles.dreamingfishcore.hurt",
+    "sounds": [
+      "dreamingfishcore:hive_zombie_hurt"
+    ],
+    "stream": false
+  }
+}
