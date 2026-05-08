@@ -2,7 +2,12 @@
 
 DreamingFishCore 是为梦鱼服制作的 Minecraft NeoForge 1.21.1 核心模组，提供综合性的服务器管理功能、服务器玩法、角色成长、终端界面、剧情任务、蓝图合成限制，且制作了一套全新的沉浸式 UI。
 
-本项目从 [QingMo-A/EconomySystem](https://github.com/QingMo-A/EconomySystem) 中分离出专属于 DreamingFish 服务器的核心功能，并围绕 DreamingFishCore 的定位进行独立维护。
+为了方便模组的维护，本项目从原 [QingMo-A/EconomySystem](https://github.com/QingMo-A/EconomySystem) 中分离出专属于 DreamingFish 服务器的核心功能，并围绕 DreamingFishCore 的定位进行独立维护，原 EconomySystem 继续维护商店、领地等内容，该模组将继续为梦鱼服的后续玩法进行开发。
+
+### 作者 (Author):
+
+- [QingMo](https://github.com/QingMo-A)
+- [HanHanYu](https://github.com/hanhanyu666)
 
 ## 核心特性
 
