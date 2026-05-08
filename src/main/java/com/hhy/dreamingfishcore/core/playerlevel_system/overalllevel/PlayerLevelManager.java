@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel;
 
 import com.hhy.dreamingfishcore.client.cache.ClientCacheManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerdata_system.Packet_LevelUpNotify;
 import com.hhy.dreamingfishcore.server.playerdata.PlayerData;
 import com.hhy.dreamingfishcore.server.playerdata.PlayerDataManager;
@@ -157,7 +157,7 @@ public class PlayerLevelManager {
      */
     private static void sendLevelUpNotify(ServerPlayer serverPlayer, int newLevel) {
         if (serverPlayer == null) return;
-        EconomySystem_NetworkManager.sendToClient(
+        DreamingFishCore_NetworkManager.sendToClient(
                 new Packet_LevelUpNotify(newLevel),
                 serverPlayer
         );

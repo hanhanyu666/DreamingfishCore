@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.screen.server_screen.serverscreen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class ServerScreenUI_Event {
     @SubscribeEvent
     public static void onRenderGuiOverlay(RenderGuiLayerEvent.Pre event) {

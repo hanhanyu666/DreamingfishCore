@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.datagen.lang;
 
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.utils.Util_MessageKeys;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -14,19 +14,19 @@ public class EnUsLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.dreamingfishcore.tab", "DreamingfishCore");
         add("itemGroup.blueprint.tab", "Dreamingfish Blueprints");
-        add(EconomySystem_Items.DREAMINGFISH.get(), "Dreaming Fish");
+        add(DreamingFishCore_Items.DREAMINGFISH.get(), "Dreaming Fish");
         add("item.dreamingfishcore.dreamingfish.tooltip", "A token from DreamingFish.");
-        add(EconomySystem_Items.WORMHOLE_POTION.get(), "Wormhole Potion");
-        add(EconomySystem_Items.RECALL_POTION.get(), "Recall Potion");
-        add(EconomySystem_Items.BLUEPRINT_ITEM.get(), "Blueprint");
-        add(EconomySystem_Items.FRAGMENT_PAGE.get(), "Fragment Page");
-        add(EconomySystem_Items.STORY_BOOK.get(), "Story Book");
-        add(EconomySystem_Items.EASY_AID_KIT.get(), "Easy Aid Kit");
-        add(EconomySystem_Items.ADVANCED_AID_KIT.get(), "Advanced Aid Kit");
-        add(EconomySystem_Items.PROFESSIONAL_AID_KIT.get(), "Professional Aid Kit");
-        add(EconomySystem_Items.REVIVAL_CHARM.get(), "Revival Charm");
-        add(EconomySystem_Items.GENE_RESURGENCE_POTION.get(), "Gene Resurgence Potion");
-        add(EconomySystem_Items.SUPPORTER_HAT.get(), "Supporter Hat");
+        add(DreamingFishCore_Items.WORMHOLE_POTION.get(), "Wormhole Potion");
+        add(DreamingFishCore_Items.RECALL_POTION.get(), "Recall Potion");
+        add(DreamingFishCore_Items.BLUEPRINT_ITEM.get(), "Blueprint");
+        add(DreamingFishCore_Items.FRAGMENT_PAGE.get(), "Fragment Page");
+        add(DreamingFishCore_Items.STORY_BOOK.get(), "Story Book");
+        add(DreamingFishCore_Items.EASY_AID_KIT.get(), "Easy Aid Kit");
+        add(DreamingFishCore_Items.ADVANCED_AID_KIT.get(), "Advanced Aid Kit");
+        add(DreamingFishCore_Items.PROFESSIONAL_AID_KIT.get(), "Professional Aid Kit");
+        add(DreamingFishCore_Items.REVIVAL_CHARM.get(), "Revival Charm");
+        add(DreamingFishCore_Items.GENE_RESURGENCE_POTION.get(), "Gene Resurgence Potion");
+        add(DreamingFishCore_Items.SUPPORTER_HAT.get(), "Supporter Hat");
 
         add(Util_MessageKeys.TPA_SELF_ERROR, "You cannot send a teleport request to yourself.");
         add(Util_MessageKeys.TPA_NO_POTION, "You need a wormhole potion to send a teleport request.");

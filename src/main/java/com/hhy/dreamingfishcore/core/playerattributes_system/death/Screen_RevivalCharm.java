@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.death;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_RevivalRequest;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -337,7 +337,7 @@ public class Screen_RevivalCharm extends Screen {
     private void confirmRevival() {
         String name = playerName.trim();
         if (!name.isEmpty()) {
-            EconomySystem_NetworkManager.sendToServer(new Packet_RevivalRequest(name));
+            DreamingFishCore_NetworkManager.sendToServer(new Packet_RevivalRequest(name));
             this.minecraft.setScreen(null);
         } else {
             this.minecraft.player.sendSystemMessage(Component.literal("§c请输入玩家名称！"));

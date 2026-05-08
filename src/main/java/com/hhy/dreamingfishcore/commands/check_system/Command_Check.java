@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.check_system.Packet_Check;
 import com.hhy.dreamingfishcore.network.packets.check_system.Packet_Get;
 import com.mojang.brigadier.Command;
@@ -99,7 +99,7 @@ public class Command_Check {
         source.sendSuccess(() -> Component.literal("检查请求已发送至 " + playerName), false);
 
         // 向目标玩家发送一个网络包
-        EconomySystem_NetworkManager.sendToClient(player,
+        DreamingFishCore_NetworkManager.sendToClient(player,
                 new Packet_Check(playerName, String.valueOf(playerUUID), senderName, String.valueOf(senderUUID), type));
 
 
@@ -130,7 +130,7 @@ public class Command_Check {
         source.sendSuccess(() -> Component.literal("获取请求已发送至 " + playerName), false);
 
         // 向目标玩家发送一个网络包
-        EconomySystem_NetworkManager.sendToClient(player,
+        DreamingFishCore_NetworkManager.sendToClient(player,
                 new Packet_Get(playerName, String.valueOf(playerUUID), senderName, String.valueOf(senderUUID), type, fileName));
 
 

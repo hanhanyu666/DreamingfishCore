@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.screen.server_screen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.Packet_OnlinePlayerCountRequest;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import com.hhy.dreamingfishcore.server.chattitle.PlayerTitleManager;
@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class ServerInformationDisplay {
     private static boolean SHOW_UI = true;                  // UI开关
     private static final boolean USE_LEGACY_INFO_BOXES = false;
@@ -123,7 +123,7 @@ public class ServerInformationDisplay {
 
         //请求在线玩家数
         if (currentTime - LAST_PLAYER_LIST_UPDATE > UPDATE_INTERVAL) {
-            EconomySystem_NetworkManager.sendToServer(new Packet_OnlinePlayerCountRequest());
+            DreamingFishCore_NetworkManager.sendToServer(new Packet_OnlinePlayerCountRequest());
             LAST_PLAYER_LIST_UPDATE = currentTime;
         }
 

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.datagen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.datagen.lang.EnUsLanguageProvider;
 import com.hhy.dreamingfishcore.datagen.lang.ZhCnLanguageProvider;
 import net.minecraft.core.HolderLookup;
@@ -14,8 +14,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
-public class EconomySystem_DataGenerators {
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
+public class DreamingFishCore_DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator dataGenerator = event.getGenerator();
@@ -24,7 +24,7 @@ public class EconomySystem_DataGenerators {
         CompletableFuture<HolderLookup.Provider> providerCompletableFuture = event.getLookupProvider();
 
         dataGenerator.addProvider(event.includeServer(), new ModItemModelProvider(packOutput, existingFileHelper));
-        dataGenerator.addProvider(event.includeServer(), new ZhCnLanguageProvider(dataGenerator, EconomySystem.MODID));
-        dataGenerator.addProvider(event.includeServer(), new EnUsLanguageProvider(dataGenerator, EconomySystem.MODID));
+        dataGenerator.addProvider(event.includeServer(), new ZhCnLanguageProvider(dataGenerator, DreamingFishCore.MODID));
+        dataGenerator.addProvider(event.includeServer(), new EnUsLanguageProvider(dataGenerator, DreamingFishCore.MODID));
     }
 }

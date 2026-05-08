@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.loot;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.bus.api.IEventBus;
@@ -9,9 +9,9 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-public class EconomySystem_LootModifiers {
+public class DreamingFishCore_LootModifiers {
     private static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
-        DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, EconomySystem.MODID);
+        DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, DreamingFishCore.MODID);
 
     public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, ? extends MapCodec<? extends IGlobalLootModifier>> BLUEPRINT_LOOT =
         LOOT_MODIFIERS.register("blueprint_loot", () -> BlueprintLootModifier.CODEC);

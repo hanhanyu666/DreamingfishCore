@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.strength;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 玩家体力（力量）系统核心管理器
  * 负责体力消耗、恢复、疾跑拦截、提示显示等全逻辑
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class PlayerStrengthManager {
 
     private static final int SPRINT_COST_PER_5TICK = 1;    // 疾跑每5tick耗1点体力（每秒4点）
@@ -130,7 +130,7 @@ public class PlayerStrengthManager {
                     true // true=动作栏（物品栏上方），false=聊天框
             );
             HAS_SHOWN_LOW_STRENGTH_TIP.put(uuid, true);
-//            EconomySystem.LOGGER.debug("[体力提示] 玩家{}体力≤30%，已显示低体力提示", player.getScoreboardName());
+//            DreamingFishCore.LOGGER.debug("[体力提示] 玩家{}体力≤30%，已显示低体力提示", player.getScoreboardName());
         }
         if (strengthPercent > LOW_STRENGTH_PERCENT && hasShownLowTip) {
             HAS_SHOWN_LOW_STRENGTH_TIP.put(uuid, false);
@@ -140,7 +140,7 @@ public class PlayerStrengthManager {
             player.setSprinting(false);
             IS_STRENGTH_EXHAUSTED.put(uuid, true);
             IS_SPRINTING_CACHE.put(uuid, false);
-//            EconomySystem.LOGGER.warn("[体力] 玩家{}体力已耗尽（0点），强制停止疾跑", player.getScoreboardName());
+//            DreamingFishCore.LOGGER.warn("[体力] 玩家{}体力已耗尽（0点），强制停止疾跑", player.getScoreboardName());
 
             // 显示无法奔跑提示（仅一次）
             if (!hasShownExhaustedTip) {
@@ -149,7 +149,7 @@ public class PlayerStrengthManager {
                         true
                 );
                 HAS_SHOWN_EXHAUSTED_TIP.put(uuid, true);
-//                EconomySystem.LOGGER.debug("[体力提示] 玩家{}体力耗尽，已显示无法奔跑提示", player.getScoreboardName());
+//                DreamingFishCore.LOGGER.debug("[体力提示] 玩家{}体力耗尽，已显示无法奔跑提示", player.getScoreboardName());
             }
         }
 
@@ -160,7 +160,7 @@ public class PlayerStrengthManager {
                     Component.literal("§c老己~，跑不动啦歇会儿吧，休息就能恢复体力啦❤"), // 硬编码提示文本
                     true
             );
-//            EconomySystem.LOGGER.debug("[体力] 玩家{}体力未恢复到{}（当前{}），后台禁止疾跑",
+//            DreamingFishCore.LOGGER.debug("[体力] 玩家{}体力未恢复到{}（当前{}），后台禁止疾跑",
 //                    player.getScoreboardName(), MIN_RESPRINT_STRENGTH, currentStrength);
         }
 
@@ -168,7 +168,7 @@ public class PlayerStrengthManager {
         if (currentStrength >= MIN_RESPRINT_STRENGTH && isExhausted) {
             IS_STRENGTH_EXHAUSTED.put(uuid, false);
             HAS_SHOWN_EXHAUSTED_TIP.put(uuid, false); // 重置无法奔跑提示标记
-//            EconomySystem.LOGGER.info("[标记解除] 玩家{}体力≥20，IS_STRENGTH_EXHAUSTED已设为false",
+//            DreamingFishCore.LOGGER.info("[标记解除] 玩家{}体力≥20，IS_STRENGTH_EXHAUSTED已设为false",
 //                    player.getScoreboardName());
         }
     }
@@ -194,7 +194,7 @@ public class PlayerStrengthManager {
                     if (consumeOk) {
                         LAST_CONSUME_TICK.put(uuid, (long) currentTick);
                         IS_SPRINTING_CACHE.put(uuid, true);
-//                        EconomySystem.LOGGER.debug("[体力] 玩家{}疾跑消耗体力，剩余{}",
+//                        DreamingFishCore.LOGGER.debug("[体力] 玩家{}疾跑消耗体力，剩余{}",
 //                                player.getScoreboardName(), data.getCurrentStrength());
                         PlayerAttributesDataManager.updatePlayerAttributesData(player, data);
                         //同步到客户端，用于渲染体力条
@@ -219,7 +219,7 @@ public class PlayerStrengthManager {
                 && !player.isSprinting()
                 && currentTick % RESTORE_INTERVAL == 0) {
             data.restoreStrength(RESTORE_AMOUNT);
-//            EconomySystem.LOGGER.debug("[体力] 玩家{}体力恢复，当前{}",
+//            DreamingFishCore.LOGGER.debug("[体力] 玩家{}体力恢复，当前{}",
 //                    player.getScoreboardName(), data.getCurrentStrength());
             PlayerAttributesDataManager.updatePlayerAttributesData(player, data);
             //同步到客户端，渲染体力条
@@ -302,7 +302,7 @@ public class PlayerStrengthManager {
 
     //客户端tick监听器：检查体力耗尽标记，强制停止疾跑
     @OnlyIn(Dist.CLIENT)
-    @EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
     public static class ClientTickHandler {
         // 客户端体力耗尽标记
         private static final Map<UUID, Boolean> IS_STRENGTH_EXHAUSTED_CLIENT = new ConcurrentHashMap<>();

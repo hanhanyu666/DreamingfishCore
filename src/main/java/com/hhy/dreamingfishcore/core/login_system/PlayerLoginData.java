@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.login_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
@@ -41,7 +41,7 @@ public class PlayerLoginData {
      * @param plainPassword 明文密码
      */
     public void setPassword(String plainPassword) {
-        EconomySystem.LOGGER.info("setPassword方法开始执行，明文密码长度={}", plainPassword.length());
+        DreamingFishCore.LOGGER.info("setPassword方法开始执行，明文密码长度={}", plainPassword.length());
 
         try {
             // 使用 UUID 作为盐值，确保每个玩家的哈希值不同
@@ -62,9 +62,9 @@ public class PlayerLoginData {
             }
 
             this.passwordAfterHash = hexString.toString();
-            EconomySystem.LOGGER.info("密码哈希完成，SHA-256哈希值={}", passwordAfterHash);
+            DreamingFishCore.LOGGER.info("密码哈希完成，SHA-256哈希值={}", passwordAfterHash);
         } catch (NoSuchAlgorithmException e) {
-            EconomySystem.LOGGER.error("SHA-256算法不可用", e);
+            DreamingFishCore.LOGGER.error("SHA-256算法不可用", e);
             throw new RuntimeException("SHA-256 algorithm not available", e);
         }
     }
@@ -99,12 +99,12 @@ public class PlayerLoginData {
             String computedHash = hexString.toString();
             boolean matches = computedHash.equals(passwordAfterHash);
 
-            EconomySystem.LOGGER.info("验证密码: 输入密码哈希={}, 存储密码哈希={}, 匹配={}",
+            DreamingFishCore.LOGGER.info("验证密码: 输入密码哈希={}, 存储密码哈希={}, 匹配={}",
                 computedHash, passwordAfterHash, matches);
 
             return matches;
         } catch (NoSuchAlgorithmException e) {
-            EconomySystem.LOGGER.error("SHA-256算法不可用", e);
+            DreamingFishCore.LOGGER.error("SHA-256算法不可用", e);
             return false;
         }
     }
@@ -216,7 +216,7 @@ public class PlayerLoginData {
      */
     public boolean canQuickLogin(String currentIp) {
         if (lastLogoutTime == 0L) {
-//            EconomySystem.LOGGER.info("快速登录检查: 没有退出时间记录");
+//            DreamingFishCore.LOGGER.info("快速登录检查: 没有退出时间记录");
             return false;
         }
 
@@ -224,13 +224,13 @@ public class PlayerLoginData {
         boolean ipMatches = currentIp.equals(lastLoginIP);
         boolean withinTimeLimit = timeSinceLogout <= 300000;  // 5分钟 = 300000毫秒
 
-//        EconomySystem.LOGGER.info("快速登录检查详情:");
-//        EconomySystem.LOGGER.info("  当前IP: " + currentIp);
-//        EconomySystem.LOGGER.info("  上次IP: " + lastLoginIP);
-//        EconomySystem.LOGGER.info("  IP匹配: " + ipMatches);
-//        EconomySystem.LOGGER.info("  退出时间: " + lastLogoutTime);
-//        EconomySystem.LOGGER.info("  距离退出: " + (timeSinceLogout / 1000) + "秒");
-//        EconomySystem.LOGGER.info("  时间检查(<=300秒): " + withinTimeLimit);
+//        DreamingFishCore.LOGGER.info("快速登录检查详情:");
+//        DreamingFishCore.LOGGER.info("  当前IP: " + currentIp);
+//        DreamingFishCore.LOGGER.info("  上次IP: " + lastLoginIP);
+//        DreamingFishCore.LOGGER.info("  IP匹配: " + ipMatches);
+//        DreamingFishCore.LOGGER.info("  退出时间: " + lastLogoutTime);
+//        DreamingFishCore.LOGGER.info("  距离退出: " + (timeSinceLogout / 1000) + "秒");
+//        DreamingFishCore.LOGGER.info("  时间检查(<=300秒): " + withinTimeLimit);
 
         return ipMatches && withinTimeLimit;
     }

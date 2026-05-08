@@ -9,7 +9,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class Packet_NpcInteractionRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NpcInteractionRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "npc_system/packet_npc_interaction_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NpcInteractionRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "npc_system/packet_npc_interaction_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_NpcInteractionRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_NpcInteractionRequest.encode(packet, buf), Packet_NpcInteractionRequest::decode);
 
     @Override

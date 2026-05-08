@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.client.cache;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.task_system.TaskPlayerData;
 import com.hhy.dreamingfishcore.core.story_system.StoryStageData;
@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class ClientCacheManager {
     private static final Map<UUID, PlayerData> PLAYER_DATA_CACHE = new ConcurrentHashMap<>();
     private static final Map<UUID, PlayerAttributesData> PLAYER_ATTRIBUTES_DATA_CACHE = new ConcurrentHashMap<>();

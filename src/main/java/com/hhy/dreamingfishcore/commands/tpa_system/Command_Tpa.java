@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.tpa_system;
 
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.utils.Util_MessageKeys;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
@@ -202,12 +202,12 @@ public class Command_Tpa {
 
     private static boolean hasWormholePotion(ServerPlayer player) {
         return player.getInventory().items.stream()
-                .anyMatch(stack -> stack.getItem() == EconomySystem_Items.WORMHOLE_POTION.get());
+                .anyMatch(stack -> stack.getItem() == DreamingFishCore_Items.WORMHOLE_POTION.get());
     }
 
     private static void consumeWormholePotion(ServerPlayer player) {
         player.getInventory().items.stream()
-                .filter(stack -> stack.getItem() == EconomySystem_Items.WORMHOLE_POTION.get())
+                .filter(stack -> stack.getItem() == DreamingFishCore_Items.WORMHOLE_POTION.get())
                 .findFirst()
                 .ifPresent(stack -> stack.shrink(1));
     }

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.server.notice;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.screen.server_screen.tips.TipPushHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -11,7 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 /**
  * 公告系统事件处理器
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class NoticeEventHandler {
 
     /**
@@ -37,7 +37,7 @@ public class NoticeEventHandler {
                 if (latestNotice != null) {
                     // 发送新公告提醒（左上角提示框，持续15秒）
                     TipPushHelper.sendTipToPlayer(player, "§b§l您有新的公告需要查看", 15000);
-                    EconomySystem.LOGGER.info("玩家 {} 有新公告 #{} 待阅读",
+                    DreamingFishCore.LOGGER.info("玩家 {} 有新公告 #{} 待阅读",
                         player.getScoreboardName(), maxNoticeId);
                 }
             }

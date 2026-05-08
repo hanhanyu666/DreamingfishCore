@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Packet_UpdateStoryBookOrder implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_UpdateStoryBookOrder> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "storybook_system/packet_update_story_book_order"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_UpdateStoryBookOrder> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "storybook_system/packet_update_story_book_order"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_UpdateStoryBookOrder> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_UpdateStoryBookOrder.encode(packet, buf), Packet_UpdateStoryBookOrder::decode);
 
     @Override

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.notice_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.notice.PlayerNoticeDataManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_MarkNoticeReadRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_MarkNoticeReadRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "notice_system/packet_mark_notice_read_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_MarkNoticeReadRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "notice_system/packet_mark_notice_read_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_MarkNoticeReadRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_MarkNoticeReadRequest.encode(packet, buf), Packet_MarkNoticeReadRequest::decode);
 
     @Override
@@ -43,13 +43,13 @@ public class Packet_MarkNoticeReadRequest implements net.minecraft.network.proto
     private static void handleServer(Packet_MarkNoticeReadRequest msg, IPayloadContext context) {
         var serverPlayer = context.player() instanceof net.minecraft.server.level.ServerPlayer player ? player : null;
         if (serverPlayer == null) {
-            EconomySystem.LOGGER.warn("Packet_MarkNoticeReadRequest: serverPlayer is null");
+            DreamingFishCore.LOGGER.warn("Packet_MarkNoticeReadRequest: serverPlayer is null");
             return;
         }
 
         // 标记公告为已读
         PlayerNoticeDataManager.markAsRead(serverPlayer.getUUID(), msg.noticeId);
-        EconomySystem.LOGGER.debug("玩家 {} 标记公告 {} 为已读", serverPlayer.getName().getString(), msg.noticeId);
+        DreamingFishCore.LOGGER.debug("玩家 {} 标记公告 {} 为已读", serverPlayer.getName().getString(), msg.noticeId);
     }
 
     public int getNoticeId() {

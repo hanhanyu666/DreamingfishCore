@@ -16,7 +16,7 @@ import org.jetbrains.annotations.UnknownNullability;
  */
 public class Packet_PlayerLoginResult implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginResult> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "login_system/packet_player_login_result"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginResult> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "login_system/packet_player_login_result"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_PlayerLoginResult> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_PlayerLoginResult.encode(packet, buf), Packet_PlayerLoginResult::decode);
 
     @Override

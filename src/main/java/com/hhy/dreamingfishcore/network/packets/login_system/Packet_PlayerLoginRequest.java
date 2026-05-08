@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 //服务端发送登录请求，传一个布尔型，如果是true是注册，false是登录
 public class Packet_PlayerLoginRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "login_system/packet_player_login_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "login_system/packet_player_login_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_PlayerLoginRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_PlayerLoginRequest.encode(packet, buf), Packet_PlayerLoginRequest::decode);
 
     @Override
@@ -54,7 +54,7 @@ public class Packet_PlayerLoginRequest implements net.minecraft.network.protocol
         // loginOrRegister: true=注册, false=登录
         // Screen_LoginUI参数: true=需要注册, false=不需要注册
         boolean requireRegistration = msg.isLoginOrRegister();
-        com.hhy.dreamingfishcore.EconomySystem.LOGGER.info("客户端收到登录请求包，loginOrRegister={}, requireRegistration={}", msg.isLoginOrRegister(), requireRegistration);
+        com.hhy.dreamingfishcore.DreamingFishCore.LOGGER.info("客户端收到登录请求包，loginOrRegister={}, requireRegistration={}", msg.isLoginOrRegister(), requireRegistration);
         minecraft.setScreen(new com.hhy.dreamingfishcore.core.login_system.Screen_LoginUI(requireRegistration));
     }
 }

@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.screen.npc_system;
 import com.hhy.dreamingfishcore.client.util.VirtualCoordinateHelper;
 import com.hhy.dreamingfishcore.core.npc_system.NpcDialogueViewData;
 import com.hhy.dreamingfishcore.core.npc_system.NpcInteractionType;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.npc_system.Packet_NpcInteractionRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -284,7 +284,7 @@ public class Screen_NpcDialogue extends Screen {
                             dialogueIndex++;
                             openTime = System.currentTimeMillis();
                         }
-                        EconomySystem_NetworkManager.sendToServer(new Packet_NpcInteractionRequest(data.getNpcId(), data.getEntityId(), area.type));
+                        DreamingFishCore_NetworkManager.sendToServer(new Packet_NpcInteractionRequest(data.getNpcId(), data.getEntityId(), area.type));
                     }
                     return true;
                 }

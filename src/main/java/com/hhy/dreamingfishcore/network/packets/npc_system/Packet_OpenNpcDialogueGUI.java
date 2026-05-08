@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Packet_OpenNpcDialogueGUI implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_OpenNpcDialogueGUI> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "npc_system/packet_open_npc_dialogue_gui"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_OpenNpcDialogueGUI> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "npc_system/packet_open_npc_dialogue_gui"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_OpenNpcDialogueGUI> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_OpenNpcDialogueGUI.encode(packet, buf), Packet_OpenNpcDialogueGUI::decode);
 
     @Override

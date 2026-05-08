@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.core.story_system;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 故事阶段管理器
  * 负责加载和管理故事阶段数据（包含任务列表和怪物数值调整）
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class StoryStageManager {
     private static final File STORY_STAGE_DATA_FILE = new File("config/dreamingfishcore/story_stage_data.json");
 
@@ -46,23 +46,23 @@ public class StoryStageManager {
             if (!STORY_STAGE_DATA_FILE.getParentFile().exists()) {
                 dirCreated = STORY_STAGE_DATA_FILE.getParentFile().mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("故事阶段数据目录创建成功：{}", STORY_STAGE_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("故事阶段数据目录创建成功：{}", STORY_STAGE_DATA_FILE.getParentFile().getPath());
                 } else {
-                    EconomySystem.LOGGER.error("故事阶段数据目录创建失败：{}", STORY_STAGE_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.error("故事阶段数据目录创建失败：{}", STORY_STAGE_DATA_FILE.getParentFile().getPath());
                 }
             }
             if (!STORY_STAGE_DATA_FILE.exists()) {
                 fileCreated = STORY_STAGE_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("故事阶段数据文件创建成功：{}", STORY_STAGE_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("故事阶段数据文件创建成功：{}", STORY_STAGE_DATA_FILE.getPath());
                 } else {
-                    EconomySystem.LOGGER.error("故事阶段数据文件创建失败：{}", STORY_STAGE_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.error("故事阶段数据文件创建失败：{}", STORY_STAGE_DATA_FILE.getPath());
                 }
             } else {
-                EconomySystem.LOGGER.info("故事阶段数据文件已存在：{}", STORY_STAGE_DATA_FILE.getPath());
+                DreamingFishCore.LOGGER.info("故事阶段数据文件已存在：{}", STORY_STAGE_DATA_FILE.getPath());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化故事阶段数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化故事阶段数据文件失败", e);
         }
     }
 
@@ -79,14 +79,14 @@ public class StoryStageManager {
             Map<Integer, StoryStageData> stageData = GSON.fromJson(reader, stageMapType);
             STAGE_CACHE = stageData != null ? stageData : new ConcurrentHashMap<>();
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载故事阶段数据失败", e);
+            DreamingFishCore.LOGGER.error("加载故事阶段数据失败", e);
             STAGE_CACHE = new ConcurrentHashMap<>();
         }
 
         // 重建任务索引
         rebuildTaskIndex();
 
-        EconomySystem.LOGGER.info("故事阶段数据加载完成，共 {} 个阶段，{} 个任务",
+        DreamingFishCore.LOGGER.info("故事阶段数据加载完成，共 {} 个阶段，{} 个任务",
             STAGE_CACHE.size(), TASK_INDEX.size());
     }
 
@@ -111,7 +111,7 @@ public class StoryStageManager {
         try (FileWriter writer = new FileWriter(STORY_STAGE_DATA_FILE)) {
             GSON.toJson(STAGE_CACHE, writer);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存故事阶段数据失败", e);
+            DreamingFishCore.LOGGER.error("保存故事阶段数据失败", e);
         }
     }
 
@@ -170,19 +170,19 @@ public class StoryStageManager {
     public static boolean playerCompleteTask(int taskId, String playerName, UUID playerUUID) {
         StoryTaskData task = TASK_INDEX.get(taskId);
         if (task == null) {
-            EconomySystem.LOGGER.warn("任务ID不存在：{}", taskId);
+            DreamingFishCore.LOGGER.warn("任务ID不存在：{}", taskId);
             return false;
         }
 
         if (task.isPlayerFinished(playerUUID)) {
-            EconomySystem.LOGGER.info("玩家 {} 已经完成任务 {}", playerName, taskId);
+            DreamingFishCore.LOGGER.info("玩家 {} 已经完成任务 {}", playerName, taskId);
             return false;
         }
 
         task.addFinishedPlayer(playerName, playerUUID);
         saveStageData();
 
-        EconomySystem.LOGGER.info("玩家 {} 完成任务 {}", playerName, taskId);
+        DreamingFishCore.LOGGER.info("玩家 {} 完成任务 {}", playerName, taskId);
         return true;
     }
 

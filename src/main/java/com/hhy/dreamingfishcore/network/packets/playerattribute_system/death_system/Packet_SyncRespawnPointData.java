@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class Packet_SyncRespawnPointData implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncRespawnPointData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerattribute_system/death_system/packet_sync_respawn_point_data"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncRespawnPointData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerattribute_system/death_system/packet_sync_respawn_point_data"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SyncRespawnPointData> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SyncRespawnPointData.encode(packet, buf), Packet_SyncRespawnPointData::decode);
 
     @Override

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.mixin.ui;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.LoadingOverlay;
@@ -29,8 +29,8 @@ public class ForgeLoadingOverlayMixin extends LoadingOverlay {
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void economySystem$cancelForgeRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
-//        EconomySystem.LOGGER.info("ForgeLoadingOverlayMixin: Canceling Forge render, falling back to LoadingOverlay");
+    private void dreamingFishCore$cancelForgeRender(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+//        DreamingFishCore.LOGGER.info("ForgeLoadingOverlayMixin: Canceling Forge render, falling back to LoadingOverlay");
         ci.cancel();
         // Call parent (LoadingOverlay) render instead of Forge's custom rendering
         super.render(guiGraphics, mouseX, mouseY, partialTick);

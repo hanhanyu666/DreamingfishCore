@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Packet_ServerPlayerListResponse implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_ServerPlayerListResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "packet_server_player_list_response"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_ServerPlayerListResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "packet_server_player_list_response"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_ServerPlayerListResponse> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_ServerPlayerListResponse.encode(packet, buf), Packet_ServerPlayerListResponse::decode);
 
     @Override

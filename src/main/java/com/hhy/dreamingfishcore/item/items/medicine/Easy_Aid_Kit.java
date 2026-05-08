@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.item.items.medicine;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.health.PlayerCustomHealthManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,7 +99,7 @@ public class Easy_Aid_Kit extends Item {
         return InteractionResultHolder.pass(heldItemStack);
     }
 
-    @EventBusSubscriber(modid = EconomySystem.MODID)
+    @EventBusSubscriber(modid = DreamingFishCore.MODID)
     public static class FirstAidTickHandler {
         @SubscribeEvent
         public static void onPlayerTick(PlayerTickEvent.Post event) {

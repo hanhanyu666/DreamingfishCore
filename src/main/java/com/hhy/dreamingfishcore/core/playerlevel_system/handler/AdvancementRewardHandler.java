@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerlevel_system.handler;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -15,7 +15,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
  * 进度（成就）奖励处理器
  * 玩家完成进度时根据进度类型给予不同的经验奖励
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class AdvancementRewardHandler {
 
     // ==================== 配置项 ====================
@@ -66,7 +66,7 @@ public class AdvancementRewardHandler {
 
         // 注意：聊天消息由PlayerAdvancementsMixin拦截并显示在右侧
 
-        EconomySystem.LOGGER.info("玩家 {} 完成进度 {} (类型: {}, 隐藏: {})，获得 {} 经验",
+        DreamingFishCore.LOGGER.info("玩家 {} 完成进度 {} (类型: {}, 隐藏: {})，获得 {} 经验",
                 player.getScoreboardName(), holder.id(), frameType.getSerializedName(), isHidden, expReward);
     }
 

@@ -41,7 +41,7 @@ public class UpdateChecker {
 
                 // 检查响应码
                 if (connection.getResponseCode() != 200) {
-                    player.sendSystemMessage(Component.literal("§b[§6EconomySystem§b] §c无法检查更新，请稍后重试！"));
+                    player.sendSystemMessage(Component.literal("§b[§6DreamingFishCore§b] §c无法检查更新，请稍后重试！"));
                     return;
                 }
 
@@ -59,16 +59,16 @@ public class UpdateChecker {
                                     .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, downloadUrl))
                                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("§e点击复制!"))));
 
-                    player.sendSystemMessage(Component.literal("§b[§6EconomySystem§b] §a发现新版本：§r" + latestVersion)
+                    player.sendSystemMessage(Component.literal("§b[§6DreamingFishCore§b] §a发现新版本：§r" + latestVersion)
                             .append(" ")
                             .append(copyDownloadURL)
                     );
                 } else {
-                    player.sendSystemMessage(Component.literal("§b[§6EconomySystem§b] §a当前已是最新版本！"));
+                    player.sendSystemMessage(Component.literal("§b[§6DreamingFishCore§b] §a当前已是最新版本！"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                player.sendSystemMessage(Component.literal("§b[§6EconomySystem§b] §c检查更新时出错！"));
+                player.sendSystemMessage(Component.literal("§b[§6DreamingFishCore§b] §c检查更新时出错！"));
             }
         }).start();
     }

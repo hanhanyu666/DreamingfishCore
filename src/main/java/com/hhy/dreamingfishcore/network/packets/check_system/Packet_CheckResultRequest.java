@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class Packet_CheckResultRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_CheckResultRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_check_result_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_CheckResultRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_check_result_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_CheckResultRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_CheckResultRequest.encode(packet, buf), Packet_CheckResultRequest::decode);
 
     @Override
@@ -51,7 +51,7 @@ public class Packet_CheckResultRequest implements net.minecraft.network.protocol
             ServerPlayer player = context.player() instanceof ServerPlayer serverPlayer ? serverPlayer : null;
             MinecraftServer server = player.server;
             ServerPlayer target = server.getPlayerList().getPlayer(UUID.fromString(msg.senderUUID));
-            EconomySystem_NetworkManager.sendToClient(target, new Packet_CheckResultResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.result));
+            DreamingFishCore_NetworkManager.sendToClient(target, new Packet_CheckResultResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.result));
         });
     }
 }

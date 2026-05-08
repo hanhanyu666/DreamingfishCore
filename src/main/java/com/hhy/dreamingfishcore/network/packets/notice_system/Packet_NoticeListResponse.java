@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.notice_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.notice.NoticeData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.neoforged.api.distmarker.Dist;
@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class Packet_NoticeListResponse implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeListResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "notice_system/packet_notice_list_response"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeListResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "notice_system/packet_notice_list_response"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_NoticeListResponse> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_NoticeListResponse.encode(packet, buf), Packet_NoticeListResponse::decode);
 
     @Override
@@ -82,7 +82,7 @@ public class Packet_NoticeListResponse implements net.minecraft.network.protocol
 
     @OnlyIn(Dist.CLIENT)
     private static void handleClient(Packet_NoticeListResponse msg) {
-        EconomySystem.LOGGER.info("收到 {} 条公告", msg.notices.size());
+        DreamingFishCore.LOGGER.info("收到 {} 条公告", msg.notices.size());
     }
 
     public List<NoticeData> getNotices() {

@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.network.packets.playerdata_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.server.playerdata.PlayerData;
 import com.hhy.dreamingfishcore.server.playerdata.PlayerDataManager;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class Packet_RequestAllPlayerData implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_RequestAllPlayerData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerdata_system/packet_request_all_player_data"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_RequestAllPlayerData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerdata_system/packet_request_all_player_data"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_RequestAllPlayerData> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_RequestAllPlayerData.encode(packet, buf), Packet_RequestAllPlayerData::decode);
 
     @Override
@@ -52,7 +52,7 @@ public class Packet_RequestAllPlayerData implements net.minecraft.network.protoc
                 ServerPlayer targetPlayer = requester.getServer().getPlayerList().getPlayer(playerUUID);
                 if (targetPlayer != null) {
                     // 在线玩家：直接用ServerPlayer构造Packet
-                    EconomySystem_NetworkManager.sendToClient(
+                    DreamingFishCore_NetworkManager.sendToClient(
                             requester,
                             new Packet_SyncPlayerData(targetPlayer)
                     );
@@ -77,13 +77,13 @@ public class Packet_RequestAllPlayerData implements net.minecraft.network.protoc
                             data.getLastLoginTime(),
                             data.getTotalPlayTime()
                     );
-                    EconomySystem_NetworkManager.sendToClient(
+                    DreamingFishCore_NetworkManager.sendToClient(
                             requester,
                             offlinePacket
                     );
                 }
             }
-            EconomySystem.LOGGER.info("已向玩家{}发送全服{}名玩家的同步数据",
+            DreamingFishCore.LOGGER.info("已向玩家{}发送全服{}名玩家的同步数据",
                     requester.getScoreboardName(), allPlayerData.size());
         });
     }

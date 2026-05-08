@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.item.items;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import com.hhy.dreamingfishcore.core.blueprint_system.PlayerBlueprintData;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.item.item_renderer.BlueprintItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
@@ -127,7 +127,7 @@ public class Item_Blueprint extends Item {
 
     // 创建蓝图
     public static ItemStack createBlueprint(String itemId) {
-        ItemStack stack = new ItemStack(EconomySystem_Items.BLUEPRINT_ITEM.get());
+        ItemStack stack = new ItemStack(DreamingFishCore_Items.BLUEPRINT_ITEM.get());
         CompoundTag tag = new CompoundTag();
         tag.putString("unlocks_item", itemId);
         com.hhy.dreamingfishcore.utils.ItemStackDataHelper.setTag(stack, tag);

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.npc_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.npc_system.NpcData;
 import com.hhy.dreamingfishcore.core.npc_system.NpcManager;
 import com.mojang.brigadier.CommandDispatcher;
@@ -16,7 +16,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class Command_Npc {
     private static final String COMMAND_NPC = "npc";
     private static final String COMMAND_OPEN = "open";

@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.RevivalInfoManager;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.UserBanList;
@@ -26,7 +26,7 @@ import java.util.UUID;
  */
 public class Packet_RevivalRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_RevivalRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerattribute_system/death_system/packet_revival_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_RevivalRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerattribute_system/death_system/packet_revival_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_RevivalRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_RevivalRequest.encode(packet, buf), Packet_RevivalRequest::decode);
 
     @Override
@@ -85,7 +85,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
                     }
                 }
             } catch (IOException e) {
-                EconomySystem.LOGGER.error("读取封禁文件失败", e);
+                DreamingFishCore.LOGGER.error("读取封禁文件失败", e);
                 sender.sendSystemMessage(net.minecraft.network.chat.Component.literal("§c读取封禁数据失败！"));
                 return;
             }
@@ -93,7 +93,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
             // 检查是否找到封禁条目
             if (foundEntry == null) {
                 sender.sendSystemMessage(net.minecraft.network.chat.Component.literal("§c玩家 " + targetName + " 未被封禁！"));
-                EconomySystem.LOGGER.info("玩家 {} 尝试复活未被 Ban 的玩家 {}",
+                DreamingFishCore.LOGGER.info("玩家 {} 尝试复活未被 Ban 的玩家 {}",
                         sender.getScoreboardName(), targetName);
                 return;
             }
@@ -105,7 +105,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
                 sender.sendSystemMessage(net.minecraft.network.chat.Component.literal(
                         "§c该玩家不是因复活点耗尽被封禁，无法用复活护符复活！"
                 ));
-                EconomySystem.LOGGER.warn("玩家 {} 尝试用复活护符复活非死亡封禁的玩家 {}",
+                DreamingFishCore.LOGGER.warn("玩家 {} 尝试用复活护符复活非死亡封禁的玩家 {}",
                         sender.getScoreboardName(), targetName);
                 return;
             }
@@ -155,7 +155,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
                         // 保存数据
                         PlayerAttributesDataManager.saveSinglePlayerData(targetUuid, targetData);
                         PlayerAttributesDataManager.saveSinglePlayerData(sender.getUUID(), senderData);
-                        EconomySystem.LOGGER.info("玩家 {} 的感染状态已设置为: {}（由 {} 传递）",
+                        DreamingFishCore.LOGGER.info("玩家 {} 的感染状态已设置为: {}（由 {} 传递）",
                                 targetName, senderIsInfected ? "感染者" : "幸存者", sender.getScoreboardName());
 
                         // 记录复活信息（用于登录后发送提示）
@@ -171,13 +171,13 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
                         "\n§c您失去了一半的复活点数"
                 ));
 
-                EconomySystem.LOGGER.info("玩家 {} 使用复活护符复活了玩家 {}",
+                DreamingFishCore.LOGGER.info("玩家 {} 使用复活护符复活了玩家 {}",
                         sender.getScoreboardName(), targetName);
 
                 // 消耗重生锦鲤
                 consumeRevivalCharm(sender);
             } catch (Exception e) {
-                EconomySystem.LOGGER.error("解封玩家失败", e);
+                DreamingFishCore.LOGGER.error("解封玩家失败", e);
                 sender.sendSystemMessage(net.minecraft.network.chat.Component.literal("§c解封失败！"));
             }
         });
@@ -189,7 +189,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
     private static void consumeRevivalCharm(ServerPlayer player) {
         // 检查主手
         net.minecraft.world.item.ItemStack mainHandItem = player.getMainHandItem();
-        if (mainHandItem.is(EconomySystem_Items.REVIVAL_CHARM.get())) {
+        if (mainHandItem.is(DreamingFishCore_Items.REVIVAL_CHARM.get())) {
             if (!player.getAbilities().instabuild) {
                 mainHandItem.shrink(1);
                 player.setItemInHand(InteractionHand.MAIN_HAND, mainHandItem);
@@ -199,7 +199,7 @@ public class Packet_RevivalRequest implements net.minecraft.network.protocol.com
 
         // 检查副手
         net.minecraft.world.item.ItemStack offHandItem = player.getOffhandItem();
-        if (offHandItem.is(EconomySystem_Items.REVIVAL_CHARM.get())) {
+        if (offHandItem.is(DreamingFishCore_Items.REVIVAL_CHARM.get())) {
             if (!player.getAbilities().instabuild) {
                 offHandItem.shrink(1);
                 player.setItemInHand(InteractionHand.OFF_HAND, offHandItem);

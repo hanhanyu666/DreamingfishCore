@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
 
 public class Packet_CheckResultResponse implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_CheckResultResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_check_result_response"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_CheckResultResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_check_result_response"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_CheckResultResponse> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_CheckResultResponse.encode(packet, buf), Packet_CheckResultResponse::decode);
 
     @Override

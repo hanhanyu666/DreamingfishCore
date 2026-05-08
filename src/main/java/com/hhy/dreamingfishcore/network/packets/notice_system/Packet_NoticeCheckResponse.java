@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.notice_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.neoforged.api.distmarker.Dist;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_NoticeCheckResponse implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeCheckResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "notice_system/packet_notice_check_response"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeCheckResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "notice_system/packet_notice_check_response"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_NoticeCheckResponse> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_NoticeCheckResponse.encode(packet, buf), Packet_NoticeCheckResponse::decode);
 
     @Override
@@ -60,7 +60,7 @@ public class Packet_NoticeCheckResponse implements net.minecraft.network.protoco
                 net.minecraft.network.chat.Component.literal("§a§l[新公告] §e" + msg.latestNoticeTitle),
                 false
             );
-            EconomySystem.LOGGER.info("收到新公告提醒: {}", msg.latestNoticeTitle);
+            DreamingFishCore.LOGGER.info("收到新公告提醒: {}", msg.latestNoticeTitle);
         }
     }
 

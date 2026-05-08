@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.mixin.ui;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.client.util.UiBackgroundRenderer;
 import com.hhy.dreamingfishcore.client.util.VirtualCoordinateHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -46,7 +46,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     private final VirtualCoordinateHelper.VirtualSizeResult virtualSize = new VirtualCoordinateHelper.VirtualSizeResult();
 
     @Unique
-    private Button economySystem$returnButton;
+    private Button dreamingFishCore$returnButton;
 
     @Shadow
     @Final
@@ -65,7 +65,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
      */
     @Unique
     private boolean isPermaDeathDisconnect() {
-        Component reason = economySystem$getDisconnectReason();
+        Component reason = dreamingFishCore$getDisconnectReason();
         if (reason == null) return false;
         String msg = reason.getString();
         return msg.contains("复活点数耗尽") || msg.contains("细胞分裂");
@@ -76,14 +76,14 @@ public abstract class DisconnectedScreenMixin extends Screen {
      */
     @Unique
     private boolean isBanDisconnect() {
-        Component reason = economySystem$getDisconnectReason();
+        Component reason = dreamingFishCore$getDisconnectReason();
         if (reason == null) return false;
         String msg = reason.getString();
         return msg.contains("banned") || msg.contains("封禁") || msg.contains("banned.expiration");
     }
 
     @Unique
-    private Component economySystem$getDisconnectReason() {
+    private Component dreamingFishCore$getDisconnectReason() {
         return this.details == null ? null : this.details.reason();
     }
 
@@ -91,7 +91,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
      * 注入 init() 方法
      */
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void economySystem$init(CallbackInfo ci) {
+    private void dreamingFishCore$init(CallbackInfo ci) {
         ci.cancel();
         initCustomScreen();
     }
@@ -132,24 +132,24 @@ public abstract class DisconnectedScreenMixin extends Screen {
             onPress = btn -> Minecraft.getInstance().setScreen(new TitleScreen());
         } else {
             buttonText = Component.literal("§c返回标题界面");
-            onPress = btn -> economySystem$returnToTitleScreen();
+            onPress = btn -> dreamingFishCore$returnToTitleScreen();
         }
 
-        economySystem$returnButton = new CustomButton(
+        dreamingFishCore$returnButton = new CustomButton(
                 screenButtonX, screenButtonY,
                 screenButtonWidth, screenButtonHeight,
                 buttonText,
                 onPress,
                 virtualSize.uiScale
         );
-        this.addRenderableWidget(economySystem$returnButton);
+        this.addRenderableWidget(dreamingFishCore$returnButton);
     }
 
     /**
      * 返回标题界面
      */
     @Unique
-    private void economySystem$returnToTitleScreen() {
+    private void dreamingFishCore$returnToTitleScreen() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level != null) {
             mc.level.disconnect();
@@ -233,8 +233,8 @@ public abstract class DisconnectedScreenMixin extends Screen {
         guiGraphics.pose().popPose();
 
         // ========== 渲染按钮（使用屏幕坐标） ==========
-        if (economySystem$returnButton != null) {
-            economySystem$returnButton.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (dreamingFishCore$returnButton != null) {
+            dreamingFishCore$returnButton.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -261,7 +261,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
      */
     @Unique
     private void renderDisconnectMessage(GuiGraphics guiGraphics, int centerX, int boxY) {
-        Component reason = economySystem$getDisconnectReason();
+        Component reason = dreamingFishCore$getDisconnectReason();
         String messageText = reason == null ? "" : reason.getString();
 
         if (isBanDisconnect()) {
@@ -315,7 +315,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
      */
     @Unique
     private String extractBanReason(String fullMessage) {
-        EconomySystem.LOGGER.info("封禁消息原始内容: [{}]", fullMessage);
+        DreamingFishCore.LOGGER.info("封禁消息原始内容: [{}]", fullMessage);
 
         // 中文格式："原因：{原因}"
         if (fullMessage.contains("原因：")) {
@@ -330,7 +330,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
             }
 
             String reason = fullMessage.substring(reasonIndex, endIndex).trim();
-            EconomySystem.LOGGER.info("提取到的原因: [{}]", reason);
+            DreamingFishCore.LOGGER.info("提取到的原因: [{}]", reason);
             if (!reason.isEmpty()) return reason;
         }
 

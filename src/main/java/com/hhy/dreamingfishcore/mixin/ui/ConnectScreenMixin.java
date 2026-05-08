@@ -24,14 +24,14 @@ public abstract class ConnectScreenMixin extends Screen {
 
     @Unique private final VirtualCoordinateHelper.VirtualSizeResult vs = new VirtualCoordinateHelper.VirtualSizeResult();
     @Unique private String tip = "";
-    @Unique private Button economySystem$cancelBtn;
+    @Unique private Button dreamingFishCore$cancelBtn;
 
     protected ConnectScreenMixin(Component title) {
         super(title);
     }
 
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void economySystem$init(CallbackInfo ci) {
+    private void dreamingFishCore$init(CallbackInfo ci) {
         ci.cancel();
         VirtualCoordinateHelper.calculateVirtualSize(this, vs);
 
@@ -40,9 +40,9 @@ public abstract class ConnectScreenMixin extends Screen {
         int btnX = (int) (8 * vs.uiScale);
         int btnY = this.height - (int) (50 * vs.uiScale);
 
-        economySystem$cancelBtn = new TextCancelButton(btnX, btnY, textW + 8, 12,
-            Component.literal(cancelText), btn -> economySystem$disconnect());
-        this.addRenderableWidget(economySystem$cancelBtn);
+        dreamingFishCore$cancelBtn = new TextCancelButton(btnX, btnY, textW + 8, 12,
+            Component.literal(cancelText), btn -> dreamingFishCore$disconnect());
+        this.addRenderableWidget(dreamingFishCore$cancelBtn);
 
         if (tip.isEmpty()) {
             tip = LoadingTips.getRandomTip();
@@ -50,7 +50,7 @@ public abstract class ConnectScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$disconnect() {
+    private void dreamingFishCore$disconnect() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.getConnection() != null) mc.getConnection().close();
         if (mc.level != null) mc.level.disconnect();
@@ -59,7 +59,7 @@ public abstract class ConnectScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void economySystem$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         ci.cancel();
 
         VirtualCoordinateHelper.calculateVirtualSize(this, vs);
@@ -102,8 +102,8 @@ public abstract class ConnectScreenMixin extends Screen {
         guiGraphics.pose().popPose();
 
         // 按钮在屏幕坐标渲染
-        if (economySystem$cancelBtn != null) {
-            economySystem$cancelBtn.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (dreamingFishCore$cancelBtn != null) {
+            dreamingFishCore$cancelBtn.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 

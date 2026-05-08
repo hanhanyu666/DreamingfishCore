@@ -2,7 +2,7 @@ package com.hhy.dreamingfishcore.core.playerattributes_system.strength;
 
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.strength_system.Packet_SyncStrengthData;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -26,7 +26,7 @@ public class StrengthSyncManager {
         boolean canSprint = currentStrength >= PlayerStrengthManager.MIN_RESPRINT_STRENGTH;
 
         // 3. 发送同步包（服务端→客户端）
-        EconomySystem_NetworkManager.sendToClient(
+        DreamingFishCore_NetworkManager.sendToClient(
                 new Packet_SyncStrengthData(currentStrength, maxStrength, canSprint),
                 serverPlayer
         );

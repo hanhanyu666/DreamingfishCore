@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.client.util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
@@ -44,14 +44,14 @@ public final class LoadingTips {
 
     private static void load() {
         // 优先从 config 目录加载，找不到则从 jar 内置资源加载
-        Path configPath = FMLPaths.CONFIGDIR.get().resolve(EconomySystem.MODID).resolve("loading_tips.json");
+        Path configPath = FMLPaths.CONFIGDIR.get().resolve(DreamingFishCore.MODID).resolve("loading_tips.json");
         File configFile = configPath.toFile();
         if (configFile.exists()) {
             try (FileReader reader = new FileReader(configFile)) {
                 parse(JsonParser.parseReader(reader).getAsJsonObject());
                 return;
             } catch (Exception e) {
-                EconomySystem.LOGGER.warn("Failed to load loading_tips.json from config, trying built-in", e);
+                DreamingFishCore.LOGGER.warn("Failed to load loading_tips.json from config, trying built-in", e);
             }
         }
 
@@ -66,7 +66,7 @@ public final class LoadingTips {
                 }
             }
         } catch (Exception e) {
-            EconomySystem.LOGGER.warn("Failed to load built-in loading_tips.json", e);
+            DreamingFishCore.LOGGER.warn("Failed to load built-in loading_tips.json", e);
         }
 
         tips.add("欢迎来到梦鱼服");

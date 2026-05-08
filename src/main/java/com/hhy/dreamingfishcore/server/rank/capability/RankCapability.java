@@ -1,6 +1,6 @@
 //package com.hhy.dreamingfishcore.server.rank.capability;
 //
-//import com.hhy.dreamingfishcore.EconomySystem;
+//import com.hhy.dreamingfishcore.DreamingFishCore;
 //import com.hhy.dreamingfishcore.server.rank.Rank;
 //import com.hhy.dreamingfishcore.server.rank.RankRegistry;
 //import net.minecraft.nbt.CompoundTag;
@@ -25,7 +25,7 @@
 //        CompoundTag nbt = new CompoundTag();
 //        nbt.putString("rankId", currentRank.getRankName());
 //        nbt.putInt("rankLevel", currentRank.getRankLevel());
-//        EconomySystem.LOGGER.info("Rank序列化: rankId={}, rankLevel={}", currentRank.getRankName(), currentRank.getRankLevel());
+//        DreamingFishCore.LOGGER.info("Rank序列化: rankId={}, rankLevel={}", currentRank.getRankName(), currentRank.getRankLevel());
 //        return nbt;
 //    }
 //
@@ -35,14 +35,14 @@
 //        if (nbt.contains("rankId")) {
 //            String rankId = nbt.getString("rankId");
 //            currentRank = RankRegistry.getRankByName(rankId);  // 优先 name
-//            EconomySystem.LOGGER.info("Rank反序列化 (by name): rankId={}", rankId);
+//            DreamingFishCore.LOGGER.info("Rank反序列化 (by name): rankId={}", rankId);
 //        } else if (nbt.contains("rankLevel")) {
 //            int rankLevel = nbt.getInt("rankLevel");
 //            currentRank = RankRegistry.getRankByLevel(rankLevel);  // fallback
-//            EconomySystem.LOGGER.info("Rank反序列化 (by level): rankLevel={}", rankLevel);
+//            DreamingFishCore.LOGGER.info("Rank反序列化 (by level): rankLevel={}", rankLevel);
 //        } else {
 //            currentRank = RankRegistry.NO_RANK;
-//            EconomySystem.LOGGER.info("Rank反序列化: 无数据，默认 NO_RANK");
+//            DreamingFishCore.LOGGER.info("Rank反序列化: 无数据，默认 NO_RANK");
 //        }
 //    }
 //}

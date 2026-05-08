@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.core.playerattributes_system;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.strength.StrengthSyncManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 玩家属性数据管理器
  * 负责属性数据的初始化、加载、保存、缓存管理，适配登录/登出事件
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class PlayerAttributesDataManager {
     // 属性数据文件路径
     private static final File PLAYER_ATTRIBUTES_FILE = new File("config/dreamingfishcore/data/player_attributes_data.json");
@@ -44,24 +44,24 @@ public class PlayerAttributesDataManager {
             if (!PLAYER_ATTRIBUTES_FILE.getParentFile().exists()) {
                 boolean dirCreated = PLAYER_ATTRIBUTES_FILE.getParentFile().mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("玩家属性数据目录创建成功：{}", PLAYER_ATTRIBUTES_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("玩家属性数据目录创建成功：{}", PLAYER_ATTRIBUTES_FILE.getParentFile().getPath());
                 } else {
-                    EconomySystem.LOGGER.error("玩家属性数据目录创建失败：{}", PLAYER_ATTRIBUTES_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.error("玩家属性数据目录创建失败：{}", PLAYER_ATTRIBUTES_FILE.getParentFile().getPath());
                 }
             }
             // 创建属性文件
             if (!PLAYER_ATTRIBUTES_FILE.exists()) {
                 boolean fileCreated = PLAYER_ATTRIBUTES_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("玩家属性数据文件创建成功：{}", PLAYER_ATTRIBUTES_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("玩家属性数据文件创建成功：{}", PLAYER_ATTRIBUTES_FILE.getPath());
                 } else {
-                    EconomySystem.LOGGER.error("玩家属性数据文件创建失败：{}", PLAYER_ATTRIBUTES_FILE.getPath());
+                    DreamingFishCore.LOGGER.error("玩家属性数据文件创建失败：{}", PLAYER_ATTRIBUTES_FILE.getPath());
                 }
             } else {
-                EconomySystem.LOGGER.info("玩家属性数据文件已存在：{}", PLAYER_ATTRIBUTES_FILE.getPath());
+                DreamingFishCore.LOGGER.info("玩家属性数据文件已存在：{}", PLAYER_ATTRIBUTES_FILE.getPath());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化玩家属性数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化玩家属性数据文件失败", e);
         }
     }
 
@@ -86,7 +86,7 @@ public class PlayerAttributesDataManager {
         UUID playerUUID = player.getUUID();
         // 避免重复初始化
         if (hasPlayerAttributesData(player)) {
-//            EconomySystem.LOGGER.info("玩家 {} 已有属性数据，同步等级为{}", player.getScoreboardName(), realLevel);
+//            DreamingFishCore.LOGGER.info("玩家 {} 已有属性数据，同步等级为{}", player.getScoreboardName(), realLevel);
             PlayerAttributesData existingData = getPlayerAttributesData(playerUUID);
             // 同步最新等级和玩家名字
             existingData.setLevel(realLevel, player);
@@ -108,7 +108,7 @@ public class PlayerAttributesDataManager {
 
         StrengthSyncManager.syncStrengthToClient(player);
 
-//        EconomySystem.LOGGER.info("玩家 {} 属性数据初始化完成（同步真实等级{}）", player.getScoreboardName(), realLevel);
+//        DreamingFishCore.LOGGER.info("玩家 {} 属性数据初始化完成（同步真实等级{}）", player.getScoreboardName(), realLevel);
     }
 
     /**
@@ -126,7 +126,7 @@ public class PlayerAttributesDataManager {
 
         // 文件也无则返回默认数据
         if (attributesData == null) {
-            EconomySystem.LOGGER.warn("玩家 {} 无属性数据，返回默认数据", playerUUID);
+            DreamingFishCore.LOGGER.warn("玩家 {} 无属性数据，返回默认数据", playerUUID);
             attributesData = new PlayerAttributesData();
         } else {
             // 同步到缓存
@@ -152,7 +152,7 @@ public class PlayerAttributesDataManager {
         allAttributes.put(playerUUID, attributesData);
         saveAllAttributesToFile(allAttributes);
 
-        EconomySystem.LOGGER.info("玩家 {} 等级更新为{}，属性数据已保存", player.getScoreboardName(), newLevel);
+        DreamingFishCore.LOGGER.info("玩家 {} 等级更新为{}，属性数据已保存", player.getScoreboardName(), newLevel);
     }
 
     /**
@@ -167,7 +167,7 @@ public class PlayerAttributesDataManager {
         allAttributes.put(playerUUID, newData);
         saveAllAttributesToFile(allAttributes);
 
-//        EconomySystem.LOGGER.info("玩家 {} 属性数据手动更新完成", player.getScoreboardName());
+//        DreamingFishCore.LOGGER.info("玩家 {} 属性数据手动更新完成", player.getScoreboardName());
     }
 
     /**
@@ -188,7 +188,7 @@ public class PlayerAttributesDataManager {
                 allAttributes = new HashMap<>();
             }
         } catch (Exception e) {
-            EconomySystem.LOGGER.warn("读取玩家属性数据文件失败，返回空数据", e);
+            DreamingFishCore.LOGGER.warn("读取玩家属性数据文件失败，返回空数据", e);
         }
         return allAttributes;
     }
@@ -200,7 +200,7 @@ public class PlayerAttributesDataManager {
         try (FileWriter writer = new FileWriter(PLAYER_ATTRIBUTES_FILE)) {
             GSON.toJson(allAttributes, writer);
         } catch (Exception e) {
-            EconomySystem.LOGGER.error("写入玩家属性数据文件失败", e);
+            DreamingFishCore.LOGGER.error("写入玩家属性数据文件失败", e);
         }
     }
 
@@ -232,7 +232,7 @@ public class PlayerAttributesDataManager {
             // 更新缓存
             ATTRIBUTES_CACHE.put(playerUUID, data);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存玩家属性数据失败", e);
+            DreamingFishCore.LOGGER.error("保存玩家属性数据失败", e);
         }
     }
 
@@ -255,6 +255,6 @@ public class PlayerAttributesDataManager {
         //清理缓存
         ATTRIBUTES_CACHE.remove(playerUUID);
 
-        EconomySystem.LOGGER.info("玩家 {} 登出，属性数据已保存，缓存已清理", player.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 登出，属性数据已保存，缓存已清理", player.getScoreboardName());
     }
 }

@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.screen.server_screen.customsystemui;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.Packet_SystemMessage;
 import com.hhy.dreamingfishcore.server.rank.PlayerRankManager;
 import com.hhy.dreamingfishcore.server.rank.Rank;
@@ -13,7 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
 // 注册事件入口，只有注册了这个类才能执行后面的代码
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class ChangeJoinMessage {
     private static ModConfigSpec COMMON_CONFIG_SPEC;    //声明COMMON_CONFIG_SPEC变量为配置规则容器，存储后面的配置项
 
@@ -151,7 +151,7 @@ public class ChangeJoinMessage {
         Component content = Component.literal(formattedMsg);
         int borderColor = getRankBorderColor(playerRank);  // 获取该玩家Rank的边框颜色
         for (ServerPlayer onlinePlayer : serverPlayer.getServer().getPlayerList().getPlayers()) {
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     new Packet_SystemMessage(content, borderColor),
                     onlinePlayer
             );
@@ -180,7 +180,7 @@ public class ChangeJoinMessage {
         Component content = Component.literal(formattedMsg);
         int borderColor = getRankBorderColor(playerRank);  // 获取该玩家Rank的边框颜色
         for (ServerPlayer onlinePlayer : serverPlayer.getServer().getPlayerList().getPlayers()) {
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     new Packet_SystemMessage(content, borderColor),
                     onlinePlayer
             );

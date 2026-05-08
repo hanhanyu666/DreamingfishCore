@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.utils.Util_Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Packet_ServerPlayerListRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_ServerPlayerListRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "packet_server_player_list_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_ServerPlayerListRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "packet_server_player_list_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_ServerPlayerListRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_ServerPlayerListRequest.encode(packet, buf), Packet_ServerPlayerListRequest::decode);
 
     @Override
@@ -32,7 +32,7 @@ public class Packet_ServerPlayerListRequest implements net.minecraft.network.pro
             ServerPlayer player = context.player() instanceof ServerPlayer serverPlayer ? serverPlayer : null;
             if (player != null) {
                 List<Map.Entry<UUID, String>> accounts = Util_Player.getOnlinePlayerNames(player.server);
-                EconomySystem_NetworkManager.sendToClient(player, new Packet_ServerPlayerListResponse(accounts));
+                DreamingFishCore_NetworkManager.sendToClient(player, new Packet_ServerPlayerListResponse(accounts));
             }
         });
     }

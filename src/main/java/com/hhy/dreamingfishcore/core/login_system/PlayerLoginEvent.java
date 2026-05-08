@@ -1,8 +1,8 @@
 package com.hhy.dreamingfishcore.core.login_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.RevivalInfoManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.login_system.Packet_PlayerLoginRequest;
 import com.hhy.dreamingfishcore.server.notice.NewPlayerGuide;
 import com.hhy.dreamingfishcore.screen.server_screen.tips.TipPushHelper;
@@ -18,7 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import java.util.UUID;
 
 //整个登录的流程，都在这里
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class PlayerLoginEvent {
     //登录注册事件
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -32,7 +32,7 @@ public class PlayerLoginEvent {
         }
 
         UUID playerUUID = player.getUUID();
-        EconomySystem.LOGGER.info("玩家 {} 尝试登录，UUID: {}", player.getName().getString(), playerUUID);
+        DreamingFishCore.LOGGER.info("玩家 {} 尝试登录，UUID: {}", player.getName().getString(), playerUUID);
 
         // 获取玩家当前IP
         String playerIp = player.getIpAddress();
@@ -42,18 +42,18 @@ public class PlayerLoginEvent {
 
         if (!isRegistered) {
             // 玩家没注册过，第一次进服
-            EconomySystem.LOGGER.info("玩家 {} 未注册，发送注册请求包 (loginOrRegister=true)", player.getName().getString());
+            DreamingFishCore.LOGGER.info("玩家 {} 未注册，发送注册请求包 (loginOrRegister=true)", player.getName().getString());
             player.setGameMode(GameType.SPECTATOR);
             player.sendSystemMessage(Component.literal("§c您尚未登录或者注册，登录后会将您的游戏模式变成生存模式"));
             // 发送注册请求网络包 (true = 注册)
-            EconomySystem_NetworkManager.sendToClient(new Packet_PlayerLoginRequest(true), player);
+            DreamingFishCore_NetworkManager.sendToClient(new Packet_PlayerLoginRequest(true), player);
         } else {
             // 玩家已注册，检查是否可以快速登录
             PlayerLoginData loginData = PlayerLoginDataManager.getLoginData(playerUUID);
 
             if (loginData != null && loginData.canQuickLogin(playerIp)) {
                 // 符合快速登录条件
-                EconomySystem.LOGGER.info("玩家 {} 符合快速登录条件，执行自动登录", player.getName().getString());
+                DreamingFishCore.LOGGER.info("玩家 {} 符合快速登录条件，执行自动登录", player.getName().getString());
 
                 // 恢复上次保存的游戏模式
                 GameType lastGameMode = loginData.getLastGameMode();
@@ -62,7 +62,7 @@ public class PlayerLoginEvent {
                     lastGameMode = player.getServer().getDefaultGameType();
                 }
                 player.setGameMode(lastGameMode);
-                EconomySystem.LOGGER.info("玩家 {} 快速登录成功，游戏模式恢复为: {}",
+                DreamingFishCore.LOGGER.info("玩家 {} 快速登录成功，游戏模式恢复为: {}",
                     player.getName().getString(), lastGameMode);
 
                 // 更新登录信息
@@ -82,17 +82,17 @@ public class PlayerLoginEvent {
                     NewPlayerGuide.sendNewPlayerGuide(player);
                 }
 
-                EconomySystem.LOGGER.info("玩家 {} 快速登录成功", player.getName().getString());
+                DreamingFishCore.LOGGER.info("玩家 {} 快速登录成功", player.getName().getString());
             } else {
                 // 不符合快速登录条件，需要手动登录
-                EconomySystem.LOGGER.info("玩家 {} 已注册但不符快速登录条件，发送登录请求包 (loginOrRegister=false)", player.getName().getString());
+                DreamingFishCore.LOGGER.info("玩家 {} 已注册但不符快速登录条件，发送登录请求包 (loginOrRegister=false)", player.getName().getString());
                 player.setGameMode(GameType.SPECTATOR);
                 // 标记登录验证状态为未完成
                 loginData.setLoginSessionCompleted(false);
                 PlayerLoginDataManager.saveLoginData(playerUUID, loginData);
                 player.sendSystemMessage(Component.literal("§c请在弹出的窗口中完成登录/注册操作"));
                 // 发送登录请求网络包 (false = 登录)
-                EconomySystem_NetworkManager.sendToClient(new Packet_PlayerLoginRequest(false), player);
+                DreamingFishCore_NetworkManager.sendToClient(new Packet_PlayerLoginRequest(false), player);
             }
         }
     }
@@ -117,16 +117,16 @@ public class PlayerLoginEvent {
             return;
         }
 
-        EconomySystem.LOGGER.info("玩家 {} 退出，记录退出信息", player.getName().getString());
+        DreamingFishCore.LOGGER.info("玩家 {} 退出，记录退出信息", player.getName().getString());
 
         // 只有当玩家完成了登录验证时，才保存当前游戏模式
         // 这样可以区分"登录验证状态的SPECTATOR"和"玩家真实的SPECTATOR模式"
         if (playerLoginData.isLoginSessionCompleted()) {
             GameType currentGameMode = player.gameMode.getGameModeForPlayer();
             playerLoginData.setGameMode(currentGameMode);
-            EconomySystem.LOGGER.info("玩家退出时游戏模式: {}", currentGameMode);
+            DreamingFishCore.LOGGER.info("玩家退出时游戏模式: {}", currentGameMode);
         } else {
-            EconomySystem.LOGGER.info("玩家未完成登录验证即退出，不保存游戏模式");
+            DreamingFishCore.LOGGER.info("玩家未完成登录验证即退出，不保存游戏模式");
         }
 
         playerLoginData.setLastLoginIP(player.getIpAddress());
@@ -140,7 +140,7 @@ public class PlayerLoginEvent {
         // 清除该玩家的缓存，下次登录时从文件重新读取
         PlayerLoginDataManager.clearPlayerCache(playerUUID);
 
-        EconomySystem.LOGGER.info("玩家 {} 退出信息已记录：IP={}, 时间={}",
+        DreamingFishCore.LOGGER.info("玩家 {} 退出信息已记录：IP={}, 时间={}",
             player.getName().getString(),
             player.getIpAddress(),
             playerLoginData.getLastLoginTime());

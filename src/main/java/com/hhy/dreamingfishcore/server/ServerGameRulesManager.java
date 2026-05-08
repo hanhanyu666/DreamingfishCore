@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.server;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.mojang.logging.LogUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
  * 关闭玩家自然回血功能
  * 同时强制开启死亡不掉落（keepInventory）
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class ServerGameRulesManager {
 
     /**

@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.datagen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -34,42 +34,42 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, EconomySystem.MODID, existingFileHelper);
+        super(output, DreamingFishCore.MODID, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
-        // simpleItem(EconomySystem_Items.SUPPORTER_HAT);
-        simpleItem(EconomySystem_Items.RECALL_POTION);
-        simpleItem(EconomySystem_Items.WORMHOLE_POTION);
-        simpleItem(EconomySystem_Items.BLUEPRINT_ITEM);
-        simpleItem(EconomySystem_Items.FRAGMENT_PAGE);
-        simpleItem(EconomySystem_Items.STORY_BOOK);
-        simpleItem(EconomySystem_Items.EASY_AID_KIT);
-        simpleItem(EconomySystem_Items.ADVANCED_AID_KIT);
-        simpleItem(EconomySystem_Items.PROFESSIONAL_AID_KIT);
-        simpleItem(EconomySystem_Items.DREAMINGFISH);
+        // simpleItem(DreamingFishCore_Items.SUPPORTER_HAT);
+        simpleItem(DreamingFishCore_Items.RECALL_POTION);
+        simpleItem(DreamingFishCore_Items.WORMHOLE_POTION);
+        simpleItem(DreamingFishCore_Items.BLUEPRINT_ITEM);
+        simpleItem(DreamingFishCore_Items.FRAGMENT_PAGE);
+        simpleItem(DreamingFishCore_Items.STORY_BOOK);
+        simpleItem(DreamingFishCore_Items.EASY_AID_KIT);
+        simpleItem(DreamingFishCore_Items.ADVANCED_AID_KIT);
+        simpleItem(DreamingFishCore_Items.PROFESSIONAL_AID_KIT);
+        simpleItem(DreamingFishCore_Items.DREAMINGFISH);
         // 重生锦鲤使用原版不死图腾纹理
-        simpleItem(EconomySystem_Items.REVIVAL_CHARM);
+        simpleItem(DreamingFishCore_Items.REVIVAL_CHARM);
         // 基因复苏药剂
-        simpleItem(EconomySystem_Items.GENE_RESURGENCE_POTION);
-        trimmedArmorItem(EconomySystem_Items.SUPPORTER_HAT);
+        simpleItem(DreamingFishCore_Items.GENE_RESURGENCE_POTION);
+        trimmedArmorItem(DreamingFishCore_Items.SUPPORTER_HAT);
     }
 
     private ItemModelBuilder simpleItem(DeferredHolder<Item, ? extends Item> itemRegistryObject) {
         return withExistingParent(itemRegistryObject.getId().getPath(),
                 mcLoc("item/generated")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "item/" + itemRegistryObject.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "item/" + itemRegistryObject.getId().getPath()));
     }
 
     private ItemModelBuilder simpleTool(DeferredHolder<Item, ? extends Item> itemRegistryObject) {
         return withExistingParent(itemRegistryObject.getId().getPath(),
                 mcLoc("item/handheld")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "item/" + itemRegistryObject.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "item/" + itemRegistryObject.getId().getPath()));
     }
 
     private void trimmedArmorItem(DeferredHolder<Item, ? extends Item> itemRegistryObject) {
-        final String MOD_ID = EconomySystem.MODID;
+        final String MOD_ID = DreamingFishCore.MODID;
 
         if (itemRegistryObject.get() instanceof ArmorItem armorItem) {
             trimMaterials.entrySet().forEach(entry -> {

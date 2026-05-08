@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.infection;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 感染值事件处理
  * 处理玩家生命值变化、被丧尸击败等事件导致的感染值变化
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class InfectionEventHandler {
 
     private static final int INFECTION_MAX = 100;
@@ -86,7 +86,7 @@ public class InfectionEventHandler {
                     PlayerInfectionClientSync.sendInfectionDataToClient(player, newInfection);
 
                     // 调试日志
-                    EconomySystem.LOGGER.info("感染值增加: 玩家{}, 生命损失:{}, 增加感染:{}, {}->{}",
+                    DreamingFishCore.LOGGER.info("感染值增加: 玩家{}, 生命损失:{}, 增加感染:{}, {}->{}",
                             player.getScoreboardName(), String.format("%.1f", healthLoss),
                             String.format("%.2f", infectionIncrease), String.format("%.2f", currentInfection), String.format("%.2f", newInfection));
 
@@ -259,7 +259,7 @@ public class InfectionEventHandler {
                     true
             );
 
-//            EconomySystem.LOGGER.info("玩家 {} 已转变为感染者", player.getScoreboardName());
+//            DreamingFishCore.LOGGER.info("玩家 {} 已转变为感染者", player.getScoreboardName());
         }
     }
 

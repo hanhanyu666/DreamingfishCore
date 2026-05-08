@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.core.playerattributes_system.death;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.screen.server_screen.tips.TipPushHelper;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -40,7 +40,7 @@ public class RevivalInfoManager {
             // 加载数据
             loadFromFile();
         } catch (Exception e) {
-            EconomySystem.LOGGER.error("初始化复活信息管理器失败", e);
+            DreamingFishCore.LOGGER.error("初始化复活信息管理器失败", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class RevivalInfoManager {
     public static void setRevivalInfo(UUID playerUUID, String reviverName, boolean reviverIsInfected) {
         revivalInfoMap.put(playerUUID, new RevivalInfo(reviverName, reviverIsInfected));
         saveToFile();
-        EconomySystem.LOGGER.info("记录复活信息: 玩家 {} 被 {} ({}) 复活",
+        DreamingFishCore.LOGGER.info("记录复活信息: 玩家 {} 被 {} ({}) 复活",
                 playerUUID, reviverName, reviverIsInfected ? "感染者" : "幸存者");
     }
 
@@ -89,7 +89,7 @@ public class RevivalInfoManager {
         RevivalInfo removed = revivalInfoMap.remove(playerUUID);
         if (removed != null) {
             saveToFile();
-            EconomySystem.LOGGER.info("清除复活信息: 玩家 {}", playerUUID);
+            DreamingFishCore.LOGGER.info("清除复活信息: 玩家 {}", playerUUID);
         }
     }
 
@@ -109,7 +109,7 @@ public class RevivalInfoManager {
                 GSON.toJson(revivalInfoMap, writer);
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存复活信息失败", e);
+            DreamingFishCore.LOGGER.error("保存复活信息失败", e);
         }
     }
 
@@ -118,7 +118,7 @@ public class RevivalInfoManager {
      */
     public static void loadFromFile() {
         if (!REVIVAL_INFO_FILE.exists()) {
-            EconomySystem.LOGGER.info("复活信息文件不存在，跳过加载");
+            DreamingFishCore.LOGGER.info("复活信息文件不存在，跳过加载");
             return;
         }
 
@@ -128,10 +128,10 @@ public class RevivalInfoManager {
             if (loaded != null) {
                 revivalInfoMap.clear();
                 revivalInfoMap.putAll(loaded);
-                EconomySystem.LOGGER.info("已加载 {} 条复活信息", revivalInfoMap.size());
+                DreamingFishCore.LOGGER.info("已加载 {} 条复活信息", revivalInfoMap.size());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载复活信息失败", e);
+            DreamingFishCore.LOGGER.error("加载复活信息失败", e);
         }
     }
 
@@ -157,7 +157,7 @@ public class RevivalInfoManager {
                 TipPushHelper.sendTipToPlayer(player, message, 15000); // 显示15秒
                 // 清除复活信息，避免重复提示
                 removeRevivalInfo(player.getUUID());
-                EconomySystem.LOGGER.info("已向玩家 {} 发送复活提示", player.getScoreboardName());
+                DreamingFishCore.LOGGER.info("已向玩家 {} 发送复活提示", player.getScoreboardName());
             }
         }
     }

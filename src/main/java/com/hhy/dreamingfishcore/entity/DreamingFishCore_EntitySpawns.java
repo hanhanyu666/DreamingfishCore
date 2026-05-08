@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.entity;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -16,17 +16,17 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
-public class EconomySystem_EntitySpawns {
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
+public class DreamingFishCore_EntitySpawns {
 
     // 注册生成位置规则和生成条件
     @SubscribeEvent
     public static void onRegisterSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         event.register(
-                EconomySystem_Entities.HIVE_ZOMBIE.get(),
+                DreamingFishCore_Entities.HIVE_ZOMBIE.get(),
                 SpawnPlacementTypes.ON_GROUND,            // 地面上生成
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, // 不穿透树叶
-                EconomySystem_EntitySpawns::canSpawn,      // 自定义生成条件
+                DreamingFishCore_EntitySpawns::canSpawn,      // 自定义生成条件
                 RegisterSpawnPlacementsEvent.Operation.REPLACE
         );
     }

@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.server;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerdata_system.Packet_SyncPlayerData;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
@@ -12,7 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.Collection;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class LoginSync {
 
     @SubscribeEvent
@@ -36,11 +36,11 @@ public class LoginSync {
     //给单个玩家发送指定玩家的同步包
     public static void sendSyncPacketToPlayer(ServerPlayer targetReceiver, ServerPlayer dataOwner) {
         Packet_SyncPlayerData syncPacket = new Packet_SyncPlayerData(dataOwner);
-        EconomySystem_NetworkManager.sendToClient(
+        DreamingFishCore_NetworkManager.sendToClient(
                 targetReceiver,
                 syncPacket
         );
-        EconomySystem.LOGGER.info("已向玩家{}发送{}的同步包",
+        DreamingFishCore.LOGGER.info("已向玩家{}发送{}的同步包",
                 targetReceiver.getName().getString(),
                 dataOwner.getName().getString()
         );

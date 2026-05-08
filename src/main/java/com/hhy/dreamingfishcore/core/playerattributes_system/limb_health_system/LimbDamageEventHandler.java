@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.limb_health_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.limb_system.Packet_SyncLimbInjury;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
@@ -32,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * - 腿部: ×0.9
  * - 脚部: ×0.9
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class LimbDamageEventHandler {
 
     /**
@@ -109,7 +109,7 @@ public class LimbDamageEventHandler {
         // 同步受伤部位到客户端（显示感叹号）
         if (player instanceof ServerPlayer serverPlayer) {
             long injuryTime = System.currentTimeMillis();
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     new Packet_SyncLimbInjury(hitPart.name(), injuryTime),
                     serverPlayer
             );
@@ -125,7 +125,7 @@ public class LimbDamageEventHandler {
                     ? source.getEntity().getType().getDescription().getString()
                     : source.getMsgId();
 
-            EconomySystem.LOGGER.info("[肢体伤害] 玩家: {}, 攻击者: {}, 击中部位: {}, 原伤害: {}, 新伤害: {}, 倍率: {}",
+            DreamingFishCore.LOGGER.info("[肢体伤害] 玩家: {}, 攻击者: {}, 击中部位: {}, 原伤害: {}, 新伤害: {}, 倍率: {}",
                     player.getScoreboardName(),
                     attackerName,
                     hitPart.getDisplayName(),

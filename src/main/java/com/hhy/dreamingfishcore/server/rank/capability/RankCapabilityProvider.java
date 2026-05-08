@@ -1,7 +1,7 @@
 //package com.hhy.dreamingfishcore.server.rank.capability;
 //
-//import com.hhy.dreamingfishcore.EconomySystem;
-//import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+//import com.hhy.dreamingfishcore.DreamingFishCore;
+//import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 //import com.hhy.dreamingfishcore.network.packets.ranktitle_system.Packet_SyncRankTitle;
 //import com.hhy.dreamingfishcore.server.rank.Rank;
 //import com.hhy.dreamingfishcore.server.rank.RankRegistry;
@@ -55,7 +55,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 //9.让forge事件把rank这个能力加入到游戏里
 //10.重写getCapability，forge要求的，用来匹配是不是这个能力，是的话返回懒容器里面的rankCapability对象
 //11.再次重写NBT序列化和反序列化，不过这次是写INBTSerializable<CompoundTag>这个接口里面的，为了让forge能存储数据
-//12.再写一个注解，监听游戏内事件@EventBusSubscriber(modid = EconomySystem.MODID)
+//12.再写一个注解，监听游戏内事件@EventBusSubscriber(modid = DreamingFishCore.MODID)
 //定义一个内部类，当实体生成，先判断是不是玩家，然后创建一个provider的对象（实例），数据类型是这个“能力给予”的大类RankCapabilityProvider，provider通过addCapability塞给玩家
 //
 //13.接下来可以写你自己想要让外面调用的工具方法：
@@ -65,10 +65,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 //
 //
 //// 注册到模组事件总线
-//@EventBusSubscriber(modid = EconomySystem.MODID)
+//@EventBusSubscriber(modid = DreamingFishCore.MODID)
 //public class RankCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 //    // 设置唯一ID,避免冲突
-//    public static final ResourceLocation RANK_CAP_ID = ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "player_rank");
+//    public static final ResourceLocation RANK_CAP_ID = ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "player_rank");
 //
 //    // 能力标识，后面靠这个匹配是什么模组的什么能力
 //    public static Capability<IRankCapability> RANK_CAPABILITY;
@@ -113,7 +113,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 //    }
 //
 //    // 事件监听方法：实体创建时触发，给玩家附加Rank能力
-//    @EventBusSubscriber(modid = EconomySystem.MODID)
+//    @EventBusSubscriber(modid = DreamingFishCore.MODID)
 //    public static class ForgeEvents {
 //        @SubscribeEvent
 //        public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -158,7 +158,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 //
 //        // 新增：服务器端立即同步给所有能看到该玩家的客户端（包括自己）
 //        if (player instanceof ServerPlayer serverPlayer) {
-//            EconomySystem_NetworkManager.sendToClient(
+//            DreamingFishCore_NetworkManager.sendToClient(
 //                    PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverPlayer),
 //                    new Packet_SyncRankTitle(serverPlayer)
 //            );

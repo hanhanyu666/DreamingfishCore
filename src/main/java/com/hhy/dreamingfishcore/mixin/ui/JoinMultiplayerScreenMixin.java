@@ -18,7 +18,7 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    private void economySystem$customBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$customBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         UiBackgroundRenderer.renderCyclingBackground(guiGraphics, this.width, this.height);
     }
 }

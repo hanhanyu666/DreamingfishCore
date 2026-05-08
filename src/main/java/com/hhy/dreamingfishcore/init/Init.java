@@ -1,12 +1,12 @@
 package com.hhy.dreamingfishcore.init;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
 
 public class Init {
-    public static final String CONFIG_FOLDER_PATH = FMLPaths.CONFIGDIR.get().toFile() + File.separator + EconomySystem.MODID;
+    public static final String CONFIG_FOLDER_PATH = FMLPaths.CONFIGDIR.get().toFile() + File.separator + DreamingFishCore.MODID;
 
     public Init() {
         File dir = new File(CONFIG_FOLDER_PATH);

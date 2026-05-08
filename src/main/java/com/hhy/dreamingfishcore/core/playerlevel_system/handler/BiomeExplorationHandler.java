@@ -14,7 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import com.hhy.dreamingfishcore.server.playerbiomes.PlayerBiomesDataManager;
 
@@ -28,7 +28,7 @@ import java.util.UUID;
  *
  * 参考原版 BiomeAmbientSoundsHandler 的实现方式
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class BiomeExplorationHandler {
 
     // ==================== 配置项 ====================
@@ -156,7 +156,7 @@ public class BiomeExplorationHandler {
         // 发放经验奖励
         PlayerLevelManager.addPlayerExperienceServer(player, expReward);
 
-        EconomySystem.LOGGER.info("玩家 {} 发现新生物群系：{}，总计 {} 个，获得 {} 经验",
+        DreamingFishCore.LOGGER.info("玩家 {} 发现新生物群系：{}，总计 {} 个，获得 {} 经验",
                 player.getScoreboardName(), biomeKey, totalExplored, expReward);
     }
 

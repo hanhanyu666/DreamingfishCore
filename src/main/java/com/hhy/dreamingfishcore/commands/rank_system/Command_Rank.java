@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.rank_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.rank.PlayerRankManager;
 import com.hhy.dreamingfishcore.server.rank.Rank;
 import com.hhy.dreamingfishcore.server.rank.RankRegistry;
@@ -17,7 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class Command_Rank {
 
     @SubscribeEvent

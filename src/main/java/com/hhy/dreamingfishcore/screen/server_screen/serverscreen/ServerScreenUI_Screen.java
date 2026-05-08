@@ -5,7 +5,7 @@ import com.hhy.dreamingfishcore.core.playerattributes_system.courage.PlayerCoura
 import com.hhy.dreamingfishcore.core.playerattributes_system.infection.PlayerInfectionManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.strength.PlayerStrengthClientSync;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerdata_system.Packet_RequestPlayerStats;
 import com.hhy.dreamingfishcore.server.chattitle.PlayerTitleManager;
 import com.hhy.dreamingfishcore.server.chattitle.Title;
@@ -214,9 +214,9 @@ public class ServerScreenUI_Screen extends Screen {
         calculateVirtualSize();
         // 领地系统已剥离，终端内保留“数据待接入”占位显示。
         // 请求统计数据（群系 + 配方）
-        EconomySystem_NetworkManager.sendToServer(new Packet_RequestPlayerStats());
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_RequestPlayerStats());
         // 请求公告数据（用于更新感叹号状态）
-        EconomySystem_NetworkManager.sendToServer(new Packet_NoticeListRequest());
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_NoticeListRequest());
     }
 
     /**
@@ -2048,7 +2048,7 @@ public class ServerScreenUI_Screen extends Screen {
                             if (virtualMouseX >= btnX) {
                                 if (!((com.hhy.dreamingfishcore.core.task_system.TaskPlayerData) task).isClientPlayerFinished()) {
                                     // 发送完成任务请求
-                                    EconomySystem_NetworkManager.sendToServer(
+                                    DreamingFishCore_NetworkManager.sendToServer(
                                         new com.hhy.dreamingfishcore.network.packets.task_system.Packet_SyncCompleteTask(taskId, false)
                                     );
                                     return true;
@@ -2077,7 +2077,7 @@ public class ServerScreenUI_Screen extends Screen {
                 break;
             case 2: // 梦屿广播
                 // 请求公告列表
-                EconomySystem_NetworkManager.sendToServer(new Packet_NoticeListRequest());
+                DreamingFishCore_NetworkManager.sendToServer(new Packet_NoticeListRequest());
                 break;
             case 3: // 故事进展
                 // TODO: 打开故事界面
@@ -2195,7 +2195,7 @@ public class ServerScreenUI_Screen extends Screen {
      */
     private void openNoticeDetail(NoticeData notice) {
         // 发送标记已读数据包
-        EconomySystem_NetworkManager.sendToServer(new Packet_MarkNoticeReadRequest(notice.getNoticeId()));
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_MarkNoticeReadRequest(notice.getNoticeId()));
         // 更新本地已读状态
         cachedReadNoticeIds.add(notice.getNoticeId());
 

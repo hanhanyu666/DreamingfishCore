@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.screen.server_screen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.Packet_SystemMessage;
 import com.hhy.dreamingfishcore.server.rank.PlayerRankManager;
 import com.hhy.dreamingfishcore.server.rank.Rank;
@@ -22,7 +22,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
  * 系统消息事件处理器
  * 监听原版事件，将系统消息发送到右上角显示
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class SystemMessageEventHandler {
 
     // 颜色定义（与客户端 SystemMessageDisplay 保持一致）
@@ -187,7 +187,7 @@ public class SystemMessageEventHandler {
 
         // 发送到所有在线玩家的右上角
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     new Packet_SystemMessage(message, borderColor),
                     player
             );

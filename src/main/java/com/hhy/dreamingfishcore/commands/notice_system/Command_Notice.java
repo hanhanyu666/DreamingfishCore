@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.notice_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.notice.NoticeData;
 import com.hhy.dreamingfishcore.server.notice.NoticeManager;
 import com.hhy.dreamingfishcore.screen.server_screen.tips.TipPushHelper;
@@ -26,7 +26,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
  * 支持 & 符号代替颜色符号：
  * &a(绿) &b(青) &c(红) &d(粉) &e(黄) &f(白) &l(粗体) &m(删除线) &n(下划线) &o(斜体) &r(重置)
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class Command_Notice {
 
     @SubscribeEvent

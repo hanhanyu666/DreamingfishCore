@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.login_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.login_system.PlayerLoginData;
 import com.hhy.dreamingfishcore.core.login_system.PlayerLoginDataManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.RevivalInfoManager;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class Packet_PlayerLoginResponse implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "login_system/packet_player_login_response"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_PlayerLoginResponse> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "login_system/packet_player_login_response"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_PlayerLoginResponse> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_PlayerLoginResponse.encode(packet, buf), Packet_PlayerLoginResponse::decode);
 
     @Override
@@ -48,20 +48,20 @@ public class Packet_PlayerLoginResponse implements net.minecraft.network.protoco
     }
 
     public static void handle(Packet_PlayerLoginResponse playerLoginResponse, IPayloadContext context) {
-        com.hhy.dreamingfishcore.EconomySystem.LOGGER.info("收到密码响应包！");
+        com.hhy.dreamingfishcore.DreamingFishCore.LOGGER.info("收到密码响应包！");
 
         if (playerLoginResponse == null) {
-            com.hhy.dreamingfishcore.EconomySystem.LOGGER.error("密码响应包为null！");
+            com.hhy.dreamingfishcore.DreamingFishCore.LOGGER.error("密码响应包为null！");
             return;
         }
         ServerPlayer serverPlayer = context.player() instanceof ServerPlayer player ? player : null;
 
         if (serverPlayer == null) {
-            com.hhy.dreamingfishcore.EconomySystem.LOGGER.error("服务端玩家实例为null！");
+            com.hhy.dreamingfishcore.DreamingFishCore.LOGGER.error("服务端玩家实例为null！");
             return;
         }
 
-        com.hhy.dreamingfishcore.EconomySystem.LOGGER.info("玩家 {} 发送密码响应，loginOrRegister={}",
+        com.hhy.dreamingfishcore.DreamingFishCore.LOGGER.info("玩家 {} 发送密码响应，loginOrRegister={}",
                 serverPlayer.getName().getString(), playerLoginResponse.loginOrRegister);
 
         boolean loginOrRegister = playerLoginResponse.loginOrRegister;
@@ -69,46 +69,46 @@ public class Packet_PlayerLoginResponse implements net.minecraft.network.protoco
         UUID playerUUID = playerLoginResponse.playerUUID;
         PlayerLoginData playerLoginData = PlayerLoginDataManager.getLoginData(playerUUID);
 
-        EconomySystem.LOGGER.info("准备提交到主线程执行，loginOrRegister={}", loginOrRegister);
+        DreamingFishCore.LOGGER.info("准备提交到主线程执行，loginOrRegister={}", loginOrRegister);
         context.enqueueWork(() -> {
-            EconomySystem.LOGGER.info("进入主线程执行，loginOrRegister={}", loginOrRegister);
+            DreamingFishCore.LOGGER.info("进入主线程执行，loginOrRegister={}", loginOrRegister);
             if (loginOrRegister) {
                 //注册
-                EconomySystem.LOGGER.info("执行注册流程");
+                DreamingFishCore.LOGGER.info("执行注册流程");
                 if (playerLoginData != null) {
                     // 已注册
-                    EconomySystem.LOGGER.info("玩家已注册，拒绝重复注册");
+                    DreamingFishCore.LOGGER.info("玩家已注册，拒绝重复注册");
                     sendResult(serverPlayer, false, "您已经注册过了！请直接登录。");
                     return;
                 }
 
                 if (password == null || password.length() < 4) {
-                    EconomySystem.LOGGER.info("密码长度不足");
+                    DreamingFishCore.LOGGER.info("密码长度不足");
                     sendResult(serverPlayer, false, "密码长度至少需要4个字符！");
                     return;
                 }
 
-                EconomySystem.LOGGER.info("开始创建新账号数据");
+                DreamingFishCore.LOGGER.info("开始创建新账号数据");
                 // 创建新账号
                 PlayerLoginData newPlayerLoginData = new PlayerLoginData(playerUUID, null, serverPlayer.getIpAddress(), null, null, GameType.SURVIVAL);
                 newPlayerLoginData.setPlayerUUID(playerUUID);
 
-                EconomySystem.LOGGER.info("开始哈希密码（这可能需要几秒钟）");
+                DreamingFishCore.LOGGER.info("开始哈希密码（这可能需要几秒钟）");
                 newPlayerLoginData.setPassword(password);
-                EconomySystem.LOGGER.info("密码哈希完成");
+                DreamingFishCore.LOGGER.info("密码哈希完成");
 
-                EconomySystem.LOGGER.info("保存登录数据到文件");
+                DreamingFishCore.LOGGER.info("保存登录数据到文件");
                 // 标记登录验证已完成
                 newPlayerLoginData.setLoginSessionCompleted(true);
                 PlayerLoginDataManager.saveLoginData(playerUUID, newPlayerLoginData);
-                EconomySystem.LOGGER.info("登录数据保存完成");
+                DreamingFishCore.LOGGER.info("登录数据保存完成");
 
                 // 使用服务器的默认游戏模式
                 GameType defaultGameMode = serverPlayer.getServer().getDefaultGameType();
                 serverPlayer.setGameMode(defaultGameMode);
-                EconomySystem.LOGGER.info("游戏模式已设置为: " + defaultGameMode);
+                DreamingFishCore.LOGGER.info("游戏模式已设置为: " + defaultGameMode);
 
-                EconomySystem.LOGGER.info("发送提示消息");
+                DreamingFishCore.LOGGER.info("发送提示消息");
                 TipPushHelper.sendTipToPlayer(serverPlayer, "§a注册成功！享受服务器吧！");
 
                 // 检查并发送复活提示
@@ -118,9 +118,9 @@ public class Packet_PlayerLoginResponse implements net.minecraft.network.protoco
                 if (!newPlayerLoginData.gethasCompletedNewPlayerGuidence()) {
                     NewPlayerGuide.sendNewPlayerGuide(serverPlayer);
                 } else {
-                    EconomySystem.LOGGER.info("玩家已完成过新手教程，跳过推送");
+                    DreamingFishCore.LOGGER.info("玩家已完成过新手教程，跳过推送");
                 }
-                EconomySystem.LOGGER.info("发送注册结果包");
+                DreamingFishCore.LOGGER.info("发送注册结果包");
                 sendResult(serverPlayer, true, "注册成功！");
             } else {
                 //登录
@@ -138,7 +138,7 @@ public class Packet_PlayerLoginResponse implements net.minecraft.network.protoco
                         lastGameMode = serverPlayer.getServer().getDefaultGameType();
                     }
                     serverPlayer.setGameMode(lastGameMode);
-                    EconomySystem.LOGGER.info("玩家 {} 登录成功，游戏模式恢复为: {}",
+                    DreamingFishCore.LOGGER.info("玩家 {} 登录成功，游戏模式恢复为: {}",
                             serverPlayer.getName().getString(), lastGameMode);
 
                     // 标记登录验证已完成
@@ -163,7 +163,7 @@ public class Packet_PlayerLoginResponse implements net.minecraft.network.protoco
     }
 
     private static void sendResult(ServerPlayer player, boolean success, String message) {
-        com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager.sendToClient(
+        com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager.sendToClient(
                 new Packet_PlayerLoginResult(success, message),
                 player
         );

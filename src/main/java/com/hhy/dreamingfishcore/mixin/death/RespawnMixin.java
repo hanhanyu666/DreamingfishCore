@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.mixin.death;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.DeathItemStorage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Respawn Mixin - 处理死亡物品存储
- * 当玩家设置了 EconomySystem_DeathPending 标记时，存储物品副本用于后续"普通死亡"掉落
+ * 当玩家设置了 DreamingFishCore_DeathPending 标记时，存储物品副本用于后续"普通死亡"掉落
  * 注意：keepInventory 已被强制开启，这里只需要存储副本即可
  */
 @Mixin(LivingEntity.class)
@@ -21,10 +21,10 @@ public class RespawnMixin {
 
     /**
      * 注入 dropAllDeathLoot 方法
-     * 如果是玩家且设置了 EconomySystem_DeathPending 标记，存储物品副本
+     * 如果是玩家且设置了 DreamingFishCore_DeathPending 标记，存储物品副本
      */
     @Inject(method = "dropAllDeathLoot", at = @At("HEAD"))
-    private void economySystem$onDropAllDeathLoot(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
+    private void dreamingFishCore$onDropAllDeathLoot(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
         // 只处理玩家
@@ -33,11 +33,11 @@ public class RespawnMixin {
         }
 
         // 检查是否有待处理的死亡（等待玩家选择）
-        if (player.getPersistentData().getBoolean("EconomySystem_DeathPending")) {
+        if (player.getPersistentData().getBoolean("DreamingFishCore_DeathPending")) {
             // 存储玩家物品副本（用于玩家选择"普通死亡"时在死亡点掉落）
             DeathItemStorage.storePlayerInventory(player);
 
-            EconomySystem.LOGGER.info("玩家 {} 的物品副本已存储（keepInventory已开启，物品原样保留）", player.getScoreboardName());
+            DreamingFishCore.LOGGER.info("玩家 {} 的物品副本已存储（keepInventory已开启，物品原样保留）", player.getScoreboardName());
         }
     }
 }

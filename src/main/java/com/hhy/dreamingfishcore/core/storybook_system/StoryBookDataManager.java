@@ -3,9 +3,9 @@ package com.hhy.dreamingfishcore.core.storybook_system;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.storybook_system.Packet_OpenStoryBookGUI;
 import com.hhy.dreamingfishcore.network.packets.storybook_system.Packet_OpenStoryFragmentGUI;
 import net.minecraft.advancements.Advancement;
@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 配置文件路径: config/dreamingfishcore/data/fragment_data.json
  * 玩家数据路径: config/dreamingfishcore/data/storybook_player_data.json
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class StoryBookDataManager {
 
     private static final File FRAGMENT_DATA_FILE = new File("config/dreamingfishcore/data/fragment_data.json");
@@ -82,13 +82,13 @@ public class StoryBookDataManager {
         ensurePlayerDataFileExists();
         loadFragmentData();
         loadPlayerData();
-        EconomySystem.LOGGER.info("片段数据管理器已启动");
+        DreamingFishCore.LOGGER.info("片段数据管理器已启动");
     }
 
     @SubscribeEvent
     public static void onServerStopping(ServerStoppingEvent event) {
         saveAllPlayerData();
-        EconomySystem.LOGGER.info("片段数据管理器已关闭，玩家数据已保存");
+        DreamingFishCore.LOGGER.info("片段数据管理器已关闭，玩家数据已保存");
     }
 
     @SubscribeEvent
@@ -130,22 +130,22 @@ public class StoryBookDataManager {
             if (parentDir != null && !parentDir.exists()) {
                 boolean dirCreated = parentDir.mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("片段数据目录创建成功：{}", parentDir.getPath());
+                    DreamingFishCore.LOGGER.info("片段数据目录创建成功：{}", parentDir.getPath());
                 }
             }
 
             if (!FRAGMENT_DATA_FILE.exists()) {
                 boolean fileCreated = FRAGMENT_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("片段数据文件创建成功：{}", FRAGMENT_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("片段数据文件创建成功：{}", FRAGMENT_DATA_FILE.getPath());
                     saveDefaultFragmentConfig();
                 }
             } else if (FRAGMENT_DATA_FILE.length() == 0) {
-                EconomySystem.LOGGER.info("片段数据文件为空，创建默认配置");
+                DreamingFishCore.LOGGER.info("片段数据文件为空，创建默认配置");
                 saveDefaultFragmentConfig();
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化片段数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化片段数据文件失败", e);
         }
     }
 
@@ -158,18 +158,18 @@ public class StoryBookDataManager {
             if (parentDir != null && !parentDir.exists()) {
                 boolean dirCreated = parentDir.mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("随记本玩家数据目录创建成功：{}", parentDir.getPath());
+                    DreamingFishCore.LOGGER.info("随记本玩家数据目录创建成功：{}", parentDir.getPath());
                 }
             }
 
             if (!PLAYER_DATA_FILE.exists()) {
                 boolean fileCreated = PLAYER_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("随记本玩家数据文件创建成功：{}", PLAYER_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("随记本玩家数据文件创建成功：{}", PLAYER_DATA_FILE.getPath());
                 }
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化随记本玩家数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化随记本玩家数据文件失败", e);
         }
     }
 
@@ -200,11 +200,11 @@ public class StoryBookDataManager {
                 }
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载片段数据失败", e);
+            DreamingFishCore.LOGGER.error("加载片段数据失败", e);
             saveDefaultFragmentConfig();
         }
 
-        EconomySystem.LOGGER.info("片段数据加载完成，共 {} 条片段，{} 个阶段，{} 个章节",
+        DreamingFishCore.LOGGER.info("片段数据加载完成，共 {} 条片段，{} 个阶段，{} 个章节",
                 FRAGMENT_CACHE.size(), STAGE_INDEX.size(), CHAPTER_INDEX.size());
     }
 
@@ -218,7 +218,7 @@ public class StoryBookDataManager {
             fragmentList.sort(Comparator.comparingInt(FragmentData::getId));
             GSON.toJson(fragmentList, writer);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存片段数据失败", e);
+            DreamingFishCore.LOGGER.error("保存片段数据失败", e);
         }
     }
 
@@ -271,9 +271,9 @@ public class StoryBookDataManager {
 
         try (FileWriter writer = new FileWriter(FRAGMENT_DATA_FILE)) {
             GSON.toJson(defaultFragments, writer);
-            EconomySystem.LOGGER.info("默认片段配置已保存");
+            DreamingFishCore.LOGGER.info("默认片段配置已保存");
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存默认片段配置失败", e);
+            DreamingFishCore.LOGGER.error("保存默认片段配置失败", e);
         }
     }
 
@@ -286,7 +286,7 @@ public class StoryBookDataManager {
         PLAYER_DATA_CACHE.clear();
 
         if (!PLAYER_DATA_FILE.exists() || PLAYER_DATA_FILE.length() == 0) {
-            EconomySystem.LOGGER.info("随记本玩家数据文件为空，跳过加载");
+            DreamingFishCore.LOGGER.info("随记本玩家数据文件为空，跳过加载");
             return;
         }
 
@@ -298,15 +298,15 @@ public class StoryBookDataManager {
                         UUID uuid = UUID.fromString(entry.getKey());
                         PLAYER_DATA_CACHE.put(uuid, entry.getValue());
                     } catch (IllegalArgumentException e) {
-                        EconomySystem.LOGGER.warn("跳过无效的玩家UUID：{}", entry.getKey());
+                        DreamingFishCore.LOGGER.warn("跳过无效的玩家UUID：{}", entry.getKey());
                     }
                 }
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载随记本玩家数据失败", e);
+            DreamingFishCore.LOGGER.error("加载随记本玩家数据失败", e);
         }
 
-        EconomySystem.LOGGER.info("随记本玩家数据加载完成，共 {} 个玩家", PLAYER_DATA_CACHE.size());
+        DreamingFishCore.LOGGER.info("随记本玩家数据加载完成，共 {} 个玩家", PLAYER_DATA_CACHE.size());
     }
 
     /**
@@ -322,7 +322,7 @@ public class StoryBookDataManager {
             GSON.toJson(dataMap, writer);
             DIRTY_PLAYERS.clear();
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存随记本玩家数据失败", e);
+            DreamingFishCore.LOGGER.error("保存随记本玩家数据失败", e);
         }
     }
 
@@ -343,7 +343,7 @@ public class StoryBookDataManager {
             GSON.toJson(dataMap, writer);
             DIRTY_PLAYERS.remove(playerUuid);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存玩家随记本数据失败：{}", playerUuid, e);
+            DreamingFishCore.LOGGER.error("保存玩家随记本数据失败：{}", playerUuid, e);
         }
     }
 
@@ -363,9 +363,9 @@ public class StoryBookDataManager {
         try (FileWriter writer = new FileWriter(PLAYER_DATA_FILE)) {
             GSON.toJson(dataMap, writer);
             DIRTY_PLAYERS.clear();
-            EconomySystem.LOGGER.debug("随记本玩家数据自动保存完成");
+            DreamingFishCore.LOGGER.debug("随记本玩家数据自动保存完成");
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("自动保存随记本玩家数据失败", e);
+            DreamingFishCore.LOGGER.error("自动保存随记本玩家数据失败", e);
         }
     }
 
@@ -552,7 +552,7 @@ public class StoryBookDataManager {
     }
 
     public static void openStoryBook(ServerPlayer player) {
-        EconomySystem_NetworkManager.sendToClient(
+        DreamingFishCore_NetworkManager.sendToClient(
                 new Packet_OpenStoryBookGUI(getStoryBookEntriesForPlayer(player.getUUID())),
                 player
         );
@@ -622,7 +622,7 @@ public class StoryBookDataManager {
         }
 
         markFragmentReadForPlayer(playerUuid, fragmentIdToDisplay);
-        EconomySystem_NetworkManager.sendToClient(new Packet_OpenStoryFragmentGUI(fragmentToDisplay), player);
+        DreamingFishCore_NetworkManager.sendToClient(new Packet_OpenStoryFragmentGUI(fragmentToDisplay), player);
         levelUpStoryFeedback(player);
         markPlayerDirty(playerUuid);
         return true;
@@ -639,7 +639,7 @@ public class StoryBookDataManager {
     }
 
     private static void ensurePlayerHasStoryBookItem(ServerPlayer player) {
-        ItemStack storyBookStack = new ItemStack(EconomySystem_Items.STORY_BOOK.get());
+        ItemStack storyBookStack = new ItemStack(DreamingFishCore_Items.STORY_BOOK.get());
         if (player.getInventory().contains(storyBookStack)) {
             return;
         }
@@ -651,7 +651,7 @@ public class StoryBookDataManager {
 
     private static void grantJourneyStartedAdvancement(ServerPlayer player) {
         var advancement = player.server.getAdvancements()
-                .get(ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "storybook/journey_started"));
+                .get(ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "storybook/journey_started"));
         if (advancement != null) {
             player.getAdvancements().award(advancement, "triggered");
         }

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class Packet_GetResultRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_GetResultRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_get_result_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_GetResultRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_get_result_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_GetResultRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_GetResultRequest.encode(packet, buf), Packet_GetResultRequest::decode);
 
     @Override
@@ -54,7 +54,7 @@ public class Packet_GetResultRequest implements net.minecraft.network.protocol.c
             ServerPlayer player = context.player() instanceof ServerPlayer serverPlayer ? serverPlayer : null;
             MinecraftServer server = player.server;
             ServerPlayer target = server.getPlayerList().getPlayer(UUID.fromString(msg.senderUUID));
-            EconomySystem_NetworkManager.sendToClient(target, new Packet_GetResultResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, msg.base64));
+            DreamingFishCore_NetworkManager.sendToClient(target, new Packet_GetResultResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, msg.base64));
         });
     }
 }

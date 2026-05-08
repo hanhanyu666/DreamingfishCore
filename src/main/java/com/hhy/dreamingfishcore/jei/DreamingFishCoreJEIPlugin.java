@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.jei;
 import mezz.jei.api.IModPlugin;
 import net.minecraft.resources.ResourceLocation;
 
-public class EconomySystemJEIPlugin implements IModPlugin {
+public class DreamingFishCoreJEIPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return null;

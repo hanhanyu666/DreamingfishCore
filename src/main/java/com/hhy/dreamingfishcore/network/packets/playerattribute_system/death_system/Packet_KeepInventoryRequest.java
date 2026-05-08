@@ -1,11 +1,11 @@
 package com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.DeathEventHandler;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.DeathItemStorage;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_KeepInventoryRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_KeepInventoryRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerattribute_system/death_system/packet_keep_inventory_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_KeepInventoryRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerattribute_system/death_system/packet_keep_inventory_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_KeepInventoryRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_KeepInventoryRequest.encode(packet, buf), Packet_KeepInventoryRequest::decode);
 
     @Override
@@ -76,7 +76,7 @@ public class Packet_KeepInventoryRequest implements net.minecraft.network.protoc
             // 发送成功消息
             sendResponse(player, true, data.getRespawnPoint());
 
-            EconomySystem.LOGGER.info("玩家 {} 消耗 {} 复活点保留物品（剩余: {}）",
+            DreamingFishCore.LOGGER.info("玩家 {} 消耗 {} 复活点保留物品（剩余: {}）",
                     player.getScoreboardName(), cost, data.getRespawnPoint());
         });
     }
@@ -86,6 +86,6 @@ public class Packet_KeepInventoryRequest implements net.minecraft.network.protoc
      */
     private static void sendResponse(ServerPlayer player, boolean success, float respawnPoint) {
         Packet_KeepInventoryResponse response = new Packet_KeepInventoryResponse(success, respawnPoint);
-        EconomySystem_NetworkManager.sendToClient(response, player);
+        DreamingFishCore_NetworkManager.sendToClient(response, player);
     }
 }

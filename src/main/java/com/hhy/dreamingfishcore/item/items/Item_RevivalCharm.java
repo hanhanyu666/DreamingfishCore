@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.item.items;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_OpenRevivalCharmGUI;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -29,7 +29,7 @@ public class Item_RevivalCharm extends Item {
             return InteractionResultHolder.success(stack);
         } else {
             // 服务端：发送数据包让客户端打开 GUI
-            EconomySystem_NetworkManager.sendToClient(new Packet_OpenRevivalCharmGUI(), (net.minecraft.server.level.ServerPlayer) player);
+            DreamingFishCore_NetworkManager.sendToClient(new Packet_OpenRevivalCharmGUI(), (net.minecraft.server.level.ServerPlayer) player);
             return InteractionResultHolder.sidedSuccess(stack, true);
         }
     }

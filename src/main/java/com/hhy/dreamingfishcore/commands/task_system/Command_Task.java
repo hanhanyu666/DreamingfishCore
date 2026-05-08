@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.task_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.story_system.StoryStageManager;
 import com.hhy.dreamingfishcore.core.task_system.TaskDataManager;
 import com.mojang.brigadier.CommandDispatcher;
@@ -17,7 +17,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class Command_Task {
 
     @SubscribeEvent

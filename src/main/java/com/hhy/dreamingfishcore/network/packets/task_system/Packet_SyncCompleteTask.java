@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class Packet_SyncCompleteTask implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncCompleteTask> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "task_system/packet_sync_complete_task"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncCompleteTask> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "task_system/packet_sync_complete_task"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SyncCompleteTask> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SyncCompleteTask.encode(packet, buf), Packet_SyncCompleteTask::decode);
 
     @Override

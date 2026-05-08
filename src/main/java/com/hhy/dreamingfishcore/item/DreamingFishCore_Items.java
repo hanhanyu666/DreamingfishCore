@@ -2,10 +2,10 @@ package com.hhy.dreamingfishcore.item;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.armor.EconomySystem_ArmorMaterials;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.armor.DreamingFishCore_ArmorMaterials;
 import com.hhy.dreamingfishcore.armor.armors.SupporterHat;
-import com.hhy.dreamingfishcore.entity.EconomySystem_Entities;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import com.hhy.dreamingfishcore.item.items.*;
 import com.hhy.dreamingfishcore.item.items.medicine.Easy_Aid_Kit;
 import com.hhy.dreamingfishcore.item.items.Potion_RestoreUnInfected;
@@ -21,10 +21,10 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
-public class EconomySystem_Items {
+public class DreamingFishCore_Items {
 
     // 创建物品的 DeferredRegister
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, EconomySystem.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, DreamingFishCore.MODID);
 
     // 注册吉他物品
     public static final DeferredHolder<Item, ? extends Item> GUITAR = ITEMS.register("guitar",
@@ -47,7 +47,7 @@ public class EconomySystem_Items {
 
     // 注册赞助者帽子
     public static final DeferredHolder<Item, ? extends Item> SUPPORTER_HAT = ITEMS.register("supporter_hat", () -> new SupporterHat(
-            EconomySystem_ArmorMaterials.SUPPORTER, ArmorItem.Type.HELMET, new Item.Properties()));
+            DreamingFishCore_ArmorMaterials.SUPPORTER, ArmorItem.Type.HELMET, new Item.Properties()));
 
     // 注册启程锦鲤
     public static final DeferredHolder<Item, ? extends Item> DREAMINGFISH = ITEMS.register(
@@ -71,7 +71,7 @@ public class EconomySystem_Items {
     public static final DeferredHolder<Item, ? extends Item> HIVE_ZOMBIE_SPAWN_EGG =
             ITEMS.register("hive_zombie_spawn_egg",
                     () -> new DeferredSpawnEggItem(
-                            EconomySystem_Entities.HIVE_ZOMBIE::get,
+                            DreamingFishCore_Entities.HIVE_ZOMBIE::get,
                             0x3A6238,  // 基础颜色
                             0x7F997D,  // 斑点颜色
                             new Item.Properties()));

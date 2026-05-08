@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
  */
 public class Packet_Chunk implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Chunk> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_chunk"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Chunk> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_chunk"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_Chunk> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_Chunk.encode(packet, buf), Packet_Chunk::decode);
 
     @Override
@@ -124,7 +124,7 @@ public class Packet_Chunk implements net.minecraft.network.protocol.common.custo
                     String chunkData = fullData.substring(start, end);
 
                     // 发送 ChunkPacket
-                    EconomySystem_NetworkManager.sendToClient(target, new Packet_ChunkResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, uuid, i, totalChunks, chunkData));
+                    DreamingFishCore_NetworkManager.sendToClient(target, new Packet_ChunkResponse(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, uuid, i, totalChunks, chunkData));
                 }
 
                 ACCUMULATOR_MAP.remove(msg.fileId);

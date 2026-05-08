@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.entity.entities.render;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.entity.EconomySystem_ModelLayers;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_ModelLayers;
 import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
 import com.hhy.dreamingfishcore.entity.entities.model.HiveZombieModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -11,15 +11,15 @@ import net.minecraft.resources.ResourceLocation;
 
 public class HiveZombieRenderer extends MobRenderer<HiveZombieEntity, HiveZombieModel<HiveZombieEntity>> {
     private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "textures/entity/hive_zombie.png");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "textures/entity/hive_zombie.png");
 
     public HiveZombieRenderer(EntityRendererProvider.Context context) {
-        super(context, new HiveZombieModel<>(context.bakeLayer(EconomySystem_ModelLayers.HIVE_ZOMBIE)), 0.5f);
+        super(context, new HiveZombieModel<>(context.bakeLayer(DreamingFishCore_ModelLayers.HIVE_ZOMBIE)), 0.5f);
 
         // 添加盔甲层（可选）
         this.addLayer(new HumanoidArmorLayer<>(this,
-                new HiveZombieModel<>(context.bakeLayer(EconomySystem_ModelLayers.HIVE_ZOMBIE_INNER_ARMOR)),
-                new HiveZombieModel<>(context.bakeLayer(EconomySystem_ModelLayers.HIVE_ZOMBIE_OUTER_ARMOR)),
+                new HiveZombieModel<>(context.bakeLayer(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_INNER_ARMOR)),
+                new HiveZombieModel<>(context.bakeLayer(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_OUTER_ARMOR)),
                 context.getModelManager()));
     }
 

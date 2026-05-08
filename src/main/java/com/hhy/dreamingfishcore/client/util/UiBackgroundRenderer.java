@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.client.util;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
@@ -126,7 +126,7 @@ public final class UiBackgroundRenderer {
                     }
                 }
             } catch (Exception e) {
-                EconomySystem.LOGGER.warn("Failed to read dimensions for texture: {}", loc, e);
+                DreamingFishCore.LOGGER.warn("Failed to read dimensions for texture: {}", loc, e);
             }
             return new ImageSize(1920, 1080); // fallback 16:9
         });

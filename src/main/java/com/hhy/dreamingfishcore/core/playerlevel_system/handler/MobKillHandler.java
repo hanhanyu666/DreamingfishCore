@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerlevel_system.handler;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 //指定生物有自己的经验，未指定的敌对生物自动生成经验（根据生命值生成）
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class MobKillHandler {
     //指定生物的经验值配置
     private static final Map<String, Integer> CUSTOM_MOB_EXPERIENCE = new HashMap<>();

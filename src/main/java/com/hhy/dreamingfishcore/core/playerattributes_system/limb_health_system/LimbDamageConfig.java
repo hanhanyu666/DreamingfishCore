@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.core.playerattributes_system.limb_health_system
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -63,7 +63,7 @@ public class LimbDamageConfig {
         //     saveToFile();
         // }
 
-        EconomySystem.LOGGER.info("肢体伤害系统配置已加载: 头部×{}, 胸部×{}, 腿部×{}, 脚部×{}",
+        DreamingFishCore.LOGGER.info("肢体伤害系统配置已加载: 头部×{}, 胸部×{}, 腿部×{}, 脚部×{}",
                 multipliers.get("HEAD"),
                 multipliers.get("CHEST"),
                 multipliers.get("LEGS"),
@@ -83,10 +83,10 @@ public class LimbDamageConfig {
                 multipliers.clear();
                 multipliers.putAll(DEFAULT_MULTIPLIERS); // 先填充默认值
                 multipliers.putAll(loaded); // 覆盖文件中的值
-                EconomySystem.LOGGER.info("肢体伤害配置已从文件加载: {}", CONFIG_PATH);
+                DreamingFishCore.LOGGER.info("肢体伤害配置已从文件加载: {}", CONFIG_PATH);
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.warn("加载肢体伤害配置文件失败: {}", e.getMessage());
+            DreamingFishCore.LOGGER.warn("加载肢体伤害配置文件失败: {}", e.getMessage());
             multipliers.putAll(DEFAULT_MULTIPLIERS);
         }
     }
@@ -101,10 +101,10 @@ public class LimbDamageConfig {
 
             try (FileWriter writer = new FileWriter(CONFIG_PATH.toFile())) {
                 GSON.toJson(multipliers, writer);
-                EconomySystem.LOGGER.info("肢体伤害配置已保存到文件: {}", CONFIG_PATH);
+                DreamingFishCore.LOGGER.info("肢体伤害配置已保存到文件: {}", CONFIG_PATH);
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.warn("保存肢体伤害配置文件失败: {}", e.getMessage());
+            DreamingFishCore.LOGGER.warn("保存肢体伤害配置文件失败: {}", e.getMessage());
         }
     }
 

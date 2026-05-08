@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.core.login_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.login_system.Packet_PlayerLoginResponse;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -17,14 +17,14 @@ public class ClientLoginHandler {
      * 发送注册请求
      */
     public static void sendRegisterRequest(String password) {
-        EconomySystem.LOGGER.info("准备发送注册请求，密码长度: {}", password.length());
+        DreamingFishCore.LOGGER.info("准备发送注册请求，密码长度: {}", password.length());
 
         if (Minecraft.getInstance().player == null) {
-            EconomySystem.LOGGER.error("玩家实例为空，无法发送注册请求");
+            DreamingFishCore.LOGGER.error("玩家实例为空，无法发送注册请求");
             return;
         }
 
-        EconomySystem.LOGGER.info("玩家实例不为空，UUID: {}", Minecraft.getInstance().player.getUUID());
+        DreamingFishCore.LOGGER.info("玩家实例不为空，UUID: {}", Minecraft.getInstance().player.getUUID());
 
         Packet_PlayerLoginResponse packet = new Packet_PlayerLoginResponse(
             true,  // true = 注册
@@ -32,23 +32,23 @@ public class ClientLoginHandler {
             Minecraft.getInstance().player.getUUID()
         );
 
-        EconomySystem_NetworkManager.sendToServer(packet);
+        DreamingFishCore_NetworkManager.sendToServer(packet);
 
-        EconomySystem.LOGGER.info("注册请求包已发送");
+        DreamingFishCore.LOGGER.info("注册请求包已发送");
     }
 
     /**
      * 发送登录请求
      */
     public static void sendLoginRequest(String password) {
-        EconomySystem.LOGGER.info("准备发送登录请求，密码长度: {}", password.length());
+        DreamingFishCore.LOGGER.info("准备发送登录请求，密码长度: {}", password.length());
 
         if (Minecraft.getInstance().player == null) {
-            EconomySystem.LOGGER.error("玩家实例为空，无法发送登录请求");
+            DreamingFishCore.LOGGER.error("玩家实例为空，无法发送登录请求");
             return;
         }
 
-        EconomySystem.LOGGER.info("玩家实例不为空，UUID: {}", Minecraft.getInstance().player.getUUID());
+        DreamingFishCore.LOGGER.info("玩家实例不为空，UUID: {}", Minecraft.getInstance().player.getUUID());
 
         Packet_PlayerLoginResponse packet = new Packet_PlayerLoginResponse(
             false,  // false = 登录
@@ -56,8 +56,8 @@ public class ClientLoginHandler {
             Minecraft.getInstance().player.getUUID()
         );
 
-        EconomySystem_NetworkManager.sendToServer(packet);
+        DreamingFishCore_NetworkManager.sendToServer(packet);
 
-        EconomySystem.LOGGER.info("登录请求包已发送");
+        DreamingFishCore.LOGGER.info("登录请求包已发送");
     }
 }

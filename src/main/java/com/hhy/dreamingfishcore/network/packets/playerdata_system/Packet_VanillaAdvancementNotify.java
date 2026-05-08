@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_VanillaAdvancementNotify implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_VanillaAdvancementNotify> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerdata_system/packet_vanilla_advancement_notify"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_VanillaAdvancementNotify> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerdata_system/packet_vanilla_advancement_notify"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_VanillaAdvancementNotify> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_VanillaAdvancementNotify.encode(packet, buf), Packet_VanillaAdvancementNotify::decode);
 
     @Override

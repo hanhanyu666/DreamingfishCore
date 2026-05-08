@@ -55,11 +55,11 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-public class EconomySystem_NetworkManager {
+public class DreamingFishCore_NetworkManager {
     private static final String PROTOCOL_VERSION = "1";
 
     public static void register(IEventBus modEventBus) {
-        modEventBus.addListener(EconomySystem_NetworkManager::registerPayloadHandlers);
+        modEventBus.addListener(DreamingFishCore_NetworkManager::registerPayloadHandlers);
     }
 
     private static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {

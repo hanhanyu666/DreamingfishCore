@@ -5,8 +5,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.npc_system.Packet_OpenNpcDialogueGUI;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class NpcManager {
-    public static final String ENTITY_NPC_ID_TAG = "EconomySystemNpcId";
+    public static final String ENTITY_NPC_ID_TAG = "DreamingFishCoreNpcId";
     private static final File NPC_DATA_FILE = new File("config/dreamingfishcore/npc_data.json");
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     private static final Type NPC_MAP_TYPE = new TypeToken<Map<Integer, NpcData>>() {}.getType();
@@ -48,10 +48,10 @@ public class NpcManager {
                 createDefaultNpc();
                 save();
             }
-            EconomySystem.LOGGER.info("NPC数据加载完成，共 {} 个NPC", npcCache.size());
+            DreamingFishCore.LOGGER.info("NPC数据加载完成，共 {} 个NPC", npcCache.size());
         } catch (IOException e) {
             npcCache = new ConcurrentHashMap<>();
-            EconomySystem.LOGGER.error("加载NPC数据失败", e);
+            DreamingFishCore.LOGGER.error("加载NPC数据失败", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class NpcManager {
         try (FileWriter writer = new FileWriter(NPC_DATA_FILE)) {
             GSON.toJson(npcCache, writer);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存NPC数据失败", e);
+            DreamingFishCore.LOGGER.error("保存NPC数据失败", e);
         }
     }
 
@@ -83,7 +83,7 @@ public class NpcManager {
         if (npc.isEmpty()) {
             return false;
         }
-        EconomySystem_NetworkManager.sendToClient(new Packet_OpenNpcDialogueGUI(createViewData(player, npc.get(), entityId)), player);
+        DreamingFishCore_NetworkManager.sendToClient(new Packet_OpenNpcDialogueGUI(createViewData(player, npc.get(), entityId)), player);
         return true;
     }
 
@@ -190,7 +190,7 @@ public class NpcManager {
                 NPC_DATA_FILE.createNewFile();
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化NPC数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化NPC数据文件失败", e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.mixin;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ public class SystemMessageMixin {
     )
     private void dreamingfishcore$filterSystemMessages(Component message, boolean toOps, CallbackInfo ci) {
         String messageStr = message.getString();
-        EconomySystem.LOGGER.info("SystemMessageMixin intercepted: " + messageStr);
+        DreamingFishCore.LOGGER.info("SystemMessageMixin intercepted: " + messageStr);
 
         // 拦截聊天栏中的系统消息（右上角由事件处理器处理）
         if (shouldFilterFromChat(messageStr)) {

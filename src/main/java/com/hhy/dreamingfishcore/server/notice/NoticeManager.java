@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.server.notice;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import java.util.List;
 public class NoticeManager {
 
     private static final File CONFIG_FILE = new File(
-        FMLPaths.CONFIGDIR.get().toFile() + File.separator + EconomySystem.MODID,
+        FMLPaths.CONFIGDIR.get().toFile() + File.separator + DreamingFishCore.MODID,
         "notices.json"
     );
 
@@ -64,10 +64,10 @@ public class NoticeManager {
                 NOTICES.addAll(loadedNotices);
             }
 
-            EconomySystem.LOGGER.info("已加载 {} 条公告", NOTICES.size());
+            DreamingFishCore.LOGGER.info("已加载 {} 条公告", NOTICES.size());
 
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载公告配置文件失败", e);
+            DreamingFishCore.LOGGER.error("加载公告配置文件失败", e);
         }
     }
 
@@ -81,10 +81,10 @@ public class NoticeManager {
              OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8)) {
 
             GSON.toJson(defaultNotices, osw);
-            EconomySystem.LOGGER.info("已创建默认公告配置文件");
+            DreamingFishCore.LOGGER.info("已创建默认公告配置文件");
 
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("创建默认公告配置文件失败", e);
+            DreamingFishCore.LOGGER.error("创建默认公告配置文件失败", e);
         }
     }
 
@@ -159,11 +159,11 @@ public class NoticeManager {
              OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8)) {
 
             GSON.toJson(NOTICES, osw);
-            EconomySystem.LOGGER.info("已保存 {} 条公告到配置文件", NOTICES.size());
+            DreamingFishCore.LOGGER.info("已保存 {} 条公告到配置文件", NOTICES.size());
             return true;
 
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存公告配置文件失败", e);
+            DreamingFishCore.LOGGER.error("保存公告配置文件失败", e);
             return false;
         }
     }

@@ -1,9 +1,9 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.death;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_SyncRespawnPointData;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -26,12 +26,12 @@ public class RespawnPointSyncManager {
         boolean isInfected = playerData.isInfected();
 
         // 发送同步包（服务端→客户端）
-        EconomySystem_NetworkManager.sendToClient(
+        DreamingFishCore_NetworkManager.sendToClient(
                 new Packet_SyncRespawnPointData(respawnPoint, isInfected),
                 serverPlayer
         );
 
-        EconomySystem.LOGGER.debug("已同步玩家 {} 的复活点数: {} (感染者: {})",
+        DreamingFishCore.LOGGER.debug("已同步玩家 {} 的复活点数: {} (感染者: {})",
                 serverPlayer.getScoreboardName(), respawnPoint, isInfected);
     }
 }

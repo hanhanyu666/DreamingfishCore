@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.item.items;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.RespawnPointSyncManager;
@@ -85,7 +85,7 @@ public class Potion_RestoreUnInfected extends Item {
         // 发送成功消息
         serverPlayer.sendSystemMessage(Component.literal("§a§l基因复苏成功！你已不再是感染者。"));
 
-        EconomySystem.LOGGER.info("玩家 {} 使用基因复苏药剂，感染状态已解除", serverPlayer.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 使用基因复苏药剂，感染状态已解除", serverPlayer.getScoreboardName());
 
         return InteractionResultHolder.success(stack);
     }

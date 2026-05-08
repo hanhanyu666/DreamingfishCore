@@ -2,7 +2,7 @@ package com.hhy.dreamingfishcore.item.items;
 
 import com.hhy.dreamingfishcore.core.storybook_system.FragmentData;
 import com.hhy.dreamingfishcore.core.storybook_system.StoryBookDataManager;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -64,7 +64,7 @@ public class Item_FragmentPage extends Item {
     }
 
     public static ItemStack createFragmentPage(int fragmentId) {
-        ItemStack stack = new ItemStack(EconomySystem_Items.FRAGMENT_PAGE.get());
+        ItemStack stack = new ItemStack(DreamingFishCore_Items.FRAGMENT_PAGE.get());
         setFragmentId(stack, fragmentId);
         return stack;
     }

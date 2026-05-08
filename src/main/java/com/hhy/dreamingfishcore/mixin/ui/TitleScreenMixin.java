@@ -41,15 +41,15 @@ public abstract class TitleScreenMixin extends Screen {
     // ==================== 字符串常量 ====================
 
     @Unique
-    private static volatile String economySystem$updateLogPreview = "§7暂无更新";
+    private static volatile String dreamingFishCore$updateLogPreview = "§7暂无更新";
     @Unique
-    private static volatile boolean economySystem$updateLogFetchStarted = false;
+    private static volatile boolean dreamingFishCore$updateLogFetchStarted = false;
 
-    private static final String UPDATE_LOG_URL = "https://github.com/QingMo-A/EconomySystem/releases";
-    private static final String UPDATE_LOG_API_URL = "https://api.github.com/repos/QingMo-A/EconomySystem/releases/latest";
+    private static final String UPDATE_LOG_URL = "https://github.com/QingMo-A/DreamingFishCore/releases";
+    private static final String UPDATE_LOG_API_URL = "https://api.github.com/repos/QingMo-A/DreamingFishCore/releases/latest";
 
     private static final String COPYRIGHT_TEXT = "Copyright Mojang AB. Do not distribute!";
-    private static final String DREAMINGFISH_COPYRIGHT = "© 2026 DreamingFish - EconomySystem";
+    private static final String DREAMINGFISH_COPYRIGHT = "© 2026 DreamingFish - DreamingFishCore";
     private static final String DEVELOPER_COPYRIGHT = "  Developed by QINGMO & HANHANYU";
     private static final String DEVELOPER_INFO = "§8开发者：QINGMO、HANHANYU";
 
@@ -81,24 +81,24 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private VirtualCoordinateHelper.VirtualSizeResult economySystem$virtualSize = new VirtualCoordinateHelper.VirtualSizeResult();
+    private VirtualCoordinateHelper.VirtualSizeResult dreamingFishCore$virtualSize = new VirtualCoordinateHelper.VirtualSizeResult();
 
     @Unique
-    private long economySystem$hoverTime = 0;
+    private long dreamingFishCore$hoverTime = 0;
 
     @Unique
-    private int economySystem$hoveredButtonIndex = -1;
+    private int dreamingFishCore$hoveredButtonIndex = -1;
     @Unique
-    private int economySystem$copyrightX = 0;
+    private int dreamingFishCore$copyrightX = 0;
     @Unique
-    private int economySystem$copyrightY = 0;
+    private int dreamingFishCore$copyrightY = 0;
     @Unique
-    private int economySystem$copyrightWidth = 0;
+    private int dreamingFishCore$copyrightWidth = 0;
     @Unique
-    private int economySystem$copyrightHeight = 0;
+    private int dreamingFishCore$copyrightHeight = 0;
 
     @Unique
-    private long economySystem$openTime = 0;
+    private long dreamingFishCore$openTime = 0;
 
     @Unique
     private static final long ANIMATION_DURATION = 600; // 600ms 滑入动画
@@ -106,13 +106,13 @@ public abstract class TitleScreenMixin extends Screen {
     private static final float EASE_POWER = 2.0F; // 缓动指数
 
     @Inject(method = "init", at = @At("RETURN"))
-    private void economySystem$init(CallbackInfo ci) {
-        economySystem$startUpdateLogFetch();
+    private void dreamingFishCore$init(CallbackInfo ci) {
+        dreamingFishCore$startUpdateLogFetch();
         // openTime 会在渐显完成时设置
     }
 
     @Unique
-    private String economySystem$getTranslationKey(Component component) {
+    private String dreamingFishCore$getTranslationKey(Component component) {
         // 获取Component的Contents，如果是TranslatableContents则返回key
         if (component.getContents() instanceof TranslatableContents) {
             return ((TranslatableContents) component.getContents()).getKey();
@@ -121,7 +121,7 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private boolean economySystem$isVanillaButtonKey(String key) {
+    private boolean dreamingFishCore$isVanillaButtonKey(String key) {
         if (key == null) {
             return false;
         }
@@ -138,7 +138,7 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$relayModButtons(java.util.List<AbstractWidget> modButtons) {
+    private void dreamingFishCore$relayModButtons(java.util.List<AbstractWidget> modButtons) {
         if (modButtons.isEmpty()) {
             return;
         }
@@ -163,16 +163,16 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$hideVanillaButtons() {
+    private void dreamingFishCore$hideVanillaButtons() {
         TitleScreen self = (TitleScreen) (Object) this;
 
         // 遍历所有子元素，隐藏原版按钮
         for (var widget : self.children()) {
             if (widget instanceof AbstractWidget) {
                 AbstractWidget aw = (AbstractWidget) widget;
-                String translationKey = economySystem$getTranslationKey(aw.getMessage());
+                String translationKey = dreamingFishCore$getTranslationKey(aw.getMessage());
 
-                if (economySystem$isVanillaButtonKey(translationKey)) {
+                if (dreamingFishCore$isVanillaButtonKey(translationKey)) {
                     // 隐藏原版按钮（移到屏幕外）
                     aw.setX(-1000);
                 } else if (aw instanceof PlainTextButton) {
@@ -184,7 +184,7 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$hideVanillaButtonsAndRelayModButtons() {
+    private void dreamingFishCore$hideVanillaButtonsAndRelayModButtons() {
         TitleScreen self = (TitleScreen) (Object) this;
 
         // 收集模组按钮（非原版按钮）
@@ -193,9 +193,9 @@ public abstract class TitleScreenMixin extends Screen {
         for (var widget : self.children()) {
             if (widget instanceof AbstractWidget) {
                 AbstractWidget aw = (AbstractWidget) widget;
-                String translationKey = economySystem$getTranslationKey(aw.getMessage());
+                String translationKey = dreamingFishCore$getTranslationKey(aw.getMessage());
 
-                if (economySystem$isVanillaButtonKey(translationKey)) {
+                if (dreamingFishCore$isVanillaButtonKey(translationKey)) {
                     // 隐藏原版按钮（移到屏幕外）
                     aw.setX(-1000);
                 } else if (aw instanceof PlainTextButton) {
@@ -212,17 +212,17 @@ public abstract class TitleScreenMixin extends Screen {
         }
 
         // 将模组按钮重新排列到右下角
-        economySystem$relayModButtons(modButtons);
+        dreamingFishCore$relayModButtons(modButtons);
     }
 
 
     @Unique
-    private void economySystem$renderBackground(GuiGraphics guiGraphics, float fadeAlpha) {
+    private void dreamingFishCore$renderBackground(GuiGraphics guiGraphics, float fadeAlpha) {
         UiBackgroundRenderer.renderCyclingBackgroundCrossfade(guiGraphics, this.width, this.height, fadeAlpha);
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void economySystem$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         // 取消原版渲染，完全替换标题界面
         ci.cancel();
 
@@ -235,7 +235,7 @@ public abstract class TitleScreenMixin extends Screen {
         float fadeAlpha = this.fading ? java.lang.Math.min((System.currentTimeMillis() - this.fadeInStart) / 1000.0F, 1.0F) : 1.0F;
 
         // ========== 步骤1: 渲染背景图 ==========
-        economySystem$renderBackground(guiGraphics, fadeAlpha);
+        dreamingFishCore$renderBackground(guiGraphics, fadeAlpha);
 
         // 如果渐显未完成，提前返回（只渲染背景，等渐显完成后再渲染卡片）
         if (fadeAlpha < 1.0F) {
@@ -243,8 +243,8 @@ public abstract class TitleScreenMixin extends Screen {
         }
 
         // 渐显完成时，初始化动画开始时间
-        if (economySystem$openTime == 0) {
-            economySystem$openTime = System.currentTimeMillis();
+        if (dreamingFishCore$openTime == 0) {
+            dreamingFishCore$openTime = System.currentTimeMillis();
         }
 
         // ========== 步骤2: 手动调用Forge钩子，让其他模组可以添加按钮 ==========
@@ -258,7 +258,7 @@ public abstract class TitleScreenMixin extends Screen {
         );
 
         // ========== 步骤3: 隐藏原版按钮并重新定位模组按钮 ==========
-        economySystem$hideVanillaButtonsAndRelayModButtons();
+        dreamingFishCore$hideVanillaButtonsAndRelayModButtons();
 
         // ========== 步骤4: 手动调用super.render()来渲染模组按钮 ==========
         super.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -266,39 +266,39 @@ public abstract class TitleScreenMixin extends Screen {
         long time = System.currentTimeMillis();
 
         // 计算虚拟坐标系统
-        VirtualCoordinateHelper.calculateVirtualSize(this, economySystem$virtualSize);
+        VirtualCoordinateHelper.calculateVirtualSize(this, dreamingFishCore$virtualSize);
 
-        float scale = economySystem$virtualSize.uiScale;
-        int virtualW = economySystem$virtualSize.virtualWidth;
-        int virtualH = economySystem$virtualSize.virtualHeight;
+        float scale = dreamingFishCore$virtualSize.uiScale;
+        int virtualW = dreamingFishCore$virtualSize.virtualWidth;
+        int virtualH = dreamingFishCore$virtualSize.virtualHeight;
 
         // 屏幕空间虚拟坐标（用于右下角/右上角按钮定位，无居中偏移）
         int vmxScreen = (int) (mouseX / scale);
         int vmyScreen = (int) (mouseY / scale);
 
         // ===== 按钮悬停检测（使用屏幕空间坐标） =====
-        int newHoveredIndex = economySystem$detectButtonHover(vmxScreen, vmyScreen, virtualW, virtualH);
-        if (newHoveredIndex != this.economySystem$hoveredButtonIndex) {
-            this.economySystem$hoveredButtonIndex = newHoveredIndex;
-            this.economySystem$hoverTime = time;
+        int newHoveredIndex = dreamingFishCore$detectButtonHover(vmxScreen, vmyScreen, virtualW, virtualH);
+        if (newHoveredIndex != this.dreamingFishCore$hoveredButtonIndex) {
+            this.dreamingFishCore$hoveredButtonIndex = newHoveredIndex;
+            this.dreamingFishCore$hoverTime = time;
         }
 
         // 计算动画进度
-        long elapsed = time - economySystem$openTime;
+        long elapsed = time - dreamingFishCore$openTime;
         float animationProgress = Math.min((float) elapsed / ANIMATION_DURATION, 1.0F);
-        float easedProgress = economySystem$easeOutCubic(animationProgress);
+        float easedProgress = dreamingFishCore$easeOutCubic(animationProgress);
 
         // 渲染右下角+右上角按钮（屏幕空间，无居中偏移）
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.scale(scale, scale, 1.0f);
-        economySystem$renderBottomRightButtons(guiGraphics, virtualW, virtualH, easedProgress);
+        dreamingFishCore$renderBottomRightButtons(guiGraphics, virtualW, virtualH, easedProgress);
         poseStack.popPose();
 
         // 渲染左下角版权（屏幕空间，无居中偏移）
-        economySystem$renderFooter(guiGraphics, scale);
+        dreamingFishCore$renderFooter(guiGraphics, scale);
 
-        economySystem$scale = scale;
+        dreamingFishCore$scale = scale;
     }
 
     // ==================== 右下角主按钮 + 右上角辅助按钮 ====================
@@ -322,7 +322,7 @@ public abstract class TitleScreenMixin extends Screen {
     @Unique private static final String[] AUX_BTN_DESCS = {
         "§e语言 §7— 切换游戏语言 / Language",
         "§e模组 §7— 查看和管理已安装的模组",
-        "§e更新日志 §7— 查看 EconomySystem 最新更新内容"
+        "§e更新日志 §7— 查看 DreamingFishCore 最新更新内容"
     };
     @Unique private static final int AUX_LANGUAGE = 0;
     @Unique private static final int AUX_MODS = 1;
@@ -330,7 +330,7 @@ public abstract class TitleScreenMixin extends Screen {
 
     // hover 索引编码：bits 0-3=主按钮索引, bits 4-7=辅助按钮索引, bit 8=区分(0=主,1=辅助)
     @Unique
-    private int economySystem$detectButtonHover(int vmx, int vmy, int virtualW, int virtualH) {
+    private int dreamingFishCore$detectButtonHover(int vmx, int vmy, int virtualW, int virtualH) {
         // 检测右下角主按钮
         int mainBtnW = 110;
         int mainBtnH = 22;
@@ -358,8 +358,8 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$renderBottomRightButtons(GuiGraphics guiGraphics, int virtualW, int virtualH, float animProgress) {
-        int hovered = economySystem$hoveredButtonIndex;
+    private void dreamingFishCore$renderBottomRightButtons(GuiGraphics guiGraphics, int virtualW, int virtualH, float animProgress) {
+        int hovered = dreamingFishCore$hoveredButtonIndex;
         boolean isAux = hovered >= 0x80;
         int auxHover = isAux ? hovered & 0x7F : -1;
         int mainHover = isAux ? -1 : hovered;
@@ -406,7 +406,7 @@ public abstract class TitleScreenMixin extends Screen {
 
         for (int i = MAIN_BTN_TEXTS.length - 1; i >= 0; i--) {
             float stagger = (MAIN_BTN_TEXTS.length - 1 - i) * 0.08F;
-            float progress = economySystem$getStaggeredProgress(animProgress, stagger);
+            float progress = dreamingFishCore$getStaggeredProgress(animProgress, stagger);
             int slideOff = (int) ((1.0F - progress) * 12);
             int mainX = mainRight - mainBtnW;
 
@@ -426,11 +426,11 @@ public abstract class TitleScreenMixin extends Screen {
             int bh = mainBtnH;
 
             // 圆角背景
-            economySystem$fillRounded(guiGraphics, bx, by, bw, bh, mainRadius, bgColor);
+            dreamingFishCore$fillRounded(guiGraphics, bx, by, bw, bh, mainRadius, bgColor);
 
             // 细边框（带一点颜色）
             int bc = (borderAlpha << 24) | (tintR * 3 << 16) | (tintG * 3 << 8) | (tintB * 3);
-            economySystem$drawRoundedBorder(guiGraphics, bx, by, bw, bh, mainRadius, bc);
+            dreamingFishCore$drawRoundedBorder(guiGraphics, bx, by, bw, bh, mainRadius, bc);
 
             // hover 效果：左侧强调条 + 顶部微光
             if (hov) {
@@ -461,7 +461,7 @@ public abstract class TitleScreenMixin extends Screen {
 
     // ===== 圆角绘制辅助 =====
     @Unique
-    private static void economySystem$fillRounded(GuiGraphics g, int x, int y, int w, int h, int r, int color) {
+    private static void dreamingFishCore$fillRounded(GuiGraphics g, int x, int y, int w, int h, int r, int color) {
         if ((color >>> 24) == 0) return;
         int rr = Math.min(r, Math.min(w / 2, h / 2));
         int right = x + w;
@@ -483,7 +483,7 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private static void economySystem$drawRoundedBorder(GuiGraphics g, int x, int y, int w, int h, int r, int color) {
+    private static void dreamingFishCore$drawRoundedBorder(GuiGraphics g, int x, int y, int w, int h, int r, int color) {
         if ((color >>> 24) == 0) return;
         int rr = Math.min(r, Math.min(w / 2, h / 2));
         int right = x + w;
@@ -511,26 +511,26 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private float economySystem$scale = 1.0f;
+    private float dreamingFishCore$scale = 1.0f;
 
 
     @Unique
-    private float economySystem$getStaggeredProgress(float animProgress, float delay) {
+    private float dreamingFishCore$getStaggeredProgress(float animProgress, float delay) {
         // 获取错开的动画进度（delay 0-1 之间的值）
         float adjusted = Math.max((animProgress - delay) / (1.0F - delay), 0);
         adjusted = Math.min(adjusted, 1.0F);
         // 使用 smooth step 让动画更柔和
-        return economySystem$easeSmooth(adjusted);
+        return dreamingFishCore$easeSmooth(adjusted);
     }
 
     @Unique
-    private void economySystem$renderFooter(GuiGraphics guiGraphics, float scale) {
+    private void dreamingFishCore$renderFooter(GuiGraphics guiGraphics, float scale) {
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.scale(scale, scale, 1.0f);
 
-        int virtualW = economySystem$virtualSize.virtualWidth;
-        int virtualH = economySystem$virtualSize.virtualHeight;
+        int virtualW = dreamingFishCore$virtualSize.virtualWidth;
+        int virtualH = dreamingFishCore$virtualSize.virtualHeight;
 
         // ===== 左上角 DreamingFish 品牌标识 =====
         guiGraphics.drawString(this.font, "§bDreaming§dFish  §7v1.0", 8, 6, TEXT_WHITE, true);
@@ -565,11 +565,11 @@ public abstract class TitleScreenMixin extends Screen {
         int mojangW = this.font.width(COPYRIGHT_TEXT);
         int myVirtual = virtualH - 10;
 
-        boolean copyrightHovered = economySystem$isCopyrightHovered();
-        economySystem$copyrightX = 6;
-        economySystem$copyrightY = myVirtual;
-        economySystem$copyrightWidth = mojangW;
-        economySystem$copyrightHeight = 10;
+        boolean copyrightHovered = dreamingFishCore$isCopyrightHovered();
+        dreamingFishCore$copyrightX = 6;
+        dreamingFishCore$copyrightY = myVirtual;
+        dreamingFishCore$copyrightWidth = mojangW;
+        dreamingFishCore$copyrightHeight = 10;
 
         int mojangColor = copyrightHovered ? TEXT_WHITE : 0xFF777777;
         guiGraphics.drawString(this.font, COPYRIGHT_TEXT, 6, myVirtual, mojangColor, false);
@@ -581,17 +581,17 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
-    private void economySystem$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    private void dreamingFishCore$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (button != 0) return;
 
         Minecraft mc = Minecraft.getInstance();
 
         // 右下角按钮坐标（与 renderBottomRightButtons 对应，使用 offset 坐标系）
-        int vmx = (int) (mouseX / economySystem$scale);
-        int vmy = (int) (mouseY / economySystem$scale);
+        int vmx = (int) (mouseX / dreamingFishCore$scale);
+        int vmy = (int) (mouseY / dreamingFishCore$scale);
 
-        int virtualW = economySystem$virtualSize.virtualWidth;
-        int virtualH = economySystem$virtualSize.virtualHeight;
+        int virtualW = dreamingFishCore$virtualSize.virtualWidth;
+        int virtualH = dreamingFishCore$virtualSize.virtualHeight;
 
         // 检测右下角主按钮
         int mainBtnW = 110;
@@ -602,9 +602,9 @@ public abstract class TitleScreenMixin extends Screen {
             int mainX = mainRight - mainBtnW;
             if (vmx >= mainX && vmx <= mainRight && vmy >= mainBtnY && vmy <= mainBtnY + mainBtnH) {
                 switch (i) {
-                    case MAIN_MULTIPLAYER -> economySystem$openMultiplayer(mc);
-                    case MAIN_SINGLEPLAYER -> economySystem$openSingleplayer(mc);
-                    case MAIN_SETTINGS -> economySystem$openSettings(mc);
+                    case MAIN_MULTIPLAYER -> dreamingFishCore$openMultiplayer(mc);
+                    case MAIN_SINGLEPLAYER -> dreamingFishCore$openSingleplayer(mc);
+                    case MAIN_SETTINGS -> dreamingFishCore$openSettings(mc);
                     case MAIN_EXIT -> mc.stop();
                 }
                 cir.setReturnValue(true);
@@ -628,7 +628,7 @@ public abstract class TitleScreenMixin extends Screen {
                         TitleScreen self = (TitleScreen) (Object) this;
                         mc.setScreen(new net.minecraft.client.gui.screens.options.LanguageSelectScreen(self, mc.options, mc.getLanguageManager()));
                     }
-                    case AUX_UPDATE_LOG -> economySystem$openUpdateLog(mc);
+                    case AUX_UPDATE_LOG -> dreamingFishCore$openUpdateLog(mc);
                 }
                 cir.setReturnValue(true);
                 return;
@@ -637,17 +637,17 @@ public abstract class TitleScreenMixin extends Screen {
         }
 
         // 版权按钮（无 offset，仅缩放的虚拟坐标）
-        int vmyNoOffset = (int) (mouseY / economySystem$scale);
-        int vmxNoOffset = (int) (mouseX / economySystem$scale);
-        if (vmxNoOffset >= economySystem$copyrightX && vmxNoOffset <= economySystem$copyrightX + economySystem$copyrightWidth
-                && vmyNoOffset >= economySystem$copyrightY && vmyNoOffset <= economySystem$copyrightY + economySystem$copyrightHeight) {
-            economySystem$openCopyright(mc);
+        int vmyNoOffset = (int) (mouseY / dreamingFishCore$scale);
+        int vmxNoOffset = (int) (mouseX / dreamingFishCore$scale);
+        if (vmxNoOffset >= dreamingFishCore$copyrightX && vmxNoOffset <= dreamingFishCore$copyrightX + dreamingFishCore$copyrightWidth
+                && vmyNoOffset >= dreamingFishCore$copyrightY && vmyNoOffset <= dreamingFishCore$copyrightY + dreamingFishCore$copyrightHeight) {
+            dreamingFishCore$openCopyright(mc);
             cir.setReturnValue(true);
         }
     }
 
     @Unique
-    private void economySystem$openMultiplayer(Minecraft mc) {
+    private void dreamingFishCore$openMultiplayer(Minecraft mc) {
         TitleScreen self = (TitleScreen) (Object) this;
         boolean skipWarning = mc.options.skipMultiplayerWarning;
         net.minecraft.client.gui.screens.Screen newScreen = skipWarning
@@ -657,23 +657,23 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private void economySystem$openSettings(Minecraft mc) {
+    private void dreamingFishCore$openSettings(Minecraft mc) {
         TitleScreen self = (TitleScreen) (Object) this;
         mc.setScreen(new net.minecraft.client.gui.screens.options.OptionsScreen(self, mc.options));
     }
 
     @Unique
-    private void economySystem$openSingleplayer(Minecraft mc) {
+    private void dreamingFishCore$openSingleplayer(Minecraft mc) {
         TitleScreen self = (TitleScreen) (Object) this;
         mc.setScreen(new net.minecraft.client.gui.screens.worldselection.SelectWorldScreen(self));
     }
 
     @Unique
-    private void economySystem$startUpdateLogFetch() {
-        if (economySystem$updateLogFetchStarted) {
+    private void dreamingFishCore$startUpdateLogFetch() {
+        if (dreamingFishCore$updateLogFetchStarted) {
             return;
         }
-        economySystem$updateLogFetchStarted = true;
+        dreamingFishCore$updateLogFetchStarted = true;
         new Thread(() -> {
             try {
                 HttpURLConnection connection = (HttpURLConnection) new URL(UPDATE_LOG_API_URL).openConnection();
@@ -692,17 +692,17 @@ public abstract class TitleScreenMixin extends Screen {
                     String tag = json.has("tag_name") ? json.get("tag_name").getAsString() : "";
                     String latest = !name.isBlank() ? name : tag;
                     if (!latest.isBlank()) {
-                        economySystem$updateLogPreview = "§a" + latest;
+                        dreamingFishCore$updateLogPreview = "§a" + latest;
                     }
                 }
             } catch (Exception ignored) {
                 // Ignore network/parse errors to avoid blocking the title screen.
             }
-        }, "economySystem-update-log-fetch").start();
+        }, "dreamingFishCore-update-log-fetch").start();
     }
 
     @Unique
-    private void economySystem$openUpdateLog(Minecraft mc) {
+    private void dreamingFishCore$openUpdateLog(Minecraft mc) {
         try {
             Util.getPlatform().openUri(new URI(UPDATE_LOG_URL));
         } catch (URISyntaxException e) {
@@ -711,33 +711,33 @@ public abstract class TitleScreenMixin extends Screen {
     }
 
     @Unique
-    private boolean economySystem$isCopyrightHovered() {
+    private boolean dreamingFishCore$isCopyrightHovered() {
         Minecraft mc = Minecraft.getInstance();
         double mouseX = mc.mouseHandler.xpos();
         double mouseY = mc.mouseHandler.ypos();
 
         // 转换鼠标坐标到虚拟坐标（只有缩放，无偏移）
-        int vmx = (int) (mouseX / economySystem$scale);
-        int vmy = (int) (mouseY / economySystem$scale);
+        int vmx = (int) (mouseX / dreamingFishCore$scale);
+        int vmy = (int) (mouseY / dreamingFishCore$scale);
 
-        return vmx >= economySystem$copyrightX && vmx <= economySystem$copyrightX + economySystem$copyrightWidth
-                && vmy >= economySystem$copyrightY && vmy <= economySystem$copyrightY + economySystem$copyrightHeight;
+        return vmx >= dreamingFishCore$copyrightX && vmx <= dreamingFishCore$copyrightX + dreamingFishCore$copyrightWidth
+                && vmy >= dreamingFishCore$copyrightY && vmy <= dreamingFishCore$copyrightY + dreamingFishCore$copyrightHeight;
     }
 
     @Unique
-    private void economySystem$openCopyright(Minecraft mc) {
+    private void dreamingFishCore$openCopyright(Minecraft mc) {
         TitleScreen self = (TitleScreen) (Object) this;
         mc.setScreen(new CreditsAndAttributionScreen(self));
     }
 
     @Unique
-    private float economySystem$easeOutCubic(float t) {
+    private float dreamingFishCore$easeOutCubic(float t) {
         // Ease out cubic: 1 - (1-t)^3 - 更柔和的缓动
         return 1.0F - (float) Math.pow(1.0F - t, EASE_POWER);
     }
 
     @Unique
-    private float economySystem$easeSmooth(float t) {
+    private float dreamingFishCore$easeSmooth(float t) {
         // Smooth step: 3t^2 - 2t^3 - 最柔和的缓动
         return t * t * (3.0F - 2.0F * t);
     }

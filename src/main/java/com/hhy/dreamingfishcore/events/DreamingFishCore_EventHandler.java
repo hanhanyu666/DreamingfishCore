@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.events;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.commands.check_system.Command_Check;
 import com.hhy.dreamingfishcore.commands.check_system.Command_Info;
 import com.hhy.dreamingfishcore.commands.tpa_system.Command_Tpa;
@@ -11,8 +11,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
-public class EconomySystem_EventHandler {
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
+public class DreamingFishCore_EventHandler {
 
     @SubscribeEvent
     public static void onServerStarting(ServerStartingEvent event) {

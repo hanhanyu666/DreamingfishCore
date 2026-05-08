@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.commands.title_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.chattitle.PlayerTitleManager;
 import com.hhy.dreamingfishcore.server.chattitle.Title;
 import com.hhy.dreamingfishcore.server.chattitle.TitleConfig;
@@ -19,7 +19,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class Command_Title {
 
     @SubscribeEvent

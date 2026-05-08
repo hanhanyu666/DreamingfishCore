@@ -10,7 +10,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_SendTipToClient implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SendTipToClient> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "tip_system/packet_send_tip_to_client"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SendTipToClient> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "tip_system/packet_send_tip_to_client"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SendTipToClient> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SendTipToClient.encode(packet, buf), Packet_SendTipToClient::decode);
 
     @Override

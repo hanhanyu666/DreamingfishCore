@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.datagen;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -13,11 +13,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagGenerator extends ItemTagsProvider {
     public ModItemTagGenerator(PackOutput p_275343_, CompletableFuture<HolderLookup.Provider> p_275729_, CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_275343_, p_275729_, p_275322_, EconomySystem.MODID, existingFileHelper);
+        super(p_275343_, p_275729_, p_275322_, DreamingFishCore.MODID, existingFileHelper);
     }
 
     public ModItemTagGenerator(PackOutput p_275204_, CompletableFuture<HolderLookup.Provider> p_275194_, CompletableFuture<TagLookup<Item>> p_275207_, CompletableFuture<TagLookup<Block>> p_275634_, @Nullable ExistingFileHelper existingFileHelper) {
-        super(p_275204_, p_275194_, p_275207_, p_275634_, EconomySystem.MODID, existingFileHelper);
+        super(p_275204_, p_275194_, p_275207_, p_275634_, DreamingFishCore.MODID, existingFileHelper);
     }
 
     @Override

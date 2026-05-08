@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.entity.entities.model.ai;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;

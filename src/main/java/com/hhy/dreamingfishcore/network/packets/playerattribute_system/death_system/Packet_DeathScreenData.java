@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import net.minecraft.client.Minecraft;
@@ -19,7 +19,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_DeathScreenData implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_DeathScreenData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerattribute_system/death_system/packet_death_screen_data"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_DeathScreenData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerattribute_system/death_system/packet_death_screen_data"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_DeathScreenData> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_DeathScreenData.encode(packet, buf), Packet_DeathScreenData::decode);
 
     @Override
@@ -97,7 +97,7 @@ public class Packet_DeathScreenData implements net.minecraft.network.protocol.co
     @OnlyIn(Dist.CLIENT)
     private static class ClientHandler {
         static void handle(Packet_DeathScreenData packet) {
-            EconomySystem.LOGGER.info("客户端收到死亡屏幕数据: 复活点={}, 正常={}, 保留={}",
+            DreamingFishCore.LOGGER.info("客户端收到死亡屏幕数据: 复活点={}, 正常={}, 保留={}",
                 packet.respawnPoint, packet.normalCost, packet.keepInventoryCost);
 
             // 存储死亡屏幕数据，供 DeathScreenMixin 使用
@@ -113,7 +113,7 @@ public class Packet_DeathScreenData implements net.minecraft.network.protocol.co
                 packet.dimension
             );
 
-            EconomySystem.LOGGER.info("死亡屏幕数据已存储");
+            DreamingFishCore.LOGGER.info("死亡屏幕数据已存储");
         }
 
         /**

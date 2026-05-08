@@ -1,9 +1,9 @@
 package com.hhy.dreamingfishcore.entity.entities;
 
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.entity.EconomySystem_Entities;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import com.hhy.dreamingfishcore.entity.entities.model.ai.HiveZombieTargetGoal;
-import com.hhy.dreamingfishcore.sound.EconomySystem_Sounds;
+import com.hhy.dreamingfishcore.sound.DreamingFishCore_Sounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.List;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class HiveZombieEntity extends Monster {
     // 定义变种的数据访问器
     private static final EntityDataAccessor<Integer> DATA_VARIANT =
@@ -51,16 +51,16 @@ public class HiveZombieEntity extends Monster {
        ========================= */
 
     private static final ResourceLocation DAY_SPEED_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "hive_zombie_day_speed");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "hive_zombie_day_speed");
     private static final ResourceLocation DAY_DAMAGE_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "hive_zombie_day_damage");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "hive_zombie_day_damage");
 
     private static final ResourceLocation NIGHT_SPEED_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "hive_zombie_night_speed");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "hive_zombie_night_speed");
     private static final ResourceLocation NIGHT_DAMAGE_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "hive_zombie_night_damage");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "hive_zombie_night_damage");
     private static final ResourceLocation NIGHT_RANGE_MODIFIER =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "hive_zombie_night_range");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "hive_zombie_night_range");
 
     private final WaterBoundPathNavigation waterNavigation;
     private final GroundPathNavigation groundNavigation;
@@ -136,7 +136,7 @@ public class HiveZombieEntity extends Monster {
 
     @Override
     public void travel(Vec3 p_32394_) {
-        if (this.isControlledByLocalInstance() && this.isInWater() && this.economySystem$wantsToSwim()) {
+        if (this.isControlledByLocalInstance() && this.isInWater() && this.dreamingFishCore$wantsToSwim()) {
             this.moveRelative(0.01F, p_32394_);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
@@ -148,7 +148,7 @@ public class HiveZombieEntity extends Monster {
     @Override
     public void updateSwimming() {
         if (!this.level().isClientSide) {
-            if (this.isEffectiveAi() && this.isInWater() && this.economySystem$wantsToSwim()) {
+            if (this.isEffectiveAi() && this.isInWater() && this.dreamingFishCore$wantsToSwim()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
             } else {
@@ -158,7 +158,7 @@ public class HiveZombieEntity extends Monster {
         }
     }
 
-    private boolean economySystem$wantsToSwim() {
+    private boolean dreamingFishCore$wantsToSwim() {
         if (this.isInWater()) {
             return true;
         }
@@ -378,7 +378,7 @@ public class HiveZombieEntity extends Monster {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return EconomySystem_Sounds.HIVE_ZOMBIE_AMBIENT.get();
+        return DreamingFishCore_Sounds.HIVE_ZOMBIE_AMBIENT.get();
     }
 
     @Override
@@ -388,18 +388,18 @@ public class HiveZombieEntity extends Monster {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return EconomySystem_Sounds.HIVE_ZOMBIE_DEATH.get();
+        return DreamingFishCore_Sounds.HIVE_ZOMBIE_DEATH.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return EconomySystem_Sounds.HIVE_ZOMBIE_HURT.get();
+        return DreamingFishCore_Sounds.HIVE_ZOMBIE_HURT.get();
     }
 
     // 注册实体属�?
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(EconomySystem_Entities.HIVE_ZOMBIE.get(), HiveZombieEntity.createAttributes().build());
+        event.put(DreamingFishCore_Entities.HIVE_ZOMBIE.get(), HiveZombieEntity.createAttributes().build());
     }
 
     // 变种类型枚举

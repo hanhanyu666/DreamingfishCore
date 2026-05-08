@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.mixin.ui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.client.util.UiBackgroundRenderer;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -42,15 +42,15 @@ public abstract class LoadingOverlayMixin extends Overlay {
     @Shadow private long fadeInStart;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void economySystem$init(CallbackInfo ci) {
-        EconomySystem.LOGGER.info("LoadingOverlayMixin initialized!");
+    private void dreamingFishCore$init(CallbackInfo ci) {
+        DreamingFishCore.LOGGER.info("LoadingOverlayMixin initialized!");
     }
 
     @Inject(
         method = "render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V",
         at = @At("RETURN")
     )
-    private void economySystem$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         int width = guiGraphics.guiWidth();
         int height = guiGraphics.guiHeight();
         long now = Util.getMillis();
@@ -76,12 +76,12 @@ public abstract class LoadingOverlayMixin extends Overlay {
         int progressBarY = height - 35;
 
         // Background bar
-        economySystem$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressBarWidth, progressBarHeight, BAR_BACKGROUND);
+        dreamingFishCore$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressBarWidth, progressBarHeight, BAR_BACKGROUND);
 
         // Progress bar (blue)
         int progressWidth = (int) (this.currentProgress * progressBarWidth);
         if (progressWidth > 0) {
-            economySystem$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressWidth, progressBarHeight, ACCENT_BLUE);
+            dreamingFishCore$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressWidth, progressBarHeight, ACCENT_BLUE);
 
             // Top highlight line
             if (progressWidth > 2) {
@@ -90,7 +90,7 @@ public abstract class LoadingOverlayMixin extends Overlay {
 
             // Pulsing glow effect
             if ((now / 500) % 2 == 0) {
-                economySystem$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressWidth, progressBarHeight, 0x330055FF);
+                dreamingFishCore$renderRoundedBar(guiGraphics, progressBarX, progressBarY, progressWidth, progressBarHeight, 0x330055FF);
             }
 
             // Star-like sparkles
@@ -117,7 +117,7 @@ public abstract class LoadingOverlayMixin extends Overlay {
     }
 
     @Unique
-    private void economySystem$renderRoundedBar(GuiGraphics guiGraphics, int x, int y, int width, int height, int color) {
+    private void dreamingFishCore$renderRoundedBar(GuiGraphics guiGraphics, int x, int y, int width, int height, int color) {
         if (width <= 0 || height <= 0) {
             return;
         }

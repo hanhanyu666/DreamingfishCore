@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class Packet_Get implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Get> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_get"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Get> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_get"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_Get> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_Get.encode(packet, buf), Packet_Get::decode);
 
     @Override
@@ -80,7 +80,7 @@ public class Packet_Get implements net.minecraft.network.protocol.common.custom.
                 // 构造一个 file 对象
                 File matchedFile = new File(targetFolder, msg.fileName);
                 if (!matchedFile.exists() || !matchedFile.isFile()) {
-                    EconomySystem_NetworkManager.sendToServer(new Packet_GetResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, "Not Found"));
+                    DreamingFishCore_NetworkManager.sendToServer(new Packet_GetResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, "Not Found"));
                     // 你可以考虑发送一个错误提示包回服务器
                     return;
                 }
@@ -99,7 +99,7 @@ public class Packet_Get implements net.minecraft.network.protocol.common.custom.
                 String uuid = UUID.randomUUID().toString();
 
                 if (base64Content.length() <= 30000) {
-                    EconomySystem_NetworkManager.sendToServer(new Packet_GetResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, base64Content));
+                    DreamingFishCore_NetworkManager.sendToServer(new Packet_GetResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, base64Content));
                 } else {
                     int totalChunks = (base64Content.length() + chunkSize - 1) / chunkSize;
                     for (int i = 0; i < totalChunks; i++) {
@@ -108,7 +108,7 @@ public class Packet_Get implements net.minecraft.network.protocol.common.custom.
                         String chunkData = base64Content.substring(start, end);
 
                         // 发送 ChunkPacket
-                        EconomySystem_NetworkManager.sendToServer(new Packet_Chunk(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, uuid, i, totalChunks, chunkData));
+                        DreamingFishCore_NetworkManager.sendToServer(new Packet_Chunk(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, msg.fileName, uuid, i, totalChunks, chunkData));
                     }
                 }
             });

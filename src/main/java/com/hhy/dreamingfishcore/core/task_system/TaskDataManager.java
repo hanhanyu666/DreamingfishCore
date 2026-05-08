@@ -3,9 +3,9 @@ package com.hhy.dreamingfishcore.core.task_system;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.story_system.StoryStageManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.task_system.Packet_SyncFullTaskData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.hhy.dreamingfishcore.server.GetServerInstance.SERVER_INSTANCE;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class TaskDataManager {
     private static final File TASK_PLAYER_DATA_FILE = new File("config/dreamingfishcore/task_player_data.json");
     public static Map<Integer, TaskPlayerData> TASK_PLAYER_DATA_CACHE = new ConcurrentHashMap<>();
@@ -43,23 +43,23 @@ public class TaskDataManager {
             if (!TASK_PLAYER_DATA_FILE.getParentFile().exists()) {
                 dirCreated = TASK_PLAYER_DATA_FILE.getParentFile().mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("玩家任务数据目录创建成功：{}", TASK_PLAYER_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("玩家任务数据目录创建成功：{}", TASK_PLAYER_DATA_FILE.getParentFile().getPath());
                 } else {
-                    EconomySystem.LOGGER.info("玩家任务数据目录创建失败：{}", TASK_PLAYER_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("玩家任务数据目录创建失败：{}", TASK_PLAYER_DATA_FILE.getParentFile().getPath());
                 }
             }
             if (!TASK_PLAYER_DATA_FILE.exists()) {
                 fileCreated = TASK_PLAYER_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("玩家任务数据文件创建成功：{}", TASK_PLAYER_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("玩家任务数据文件创建成功：{}", TASK_PLAYER_DATA_FILE.getPath());
                 } else {
-                    EconomySystem.LOGGER.error("玩家任务数据文件创建失败：{}", TASK_PLAYER_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.error("玩家任务数据文件创建失败：{}", TASK_PLAYER_DATA_FILE.getPath());
                 }
             } else {
-                EconomySystem.LOGGER.info("玩家任务数据文件已存在：{}", TASK_PLAYER_DATA_FILE.getPath());
+                DreamingFishCore.LOGGER.info("玩家任务数据文件已存在：{}", TASK_PLAYER_DATA_FILE.getPath());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("玩家初始化任务数据文件失败", e);
+            DreamingFishCore.LOGGER.error("玩家初始化任务数据文件失败", e);
         }
     }
 
@@ -81,11 +81,11 @@ public class TaskDataManager {
             int beforeSize = TASK_PLAYER_DATA_CACHE.size();
             TASK_PLAYER_DATA_CACHE.entrySet().removeIf(entry -> !isValidTask(entry.getKey(), entry.getValue()));
             if (TASK_PLAYER_DATA_CACHE.size() != beforeSize) {
-                EconomySystem.LOGGER.warn("玩家任务数据包含无效旧数据，已清理 {} 条", beforeSize - TASK_PLAYER_DATA_CACHE.size());
+                DreamingFishCore.LOGGER.warn("玩家任务数据包含无效旧数据，已清理 {} 条", beforeSize - TASK_PLAYER_DATA_CACHE.size());
                 savePlayerTaskData();
             }
         } catch (IOException | RuntimeException e) {
-            EconomySystem.LOGGER.error("加载玩家任务数据失败", e);
+            DreamingFishCore.LOGGER.error("加载玩家任务数据失败", e);
             TASK_PLAYER_DATA_CACHE = new ConcurrentHashMap<>();
             savePlayerTaskData();
         }
@@ -97,7 +97,7 @@ public class TaskDataManager {
         try (FileWriter writer = new FileWriter(TASK_PLAYER_DATA_FILE)) {
             GSON.toJson(TASK_PLAYER_DATA_CACHE, writer);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存玩家任务数据失败", e);
+            DreamingFishCore.LOGGER.error("保存玩家任务数据失败", e);
         }
     }
 
@@ -139,7 +139,7 @@ public class TaskDataManager {
                 savePlayerTaskData();
                 broadcastFullTaskDataToAllPlayers();
             } else {
-                EconomySystem.LOGGER.warn("玩家任务ID不存在：{}", taskId);
+                DreamingFishCore.LOGGER.warn("玩家任务ID不存在：{}", taskId);
             }
         }
     }
@@ -162,11 +162,11 @@ public class TaskDataManager {
                     TASK_PLAYER_DATA_CACHE,
                     StoryStageManager.getAllStages()
             );
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     player,
                     packet
             );
         }
-        EconomySystem.LOGGER.info("已向全服玩家广播最新任务数据");
+        DreamingFishCore.LOGGER.info("已向全服玩家广播最新任务数据");
     }
 }

@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.playerdata_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.client.cache.ClientCacheManager;
 import com.hhy.dreamingfishcore.core.blueprint_system.PlayerBlueprintData;
 import com.hhy.dreamingfishcore.server.playerbiomes.PlayerBiomesDataManager;
@@ -15,7 +15,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_SyncPlayerStats implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncPlayerStats> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerdata_system/packet_sync_player_stats"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncPlayerStats> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerdata_system/packet_sync_player_stats"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SyncPlayerStats> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SyncPlayerStats.encode(packet, buf), Packet_SyncPlayerStats::decode);
 
     @Override
@@ -65,6 +65,6 @@ public class Packet_SyncPlayerStats implements net.minecraft.network.protocol.co
 
         // 发送数据包
         Packet_SyncPlayerStats packet = new Packet_SyncPlayerStats(biomesCount, blueprintCount);
-        com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager.sendToClient(packet, player);
+        com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager.sendToClient(packet, player);
     }
 }

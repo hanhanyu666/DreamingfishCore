@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.screen.playerattribute_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.courage.PlayerCourageManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.infection.PlayerInfectionManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.limb_health_system.LimbClientInjurySync;
@@ -21,7 +21,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class CustomStatueGUI {
     // 玩家图标尺寸和UV坐标
     private static final int PLAYER_ICON_WIDTH = 27;
@@ -61,7 +61,7 @@ public class CustomStatueGUI {
 
     // 玩家健康图标纹理（单一文件，包含正常和受伤两个状态）
     private static final ResourceLocation PLAYER_HEALTH_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "textures/gui/health/health.png");
+            ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "textures/gui/health/health.png");
 
     // 肢体受伤标记配置（脉冲圆点）
     private static final int INJURY_DOT_COLOR = 0x80FF0000;    // 半透明红色

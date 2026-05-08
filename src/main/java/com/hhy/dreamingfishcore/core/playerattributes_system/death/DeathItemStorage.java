@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.death;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -63,7 +63,7 @@ public class DeathItemStorage {
         // 存储到 map
         STORED_DROPS.put(uuid, new StoredItems(mainItems, armorItems, offhandItems, dimension, deathX, deathY, deathZ));
 
-        EconomySystem.LOGGER.info("玩家 {} 的物品已暂存，死亡位置: {} ({}, {}, {})",
+        DreamingFishCore.LOGGER.info("玩家 {} 的物品已暂存，死亡位置: {} ({}, {}, {})",
                 player.getScoreboardName(), dimension, (int)deathX, (int)deathY, (int)deathZ);
     }
 
@@ -85,7 +85,7 @@ public class DeathItemStorage {
             return;
         }
 
-        EconomySystem.LOGGER.info("玩家 {} 选择普通死亡，在死亡点掉落所有物品", player.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 选择普通死亡，在死亡点掉落所有物品", player.getScoreboardName());
 
         // 清空当前物品栏
         Inventory inventory = player.getInventory();
@@ -109,7 +109,7 @@ public class DeathItemStorage {
             return;
         }
 
-        EconomySystem.LOGGER.info("玩家 {} 选择保留物品", player.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 选择保留物品", player.getScoreboardName());
 
         // 恢复物品到玩家物品栏
         Inventory inventory = player.getInventory();
@@ -143,7 +143,7 @@ public class DeathItemStorage {
         // 检查死亡位置的维度是否与当前维度相同
         String currentDimension = level.dimension().location().toString();
         if (!currentDimension.equals(stored.dimension())) {
-            EconomySystem.LOGGER.warn("死亡维度({})与当前维度({})不同，物品将在当前位置掉落",
+            DreamingFishCore.LOGGER.warn("死亡维度({})与当前维度({})不同，物品将在当前位置掉落",
                     stored.dimension(), currentDimension);
             // 维度不同，在当前位置掉落
             dropItemsAt(player.level(), player.getX(), player.getY(), player.getZ(), stored);

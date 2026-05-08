@@ -406,7 +406,7 @@ public class CardRenderer {
     }
 
     /**
-     * 绘制版本信息（左下角）- 默认 EconomySystem
+     * 绘制版本信息（左下角）- 默认 DreamingFishCore
      */
     public static void drawVersionInfo(GuiGraphics guiGraphics, Font font, int x, int y, int maxWidth) {
         drawVersionInfo(guiGraphics, font, x, y, maxWidth, "🏠 §bEconomy§dSystem");

@@ -15,7 +15,7 @@ import java.awt.geom.FlatteningPathIterator;
  */
 public class Packet_SyncCourageData implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncCourageData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerattribute_system/courage_system/packet_sync_courage_data"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncCourageData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerattribute_system/courage_system/packet_sync_courage_data"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SyncCourageData> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SyncCourageData.encode(packet, buf), Packet_SyncCourageData::decode);
 
     @Override

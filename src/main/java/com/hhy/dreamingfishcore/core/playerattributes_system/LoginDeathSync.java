@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.courage.PlayerCourageClientSync;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.DeathEventHandler;
 import com.hhy.dreamingfishcore.core.playerattributes_system.infection.PlayerInfectionClientSync;
@@ -15,7 +15,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import static com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager.getPlayerAttributesData;
 
 //重生恢复所有默认状态
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class LoginDeathSync {
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
@@ -56,7 +56,7 @@ public class LoginDeathSync {
             PlayerInfectionClientSync.sendInfectionDataToClient(serverPlayer, attrData.getCurrentInfection());
             // 同步复活点数
             RespawnPointSyncManager.syncRespawnPointToClient(serverPlayer);
-//            EconomySystem.LOGGER.info("玩家 {} 登录，同步属性：勇气值({}/{})，感染值({})，复活点数({})",
+//            DreamingFishCore.LOGGER.info("玩家 {} 登录，同步属性：勇气值({}/{})，感染值({})，复活点数({})",
 //                    serverPlayer.getScoreboardName(),
 //                    attrData.getCurrentCourage(),
 //                    attrData.getMaxCourage(),

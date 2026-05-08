@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.core.login_system;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 
 import java.io.File;
 import java.io.FileReader;
@@ -36,28 +36,28 @@ public class PlayerLoginDataManager {
             if (!LOGIN_DATA_FILE.getParentFile().exists()) {
                 boolean dirCreated = LOGIN_DATA_FILE.getParentFile().mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("登录数据目录创建成功：{}", LOGIN_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("登录数据目录创建成功：{}", LOGIN_DATA_FILE.getParentFile().getPath());
                 } else {
-                    EconomySystem.LOGGER.error("登录数据目录创建失败：{}", LOGIN_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.error("登录数据目录创建失败：{}", LOGIN_DATA_FILE.getParentFile().getPath());
                 }
             }
             // 创建文件
             if (!LOGIN_DATA_FILE.exists()) {
                 boolean fileCreated = LOGIN_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("登录数据文件创建成功：{}", LOGIN_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("登录数据文件创建成功：{}", LOGIN_DATA_FILE.getPath());
                     // 创建空文件时写入空对象
                     saveAllLoginDataToFile(new ConcurrentHashMap<>());
                 } else {
-                    EconomySystem.LOGGER.error("登录数据文件创建失败：{}", LOGIN_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.error("登录数据文件创建失败：{}", LOGIN_DATA_FILE.getPath());
                 }
             } else {
-                EconomySystem.LOGGER.info("登录数据文件已存在：{}", LOGIN_DATA_FILE.getPath());
+                DreamingFishCore.LOGGER.info("登录数据文件已存在：{}", LOGIN_DATA_FILE.getPath());
                 // 启动时加载数据到缓存
                 loadAllDataToCache();
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化登录数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化登录数据文件失败", e);
         }
     }
 
@@ -71,10 +71,10 @@ public class PlayerLoginDataManager {
             if (data != null) {
                 LOGIN_DATA_CACHE.clear();
                 LOGIN_DATA_CACHE.putAll(data);
-                EconomySystem.LOGGER.info("成功加载 {} 条登录数据到缓存", data.size());
+                DreamingFishCore.LOGGER.info("成功加载 {} 条登录数据到缓存", data.size());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载登录数据到缓存失败", e);
+            DreamingFishCore.LOGGER.error("加载登录数据到缓存失败", e);
         }
     }
 
@@ -88,7 +88,7 @@ public class PlayerLoginDataManager {
             Map<UUID, PlayerLoginData> data = GSON.fromJson(reader, type);
             return data != null ? data : new ConcurrentHashMap<>();
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载登录数据文件失败", e);
+            DreamingFishCore.LOGGER.error("加载登录数据文件失败", e);
             return new ConcurrentHashMap<>();
         }
     }
@@ -100,9 +100,9 @@ public class PlayerLoginDataManager {
     public static void saveAllLoginDataToFile(Map<UUID, PlayerLoginData> data) {
         try (FileWriter writer = new FileWriter(LOGIN_DATA_FILE)) {
             GSON.toJson(data, writer);
-            EconomySystem.LOGGER.debug("登录数据已保存到文件");
+            DreamingFishCore.LOGGER.debug("登录数据已保存到文件");
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存登录数据到文件失败", e);
+            DreamingFishCore.LOGGER.error("保存登录数据到文件失败", e);
         }
     }
 
@@ -161,7 +161,7 @@ public class PlayerLoginDataManager {
         // 保存到文件
         saveAllLoginDataToFile(allData);
 
-        EconomySystem.LOGGER.debug("已保存玩家 {} 的登录数据", playerUUID);
+        DreamingFishCore.LOGGER.debug("已保存玩家 {} 的登录数据", playerUUID);
     }
 
     /**
@@ -177,7 +177,7 @@ public class PlayerLoginDataManager {
         allData.remove(playerUUID);
         saveAllLoginDataToFile(allData);
 
-        EconomySystem.LOGGER.info("已删除玩家 {} 的登录数据", playerUUID);
+        DreamingFishCore.LOGGER.info("已删除玩家 {} 的登录数据", playerUUID);
     }
 
     /**
@@ -196,7 +196,7 @@ public class PlayerLoginDataManager {
      */
     public static void clearCache() {
         LOGIN_DATA_CACHE.clear();
-        EconomySystem.LOGGER.info("登录数据缓存已清空");
+        DreamingFishCore.LOGGER.info("登录数据缓存已清空");
     }
 
     /**
@@ -213,7 +213,7 @@ public class PlayerLoginDataManager {
     public static void reloadCache() {
         clearCache();
         loadAllDataToCache();
-        EconomySystem.LOGGER.info("登录数据缓存已重新加载");
+        DreamingFishCore.LOGGER.info("登录数据缓存已重新加载");
     }
 
     /**

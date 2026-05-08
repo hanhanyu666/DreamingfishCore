@@ -13,7 +13,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class KeybindHandler {
 
     // 创建按键映射，绑定到 "I" 键
@@ -37,7 +37,7 @@ public class KeybindHandler {
     }
 
     // 监听按键事件
-    @EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
     public static class KeyInputHandler {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {

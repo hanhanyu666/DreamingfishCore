@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_OnlinePlayerCountRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_OnlinePlayerCountRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "packet_online_player_count_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_OnlinePlayerCountRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "packet_online_player_count_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_OnlinePlayerCountRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_OnlinePlayerCountRequest.encode(packet, buf), Packet_OnlinePlayerCountRequest::decode);
 
     @Override
@@ -40,7 +40,7 @@ public class Packet_OnlinePlayerCountRequest implements net.minecraft.network.pr
             int onlinePlayerCount = player.getServer().getPlayerList().getPlayers().size();
 
             // 发送响应包给客户端
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     player,
                     new Packet_OnlinePlayerCountResponse(onlinePlayerCount)
             );

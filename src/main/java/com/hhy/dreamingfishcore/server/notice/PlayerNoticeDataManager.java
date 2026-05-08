@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.server.notice;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.File;
@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PlayerNoticeDataManager {
 
     private static final File DATA_FILE = new File(
-        FMLPaths.CONFIGDIR.get().toFile() + File.separator + EconomySystem.MODID + File.separator + "data",
+        FMLPaths.CONFIGDIR.get().toFile() + File.separator + DreamingFishCore.MODID + File.separator + "data",
         "player_notice_data.json"
     );
 
@@ -113,10 +113,10 @@ public class PlayerNoticeDataManager {
                 }
             }
 
-            EconomySystem.LOGGER.info("已加载 {} 个玩家的公告阅读记录", READ_NOTICES_CACHE.size());
+            DreamingFishCore.LOGGER.info("已加载 {} 个玩家的公告阅读记录", READ_NOTICES_CACHE.size());
 
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("加载玩家公告数据失败", e);
+            DreamingFishCore.LOGGER.error("加载玩家公告数据失败", e);
         }
     }
 
@@ -136,7 +136,7 @@ public class PlayerNoticeDataManager {
             GSON.toJson(stringKeyData, osw);
 
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存玩家公告数据失败", e);
+            DreamingFishCore.LOGGER.error("保存玩家公告数据失败", e);
         }
     }
 }

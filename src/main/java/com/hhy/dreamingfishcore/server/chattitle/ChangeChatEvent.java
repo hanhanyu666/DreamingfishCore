@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.server.chattitle;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import com.hhy.dreamingfishcore.server.rank.PlayerRankManager;
 import net.minecraft.ChatFormatting;
@@ -13,7 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.Objects;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class ChangeChatEvent {
     // 在ChangeChatEvent的onPlayerChat方法中修改
     @SubscribeEvent
@@ -26,7 +26,7 @@ public class ChangeChatEvent {
         int playerLevel = PlayerLevelManager.getPlayerLevelServer(player); // 获取等级
 
         // 调试日志
-        EconomySystem.LOGGER.info("聊天格式化 - 玩家:{}, 称号:{}, 称号颜色:0x{}, Rank:{}", player.getScoreboardName(), titleName, Integer.toHexString(titleColor), playerRank);
+        DreamingFishCore.LOGGER.info("聊天格式化 - 玩家:{}, 称号:{}, 称号颜色:0x{}, Rank:{}", player.getScoreboardName(), titleName, Integer.toHexString(titleColor), playerRank);
 
         event.setCanceled(true);
 

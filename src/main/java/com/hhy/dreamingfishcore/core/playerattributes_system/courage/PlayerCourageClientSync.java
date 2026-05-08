@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.courage;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.courage_system.Packet_SyncCourageData;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -9,6 +9,6 @@ public class PlayerCourageClientSync {
         // 构建勇气值同步数据包
         Packet_SyncCourageData packet = new Packet_SyncCourageData(currentCourage, maxCourage);
         // 发送数据包到指定玩家
-        EconomySystem_NetworkManager.sendToClient(packet, player);
+        DreamingFishCore_NetworkManager.sendToClient(packet, player);
     }
 }

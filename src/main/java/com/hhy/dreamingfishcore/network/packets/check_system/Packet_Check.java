@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.check_system;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 
 public class Packet_Check implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Check> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "check_system/packet_check"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_Check> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "check_system/packet_check"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_Check> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_Check.encode(packet, buf), Packet_Check::decode);
 
     @Override
@@ -103,7 +103,7 @@ public class Packet_Check implements net.minecraft.network.protocol.common.custo
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 String jsonContent = gson.toJson(jsonData);
 
-                EconomySystem_NetworkManager.sendToServer(new Packet_CheckResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, jsonContent));
+                DreamingFishCore_NetworkManager.sendToServer(new Packet_CheckResultRequest(msg.playerName, msg.playerUUID, msg.senderName, msg.senderUUID, msg.actionType, jsonContent));
 
             });
         });

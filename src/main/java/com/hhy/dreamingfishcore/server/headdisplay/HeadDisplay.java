@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.server.headdisplay;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import com.hhy.dreamingfishcore.server.chattitle.PlayerTitleManager;
 import com.hhy.dreamingfishcore.server.rank.PlayerRankManager;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.server.chattitle.Title;
 import com.hhy.dreamingfishcore.server.rank.Rank;
 import com.hhy.dreamingfishcore.server.rank.RankRegistry;
@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * 客户端玩家头顶头衔渲染器
  */
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class HeadDisplay {
     @SubscribeEvent
     public static void onRenderNameTag(RenderNameTagEvent event) {

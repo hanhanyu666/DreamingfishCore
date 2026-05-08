@@ -1,10 +1,10 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.courage;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.client.cache.ClientCacheManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.entity.EconomySystem_Entities;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +29,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class PlayerCourageManager {
     private static final int PLAYER_DISTANCE = 30; //一定距离内是否有玩家
     private static final int COURAGE_REDUCE_TICK_INTERVAL = 20; //多少tick一次检测
@@ -102,12 +102,12 @@ public class PlayerCourageManager {
     }
 
     //延迟注册丧尸
-    @EventBusSubscriber(modid = EconomySystem.MODID)
+    @EventBusSubscriber(modid = DreamingFishCore.MODID)
     public static class EntityRegisterHandler {
         @SubscribeEvent
         public static void registerEntityAttributes(FMLCommonSetupEvent event) {
-            EconomySystem.LOGGER.info("延迟注册丧尸");
-            HOSTILE_ENTITY_TYPES.add(EconomySystem_Entities.HIVE_ZOMBIE.get());
+            DreamingFishCore.LOGGER.info("延迟注册丧尸");
+            HOSTILE_ENTITY_TYPES.add(DreamingFishCore_Entities.HIVE_ZOMBIE.get());
         }
     }
 
@@ -169,7 +169,7 @@ public class PlayerCourageManager {
                 );
                 COURAGE_MSG_COOLDOWN.put(playerUUID, MSG_COOLDOWN_TICKS); // 触发冷却
             }
-//            EconomySystem.LOGGER.debug("玩家 {} 勇气值不足20%，施加虚弱I和缓慢I效果", serverPlayer.getScoreboardName());
+//            DreamingFishCore.LOGGER.debug("玩家 {} 勇气值不足20%，施加虚弱I和缓慢I效果", serverPlayer.getScoreboardName());
         }
         // 勇气值高于一定值：施加力量I
         else if (courageRatio >= 0.85F) {
@@ -183,7 +183,7 @@ public class PlayerCourageManager {
                 );
                 COURAGE_MSG_COOLDOWN.put(playerUUID, MSG_COOLDOWN_TICKS); // 触发冷却
             }
-//            EconomySystem.LOGGER.debug("玩家 {} 勇气值≥70%，施加力量I效果", serverPlayer.getScoreboardName());
+//            DreamingFishCore.LOGGER.debug("玩家 {} 勇气值≥70%，施加力量I效果", serverPlayer.getScoreboardName());
         }
 
         // 主逻辑（10s计算一次）
@@ -260,11 +260,11 @@ public class PlayerCourageManager {
             changeCourageValue(serverPlayer, attributesData, (float) finalChange, maxCourage, false);
 
             // 日志输出
-//            EconomySystem.LOGGER.info("===== 玩家{}勇气值计算结果 =====", serverPlayer.getName().getString());
-//            EconomySystem.LOGGER.info("当前勇气值：{} | 最大值：{}", currentCourage, maxCourage);
-//            EconomySystem.LOGGER.info("基础值：光照={}, 怪物={}, 玩家={}, y坐标={}", lightNum, monsterNum, playerNum, yNum);
-//            EconomySystem.LOGGER.info("倍率后：增加={}, 扣除={}", totalAdd, totalReduce);
-//            EconomySystem.LOGGER.info("最终变化：{}点（浮点={}）", finalChange, finalChange);
+//            DreamingFishCore.LOGGER.info("===== 玩家{}勇气值计算结果 =====", serverPlayer.getName().getString());
+//            DreamingFishCore.LOGGER.info("当前勇气值：{} | 最大值：{}", currentCourage, maxCourage);
+//            DreamingFishCore.LOGGER.info("基础值：光照={}, 怪物={}, 玩家={}, y坐标={}", lightNum, monsterNum, playerNum, yNum);
+//            DreamingFishCore.LOGGER.info("倍率后：增加={}, 扣除={}", totalAdd, totalReduce);
+//            DreamingFishCore.LOGGER.info("最终变化：{}点（浮点={}）", finalChange, finalChange);
         }
     }
 

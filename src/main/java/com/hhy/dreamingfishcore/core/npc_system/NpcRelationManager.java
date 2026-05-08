@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 
 import java.io.File;
 import java.io.FileReader;
@@ -68,15 +68,15 @@ public class NpcRelationManager {
                 }
                 save();
             } else {
-                EconomySystem.LOGGER.warn("NPC关系数据格式无效，已重置: {}", RELATION_DATA_FILE.getPath());
+                DreamingFishCore.LOGGER.warn("NPC关系数据格式无效，已重置: {}", RELATION_DATA_FILE.getPath());
                 save();
             }
 
             relationCache.values().forEach(NpcRelationData::refreshRelationType);
-            EconomySystem.LOGGER.info("NPC关系数据加载完成，共 {} 条", relationCache.size());
+            DreamingFishCore.LOGGER.info("NPC关系数据加载完成，共 {} 条", relationCache.size());
         } catch (IOException | JsonSyntaxException | IllegalStateException e) {
             relationCache = new ConcurrentHashMap<>();
-            EconomySystem.LOGGER.error("加载NPC关系数据失败", e);
+            DreamingFishCore.LOGGER.error("加载NPC关系数据失败", e);
             save();
         }
     }
@@ -86,7 +86,7 @@ public class NpcRelationManager {
         try (FileWriter writer = new FileWriter(RELATION_DATA_FILE)) {
             GSON.toJson(relationCache, writer);
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("保存NPC关系数据失败", e);
+            DreamingFishCore.LOGGER.error("保存NPC关系数据失败", e);
         }
     }
 
@@ -118,7 +118,7 @@ public class NpcRelationManager {
                 RELATION_DATA_FILE.createNewFile();
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化NPC关系数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化NPC关系数据文件失败", e);
         }
     }
 }

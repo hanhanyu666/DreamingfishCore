@@ -3,7 +3,7 @@ package com.hhy.dreamingfishcore.server.playerbiomes;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 玩家生物群系探索数据管理器
  * 负责管理玩家已探索的生物群系数据
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class PlayerBiomesDataManager {
     private static final File BIOMES_DATA_FILE = new File("config/dreamingfishcore/data/player_biomes_data.json");
     private static final Map<UUID, Set<String>> BIOMES_CACHE = new ConcurrentHashMap<>();
@@ -41,23 +41,23 @@ public class PlayerBiomesDataManager {
             if (!BIOMES_DATA_FILE.getParentFile().exists()) {
                 boolean dirCreated = BIOMES_DATA_FILE.getParentFile().mkdirs();
                 if (dirCreated) {
-                    EconomySystem.LOGGER.info("生物群系数据目录创建成功：{}", BIOMES_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.info("生物群系数据目录创建成功：{}", BIOMES_DATA_FILE.getParentFile().getPath());
                 } else {
-                    EconomySystem.LOGGER.error("生物群系数据目录创建失败：{}", BIOMES_DATA_FILE.getParentFile().getPath());
+                    DreamingFishCore.LOGGER.error("生物群系数据目录创建失败：{}", BIOMES_DATA_FILE.getParentFile().getPath());
                 }
             }
             if (!BIOMES_DATA_FILE.exists()) {
                 boolean fileCreated = BIOMES_DATA_FILE.createNewFile();
                 if (fileCreated) {
-                    EconomySystem.LOGGER.info("生物群系数据文件创建成功：{}", BIOMES_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.info("生物群系数据文件创建成功：{}", BIOMES_DATA_FILE.getPath());
                 } else {
-                    EconomySystem.LOGGER.error("生物群系数据文件创建失败：{}", BIOMES_DATA_FILE.getPath());
+                    DreamingFishCore.LOGGER.error("生物群系数据文件创建失败：{}", BIOMES_DATA_FILE.getPath());
                 }
             } else {
-                EconomySystem.LOGGER.info("生物群系数据文件已存在：{}", BIOMES_DATA_FILE.getPath());
+                DreamingFishCore.LOGGER.info("生物群系数据文件已存在：{}", BIOMES_DATA_FILE.getPath());
             }
         } catch (IOException e) {
-            EconomySystem.LOGGER.error("初始化生物群系数据文件失败", e);
+            DreamingFishCore.LOGGER.error("初始化生物群系数据文件失败", e);
         }
     }
 
@@ -140,7 +140,7 @@ public class PlayerBiomesDataManager {
                 allBiomesData = new HashMap<>();
             }
         } catch (Exception e) {
-            EconomySystem.LOGGER.warn("读取生物群系数据文件失败，返回空数据", e);
+            DreamingFishCore.LOGGER.warn("读取生物群系数据文件失败，返回空数据", e);
         }
         return allBiomesData;
     }
@@ -152,7 +152,7 @@ public class PlayerBiomesDataManager {
         try (FileWriter writer = new FileWriter(BIOMES_DATA_FILE)) {
             GSON.toJson(BIOMES_CACHE, writer);
         } catch (Exception e) {
-            EconomySystem.LOGGER.error("写入生物群系数据文件失败", e);
+            DreamingFishCore.LOGGER.error("写入生物群系数据文件失败", e);
         }
     }
 
@@ -169,7 +169,7 @@ public class PlayerBiomesDataManager {
         if (!BIOMES_CACHE.containsKey(playerUUID)) {
             Set<String> biomes = getExploredBiomes(playerUUID);
             BIOMES_CACHE.put(playerUUID, biomes);
-            EconomySystem.LOGGER.info("玩家 {} 生物群系数据已加载，已探索 {} 个生物群系",
+            DreamingFishCore.LOGGER.info("玩家 {} 生物群系数据已加载，已探索 {} 个生物群系",
                     player.getScoreboardName(), biomes.size());
         }
     }
@@ -182,7 +182,7 @@ public class PlayerBiomesDataManager {
         if (event.getEntity() instanceof ServerPlayer player) {
             UUID playerUUID = player.getUUID();
             Set<String> biomes = BIOMES_CACHE.remove(playerUUID);
-            EconomySystem.LOGGER.info("玩家 {} 登出，生物群系缓存已清理（已探索 {} 个）",
+            DreamingFishCore.LOGGER.info("玩家 {} 登出，生物群系缓存已清理（已探索 {} 个）",
                     player.getScoreboardName(), biomes != null ? biomes.size() : 0);
         }
     }

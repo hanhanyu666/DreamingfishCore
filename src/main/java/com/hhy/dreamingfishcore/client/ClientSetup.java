@@ -1,12 +1,12 @@
 package com.hhy.dreamingfishcore.client;
 
 import com.google.common.collect.Maps;
-import com.hhy.dreamingfishcore.EconomySystem;
-import com.hhy.dreamingfishcore.entity.EconomySystem_Entities;
-import com.hhy.dreamingfishcore.entity.EconomySystem_ModelLayers;
+import com.hhy.dreamingfishcore.DreamingFishCore;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_ModelLayers;
 import com.hhy.dreamingfishcore.entity.entities.model.HiveZombieModel;
 import com.hhy.dreamingfishcore.entity.entities.render.HiveZombieRenderer;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.item.item_model.CustomRendererBakedModel;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-@EventBusSubscriber(modid = EconomySystem.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class ClientSetup {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientSetup.class);
 
@@ -35,15 +35,15 @@ public class ClientSetup {
     // 注册模型层定义
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(EconomySystem_ModelLayers.HIVE_ZOMBIE, HiveZombieModel::createBodyLayer);
-        event.registerLayerDefinition(EconomySystem_ModelLayers.HIVE_ZOMBIE_INNER_ARMOR, HiveZombieModel::createBodyLayer);
-        event.registerLayerDefinition(EconomySystem_ModelLayers.HIVE_ZOMBIE_OUTER_ARMOR, HiveZombieModel::createBodyLayer);
+        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE, HiveZombieModel::createBodyLayer);
+        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_INNER_ARMOR, HiveZombieModel::createBodyLayer);
+        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_OUTER_ARMOR, HiveZombieModel::createBodyLayer);
     }
 
     // 注册渲染器
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(EconomySystem_Entities.HIVE_ZOMBIE.get(), HiveZombieRenderer::new);
+        event.registerEntityRenderer(DreamingFishCore_Entities.HIVE_ZOMBIE.get(), HiveZombieRenderer::new);
     }
 
     // 修改模型烘焙结果
@@ -54,7 +54,7 @@ public class ClientSetup {
         try {
             // 获取蓝图模型的资源位置
             ModelResourceLocation blueprintModel = new ModelResourceLocation(
-                    ResourceLocation.fromNamespaceAndPath(EconomySystem.MODID, "blueprint"),
+                    ResourceLocation.fromNamespaceAndPath(DreamingFishCore.MODID, "blueprint"),
                     "inventory"
             );
 

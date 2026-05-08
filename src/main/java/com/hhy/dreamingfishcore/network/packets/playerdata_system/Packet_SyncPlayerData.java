@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets.playerdata_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerlevel_system.overalllevel.PlayerLevelManager;
 import com.hhy.dreamingfishcore.server.chattitle.PlayerTitleManager;
 import com.hhy.dreamingfishcore.server.chattitle.Title;
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class Packet_SyncPlayerData implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncPlayerData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "playerdata_system/packet_sync_player_data"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SyncPlayerData> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "playerdata_system/packet_sync_player_data"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SyncPlayerData> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SyncPlayerData.encode(packet, buf), Packet_SyncPlayerData::decode);
 
     @Override
@@ -211,7 +211,7 @@ public class Packet_SyncPlayerData implements net.minecraft.network.protocol.com
         try {
             net.minecraft.client.Minecraft mc = net.minecraft.client.Minecraft.getInstance();
             if (mc == null || mc.player == null) {
-                EconomySystem.LOGGER.error("客户端同步数据失败：Minecraft/Player未加载");
+                DreamingFishCore.LOGGER.error("客户端同步数据失败：Minecraft/Player未加载");
                 return;
             }
 
@@ -248,10 +248,10 @@ public class Packet_SyncPlayerData implements net.minecraft.network.protocol.com
             // TODO: 排行榜功能暂时注释，等待重写
             // ServerScreenUI_Screen.updatePlayerRankLevelCache(playerUUID, playerName, level, rankName, titleName, onlineTime);
 
-            EconomySystem.LOGGER.info("客户端同步数据成功：Rank={}, Title={}, Level={}, Exp={}, TotalPlay={}ms",
+            DreamingFishCore.LOGGER.info("客户端同步数据成功：Rank={}, Title={}, Level={}, Exp={}, TotalPlay={}ms",
                     rank.getRankName(), title.getTitleName(), level, experience, totalPlayTime);
         } catch (Exception e) {
-            EconomySystem.LOGGER.error("客户端同步玩家数据失败", e);
+            DreamingFishCore.LOGGER.error("客户端同步玩家数据失败", e);
         }
     }
 }

@@ -1,17 +1,17 @@
 package com.hhy.dreamingfishcore;
 
-import com.hhy.dreamingfishcore.enchant.EconomySystem_Enchants;
-import com.hhy.dreamingfishcore.entity.EconomySystem_Entities;
+import com.hhy.dreamingfishcore.enchant.DreamingFishCore_Enchants;
+import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import com.hhy.dreamingfishcore.init.Init;
-import com.hhy.dreamingfishcore.item.EconomySystem_CreativeTabs;
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_CreativeTabs;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.core.npc_system.NpcManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.limb_health_system.LimbDamageConfig;
-import com.hhy.dreamingfishcore.loot.EconomySystem_LootModifiers;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.loot.DreamingFishCore_LootModifiers;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.server.notice.NoticeManager;
 import com.hhy.dreamingfishcore.server.notice.PlayerNoticeDataManager;
-import com.hhy.dreamingfishcore.sound.EconomySystem_Sounds;
+import com.hhy.dreamingfishcore.sound.DreamingFishCore_Sounds;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -20,26 +20,26 @@ import net.neoforged.fml.config.ModConfig;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(EconomySystem.MODID)
-public class EconomySystem {
+@Mod(DreamingFishCore.MODID)
+public class DreamingFishCore {
     public static final boolean isDev = true;
     public static final String MODID = "dreamingfishcore";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public EconomySystem(IEventBus modEventBus, ModContainer modContainer) {
+    public DreamingFishCore(IEventBus modEventBus, ModContainer modContainer) {
         // 注册物品
-        EconomySystem_Items.register(modEventBus);
+        DreamingFishCore_Items.register(modEventBus);
         // 注册声音
-        EconomySystem_Sounds.SOUND_EVENTS.register(modEventBus);
+        DreamingFishCore_Sounds.SOUND_EVENTS.register(modEventBus);
         // 注册附魔
-        EconomySystem_Enchants.register(modEventBus);
+        DreamingFishCore_Enchants.register(modEventBus);
         // 注册网络包
-        EconomySystem_NetworkManager.register(modEventBus);
+        DreamingFishCore_NetworkManager.register(modEventBus);
         // 注册创造物品栏
-        EconomySystem_CreativeTabs.CREATIVE_TABS.register(modEventBus);
+        DreamingFishCore_CreativeTabs.CREATIVE_TABS.register(modEventBus);
         // 注册实体
-        EconomySystem_Entities.ENTITIES.register(modEventBus);
-        EconomySystem_LootModifiers.register(modEventBus);
+        DreamingFishCore_Entities.ENTITIES.register(modEventBus);
+        DreamingFishCore_LootModifiers.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 
         new Init();

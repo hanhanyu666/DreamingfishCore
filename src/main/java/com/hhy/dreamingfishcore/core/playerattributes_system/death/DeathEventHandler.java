@@ -1,9 +1,9 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.death;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_DeathScreenData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -26,7 +26,7 @@ import java.util.UUID;
 
 //幸存者死亡，可以花费50点复活点数死亡不掉落
 //感染值死亡，直接扣除20点死亡点数
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class DeathEventHandler {
 
     //死亡消耗
@@ -47,7 +47,7 @@ public class DeathEventHandler {
         }
 
         // 设置死亡待处理标记，阻止物品掉落
-        serverPlayer.getPersistentData().putBoolean("EconomySystem_DeathPending", true);
+        serverPlayer.getPersistentData().putBoolean("DreamingFishCore_DeathPending", true);
 
         UUID deathPlayerUUID = serverPlayer.getUUID();
         UserBanList banList = serverPlayer.server.getPlayerList().getBans();
@@ -88,7 +88,7 @@ public class DeathEventHandler {
             );
             banList.add(banEntry);
 
-            EconomySystem.LOGGER.info("玩家 {} 复活点数不足({})，物品已掉落，已被封禁",
+            DreamingFishCore.LOGGER.info("玩家 {} 复活点数不足({})，物品已掉落，已被封禁",
                     serverPlayer.getScoreboardName(), currentRespawnPoint);
 
             // 立即踢出玩家
@@ -106,16 +106,16 @@ public class DeathEventHandler {
         String dimension = serverPlayer.level().dimension().location().toString();
 
         // 持久化死亡状态到玩家 NBT，防止退出后丢失
-        serverPlayer.getPersistentData().putFloat("EconomySystem_DeathRespawnPoint", currentRespawnPoint);
-        serverPlayer.getPersistentData().putFloat("EconomySystem_DeathNormalCost", respawnCost);
-        serverPlayer.getPersistentData().putFloat("EconomySystem_DeathKeepInventoryCost", respawnCost + KEEP_INVENTORY_COST);
-        serverPlayer.getPersistentData().putBoolean("EconomySystem_DeathIsInfected", isInfected);
-        serverPlayer.getPersistentData().putDouble("EconomySystem_DeathX", deathX);
-        serverPlayer.getPersistentData().putDouble("EconomySystem_DeathY", deathY);
-        serverPlayer.getPersistentData().putDouble("EconomySystem_DeathZ", deathZ);
-        serverPlayer.getPersistentData().putString("EconomySystem_DeathDimension", dimension);
+        serverPlayer.getPersistentData().putFloat("DreamingFishCore_DeathRespawnPoint", currentRespawnPoint);
+        serverPlayer.getPersistentData().putFloat("DreamingFishCore_DeathNormalCost", respawnCost);
+        serverPlayer.getPersistentData().putFloat("DreamingFishCore_DeathKeepInventoryCost", respawnCost + KEEP_INVENTORY_COST);
+        serverPlayer.getPersistentData().putBoolean("DreamingFishCore_DeathIsInfected", isInfected);
+        serverPlayer.getPersistentData().putDouble("DreamingFishCore_DeathX", deathX);
+        serverPlayer.getPersistentData().putDouble("DreamingFishCore_DeathY", deathY);
+        serverPlayer.getPersistentData().putDouble("DreamingFishCore_DeathZ", deathZ);
+        serverPlayer.getPersistentData().putString("DreamingFishCore_DeathDimension", dimension);
         // 保存死亡消息
-        serverPlayer.getPersistentData().putString("EconomySystem_DeathMessage", Component.Serializer.toJson(deathMessage, serverPlayer.registryAccess()));
+        serverPlayer.getPersistentData().putString("DreamingFishCore_DeathMessage", Component.Serializer.toJson(deathMessage, serverPlayer.registryAccess()));
 
         Packet_DeathScreenData packet = new Packet_DeathScreenData(
                 currentRespawnPoint,
@@ -128,9 +128,9 @@ public class DeathEventHandler {
                 deathZ,
                 dimension
         );
-        EconomySystem_NetworkManager.sendToClient(packet, serverPlayer);
+        DreamingFishCore_NetworkManager.sendToClient(packet, serverPlayer);
 
-//        EconomySystem.LOGGER.info("玩家 {} 死亡状态已持久化，位置: {} {} {}",
+//        DreamingFishCore.LOGGER.info("玩家 {} 死亡状态已持久化，位置: {} {} {}",
 //                serverPlayer.getScoreboardName(), dimension, (int)deathX, (int)deathY, (int)deathZ);
     }
 
@@ -138,20 +138,20 @@ public class DeathEventHandler {
      * 清除玩家的死亡状态
      */
     public static void clearDeathState(ServerPlayer player) {
-        player.getPersistentData().remove("EconomySystem_DeathPending");
-        player.getPersistentData().remove("EconomySystem_DeathRespawnPoint");
-        player.getPersistentData().remove("EconomySystem_DeathNormalCost");
-        player.getPersistentData().remove("EconomySystem_DeathKeepInventoryCost");
-        player.getPersistentData().remove("EconomySystem_DeathIsInfected");
-        player.getPersistentData().remove("EconomySystem_DeathMessage");
-        EconomySystem.LOGGER.info("玩家 {} 的死亡状态已清除", player.getScoreboardName());
+        player.getPersistentData().remove("DreamingFishCore_DeathPending");
+        player.getPersistentData().remove("DreamingFishCore_DeathRespawnPoint");
+        player.getPersistentData().remove("DreamingFishCore_DeathNormalCost");
+        player.getPersistentData().remove("DreamingFishCore_DeathKeepInventoryCost");
+        player.getPersistentData().remove("DreamingFishCore_DeathIsInfected");
+        player.getPersistentData().remove("DreamingFishCore_DeathMessage");
+        DreamingFishCore.LOGGER.info("玩家 {} 的死亡状态已清除", player.getScoreboardName());
     }
 
     /**
      * 检查玩家是否有未处理的死亡状态
      */
     public static boolean hasDeathState(ServerPlayer player) {
-        return player.getPersistentData().getBoolean("EconomySystem_DeathPending");
+        return player.getPersistentData().getBoolean("DreamingFishCore_DeathPending");
     }
 
     /**
@@ -166,7 +166,7 @@ public class DeathEventHandler {
         // 获取玩家当前的实际属性数据
         PlayerAttributesData data = PlayerAttributesDataManager.getPlayerAttributesData(player.getUUID());
         if (data == null) {
-            EconomySystem.LOGGER.warn("玩家 {} 重连时无法获取属性数据", player.getScoreboardName());
+            DreamingFishCore.LOGGER.warn("玩家 {} 重连时无法获取属性数据", player.getScoreboardName());
             return;
         }
 
@@ -179,14 +179,14 @@ public class DeathEventHandler {
         float keepInventoryCost = getKeepInventoryCost(isInfected);
 
         // 从 NBT 读取死亡位置和消息
-        double deathX = player.getPersistentData().getDouble("EconomySystem_DeathX");
-        double deathY = player.getPersistentData().getDouble("EconomySystem_DeathY");
-        double deathZ = player.getPersistentData().getDouble("EconomySystem_DeathZ");
-        String dimension = player.getPersistentData().getString("EconomySystem_DeathDimension");
+        double deathX = player.getPersistentData().getDouble("DreamingFishCore_DeathX");
+        double deathY = player.getPersistentData().getDouble("DreamingFishCore_DeathY");
+        double deathZ = player.getPersistentData().getDouble("DreamingFishCore_DeathZ");
+        String dimension = player.getPersistentData().getString("DreamingFishCore_DeathDimension");
 
         // 读取保存的死亡消息
         Component deathMessage;
-        String deathMessageJson = player.getPersistentData().getString("EconomySystem_DeathMessage");
+        String deathMessageJson = player.getPersistentData().getString("DreamingFishCore_DeathMessage");
         if (deathMessageJson != null && !deathMessageJson.isEmpty()) {
             try {
                 deathMessage = Component.Serializer.fromJson(deathMessageJson, player.registryAccess());
@@ -209,9 +209,9 @@ public class DeathEventHandler {
                 deathZ,
                 dimension
         );
-        EconomySystem_NetworkManager.sendToClient(packet, player);
+        DreamingFishCore_NetworkManager.sendToClient(packet, player);
 
-        EconomySystem.LOGGER.info("玩家 {} 的死亡状态已恢复，当前复活点: {}",
+        DreamingFishCore.LOGGER.info("玩家 {} 的死亡状态已恢复，当前复活点: {}",
                 player.getScoreboardName(), currentRespawnPoint);
     }
 
@@ -244,7 +244,7 @@ public class DeathEventHandler {
             if (targetLevel != null) {
                 targetPos = Vec3.atBottomCenterOf(respawnPos);
                 player.teleportTo(targetLevel, targetPos.x, targetPos.y, targetPos.z, respawnAngle, 0);
-                EconomySystem.LOGGER.info("玩家 {} 已传送到复活点: {} {} {}",
+                DreamingFishCore.LOGGER.info("玩家 {} 已传送到复活点: {} {} {}",
                         player.getScoreboardName(), (int)targetPos.x, (int)targetPos.y, (int)targetPos.z);
                 return;
             }
@@ -255,7 +255,7 @@ public class DeathEventHandler {
         BlockPos spawnPos = targetLevel.getSharedSpawnPos();
         targetPos = Vec3.atBottomCenterOf(spawnPos);
         player.teleportTo(targetLevel, targetPos.x, targetPos.y, targetPos.z, 0, 0);
-        EconomySystem.LOGGER.info("玩家 {} 已传送到世界出生点: {} {} {}",
+        DreamingFishCore.LOGGER.info("玩家 {} 已传送到世界出生点: {} {} {}",
                 player.getScoreboardName(), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
     }
 
@@ -290,6 +290,6 @@ public class DeathEventHandler {
             }
         }
 
-        EconomySystem.LOGGER.info("玩家 {} 的所有物品已在死亡点掉落", player.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 的所有物品已在死亡点掉落", player.getScoreboardName());
     }
 }

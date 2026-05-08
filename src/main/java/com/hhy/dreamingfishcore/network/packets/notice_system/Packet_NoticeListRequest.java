@@ -2,7 +2,7 @@ package com.hhy.dreamingfishcore.network.packets.notice_system;
 
 import com.hhy.dreamingfishcore.server.notice.NoticeManager;
 import com.hhy.dreamingfishcore.server.notice.PlayerNoticeDataManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_NoticeListRequest implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeListRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "notice_system/packet_notice_list_request"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_NoticeListRequest> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "notice_system/packet_notice_list_request"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_NoticeListRequest> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_NoticeListRequest.encode(packet, buf), Packet_NoticeListRequest::decode);
 
     @Override
@@ -43,7 +43,7 @@ public class Packet_NoticeListRequest implements net.minecraft.network.protocol.
                 var readNoticeIds = PlayerNoticeDataManager.getReadNoticeIds(player.getUUID());
 
                 // 发送响应
-                EconomySystem_NetworkManager.sendToClient(
+                DreamingFishCore_NetworkManager.sendToClient(
                     player,
                     new Packet_NoticeListResponse(notices, readNoticeIds)
                 );

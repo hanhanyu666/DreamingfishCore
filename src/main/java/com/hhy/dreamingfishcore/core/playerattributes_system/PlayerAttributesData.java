@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -96,7 +96,7 @@ public class PlayerAttributesData {
         this.courageWarned = false;
         this.infectionWarned = false;
 
-        EconomySystem.LOGGER.info("玩家 {} 属性数据初始化完成（等级1）", player.getScoreboardName());
+        DreamingFishCore.LOGGER.info("玩家 {} 属性数据初始化完成（等级1）", player.getScoreboardName());
     }
 
     /**
@@ -173,7 +173,7 @@ public class PlayerAttributesData {
             syncMaxHealthToPlayer(player);  // 调用自定义同步方法
         }
 
-        EconomySystem.LOGGER.info("玩家 {} 等级更新为{}，属性最大值同步完成", playerName, level);
+        DreamingFishCore.LOGGER.info("玩家 {} 等级更新为{}，属性最大值同步完成", playerName, level);
     }
 
     public void syncMaxHealthToPlayer(ServerPlayer player) {
@@ -218,7 +218,7 @@ public class PlayerAttributesData {
         player.setHealth((float) newHealth);
         // 同步客户端显示（防止血量显示异常）
         player.setHealth(player.getHealth());
-        EconomySystem.LOGGER.info("玩家 {} 使用自定义药品回血：{} → {}（最大血量：{}）",
+        DreamingFishCore.LOGGER.info("玩家 {} 使用自定义药品回血：{} → {}（最大血量：{}）",
                 this.playerName, currentHealth, newHealth, this.maxHealth);
         return true;
     }

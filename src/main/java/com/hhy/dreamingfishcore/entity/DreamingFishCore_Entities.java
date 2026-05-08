@@ -2,7 +2,7 @@ package com.hhy.dreamingfishcore.entity;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -10,9 +10,9 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-public class EconomySystem_Entities {
+public class DreamingFishCore_Entities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, EconomySystem.MODID);
+            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, DreamingFishCore.MODID);
 
     // 注册自定义丧尸实体
     public static final DeferredHolder<EntityType<?>, EntityType<HiveZombieEntity>> HIVE_ZOMBIE =

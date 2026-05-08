@@ -1,9 +1,9 @@
 package com.hhy.dreamingfishcore.mixin.death;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.death.DeathScreenDataStorage;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_KeepInventoryRequest;
 import com.hhy.dreamingfishcore.network.packets.playerattribute_system.death_system.Packet_NormalRespawnRequest;
 import net.minecraft.client.Minecraft;
@@ -47,22 +47,22 @@ public abstract class DeathScreenMixin extends Screen {
     private static final int PADDING = 12;
 
     @Unique
-    private Button economySystem$normalRespawnButton;
+    private Button dreamingFishCore$normalRespawnButton;
     @Unique
-    private Button economySystem$keepInventoryButton;
+    private Button dreamingFishCore$keepInventoryButton;
     @Unique
-    private Button economySystem$titleScreenButton;
+    private Button dreamingFishCore$titleScreenButton;
 
     @Unique
-    private boolean economySystem$showDeathPos = false;  // 是否显示死亡位置
+    private boolean dreamingFishCore$showDeathPos = false;  // 是否显示死亡位置
     @Unique
-    private int economySystem$posButtonX;
+    private int dreamingFishCore$posButtonX;
     @Unique
-    private int economySystem$posButtonY;
+    private int dreamingFishCore$posButtonY;
     @Unique
-    private int economySystem$posButtonWidth = 140;
+    private int dreamingFishCore$posButtonWidth = 140;
     @Unique
-    private int economySystem$posButtonHeight = 16;
+    private int dreamingFishCore$posButtonHeight = 16;
 
     @Shadow
     private Component causeOfDeath;
@@ -76,7 +76,7 @@ public abstract class DeathScreenMixin extends Screen {
      * 始终使用自定义逻辑，不再检查数据是否为空
      */
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
-    private void economySystem$init(CallbackInfo ci) {
+    private void dreamingFishCore$init(CallbackInfo ci) {
         // 获取数据（如果没有数据，返回默认值）
         DeathScreenDataStorage.DeathScreenData data = DeathScreenDataStorage.getData();
 
@@ -99,50 +99,50 @@ public abstract class DeathScreenMixin extends Screen {
         String respawnType = data.isInfected() ? "感染者" : "幸存者";
 
         // 正常复活按钮
-        economySystem$normalRespawnButton = new CustomButton(
+        dreamingFishCore$normalRespawnButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY,
                 buttonWidth, buttonHeight,
                 Component.literal("§e作为" + respawnType + "重生 §8(-" + String.format("%.1f", data.normalCost()) + "§8)"),
                 false, data.normalCost(), data.respawnPoint(),
-                btn -> economySystem$sendNormalRespawn()
+                btn -> dreamingFishCore$sendNormalRespawn()
         );
-        this.addRenderableWidget(economySystem$normalRespawnButton);
+        this.addRenderableWidget(dreamingFishCore$normalRespawnButton);
 
         // 保留物品复活按钮
-        economySystem$keepInventoryButton = new CustomButton(
+        dreamingFishCore$keepInventoryButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY + buttonHeight + buttonSpacing,
                 buttonWidth, buttonHeight,
                 Component.literal("§6作为" + respawnType + "保留物品栏重生 §8(-" + String.format("%.1f", data.keepInventoryCost()) + "§8)"),
                 true, data.keepInventoryCost(), data.respawnPoint(),
-                btn -> economySystem$sendKeepInventory()
+                btn -> dreamingFishCore$sendKeepInventory()
         );
-        this.addRenderableWidget(economySystem$keepInventoryButton);
+        this.addRenderableWidget(dreamingFishCore$keepInventoryButton);
 
         // 返回标题界面按钮
-        economySystem$titleScreenButton = new CustomButton(
+        dreamingFishCore$titleScreenButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY + (buttonHeight + buttonSpacing) * 2,
                 buttonWidth, buttonHeight,
                 Component.literal("§c返回标题界面"),
                 false, 0, data.respawnPoint(),
-                btn -> economySystem$returnToTitleScreen()
+                btn -> dreamingFishCore$returnToTitleScreen()
         );
-        this.addRenderableWidget(economySystem$titleScreenButton);
+        this.addRenderableWidget(dreamingFishCore$titleScreenButton);
 
         // 检查点数是否足够，禁用相应按钮
         boolean canRespawn = data.respawnPoint() >= data.normalCost();
         boolean canKeepInventory = data.respawnPoint() >= data.keepInventoryCost();
 
-        economySystem$normalRespawnButton.active = canRespawn;
-        economySystem$keepInventoryButton.active = canKeepInventory;
+        dreamingFishCore$normalRespawnButton.active = canRespawn;
+        dreamingFishCore$keepInventoryButton.active = canKeepInventory;
 
-        EconomySystem.LOGGER.info("死亡界面自定义按钮已添加");
+        DreamingFishCore.LOGGER.info("死亡界面自定义按钮已添加");
     }
 
     /**
      * 返回标题界面
      */
     @Unique
-    private void economySystem$returnToTitleScreen() {
+    private void dreamingFishCore$returnToTitleScreen() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level != null) {
             mc.level.disconnect();
@@ -155,16 +155,16 @@ public abstract class DeathScreenMixin extends Screen {
      * 发送正常复活请求
      */
     @Unique
-    private void economySystem$sendNormalRespawn() {
-        EconomySystem_NetworkManager.sendToServer(new Packet_NormalRespawnRequest());
+    private void dreamingFishCore$sendNormalRespawn() {
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_NormalRespawnRequest());
     }
 
     /**
      * 发送保留物品复活请求
      */
     @Unique
-    private void economySystem$sendKeepInventory() {
-        EconomySystem_NetworkManager.sendToServer(new Packet_KeepInventoryRequest());
+    private void dreamingFishCore$sendKeepInventory() {
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_KeepInventoryRequest());
     }
 
     /**
@@ -175,14 +175,14 @@ public abstract class DeathScreenMixin extends Screen {
         DeathScreenDataStorage.DeathScreenData data = DeathScreenDataStorage.getData();
 
         // 移除旧按钮
-        if (economySystem$normalRespawnButton != null) {
-            this.removeWidget(economySystem$normalRespawnButton);
+        if (dreamingFishCore$normalRespawnButton != null) {
+            this.removeWidget(dreamingFishCore$normalRespawnButton);
         }
-        if (economySystem$keepInventoryButton != null) {
-            this.removeWidget(economySystem$keepInventoryButton);
+        if (dreamingFishCore$keepInventoryButton != null) {
+            this.removeWidget(dreamingFishCore$keepInventoryButton);
         }
-        if (economySystem$titleScreenButton != null) {
-            this.removeWidget(economySystem$titleScreenButton);
+        if (dreamingFishCore$titleScreenButton != null) {
+            this.removeWidget(dreamingFishCore$titleScreenButton);
         }
 
         int centerX = this.width / 2;
@@ -201,50 +201,50 @@ public abstract class DeathScreenMixin extends Screen {
         String respawnType = data.isInfected() ? "感染者" : "幸存者";
 
         // 正常复活按钮
-        economySystem$normalRespawnButton = new CustomButton(
+        dreamingFishCore$normalRespawnButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY,
                 buttonWidth, buttonHeight,
                 Component.literal("§e作为" + respawnType + "重生 §8(-" + String.format("%.1f", data.normalCost()) + "§8)"),
                 false, data.normalCost(), data.respawnPoint(),
-                btn -> economySystem$sendNormalRespawn()
+                btn -> dreamingFishCore$sendNormalRespawn()
         );
-        this.addRenderableWidget(economySystem$normalRespawnButton);
+        this.addRenderableWidget(dreamingFishCore$normalRespawnButton);
 
         // 保留物品复活按钮
-        economySystem$keepInventoryButton = new CustomButton(
+        dreamingFishCore$keepInventoryButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY + buttonHeight + buttonSpacing,
                 buttonWidth, buttonHeight,
                 Component.literal("§6作为" + respawnType + "保留物品栏重生 §8(-" + String.format("%.1f", data.keepInventoryCost()) + "§8)"),
                 true, data.keepInventoryCost(), data.respawnPoint(),
-                btn -> economySystem$sendKeepInventory()
+                btn -> dreamingFishCore$sendKeepInventory()
         );
-        this.addRenderableWidget(economySystem$keepInventoryButton);
+        this.addRenderableWidget(dreamingFishCore$keepInventoryButton);
 
         // 返回标题界面按钮
-        economySystem$titleScreenButton = new CustomButton(
+        dreamingFishCore$titleScreenButton = new CustomButton(
                 centerX - buttonWidth / 2, buttonStartY + (buttonHeight + buttonSpacing) * 2,
                 buttonWidth, buttonHeight,
                 Component.literal("§c返回标题界面"),
                 false, 0, data.respawnPoint(),
-                btn -> economySystem$returnToTitleScreen()
+                btn -> dreamingFishCore$returnToTitleScreen()
         );
-        this.addRenderableWidget(economySystem$titleScreenButton);
+        this.addRenderableWidget(dreamingFishCore$titleScreenButton);
 
         // 检查点数是否足够，禁用相应按钮
         boolean canRespawn = data.respawnPoint() >= data.normalCost();
         boolean canKeepInventory = data.respawnPoint() >= data.keepInventoryCost();
 
-        economySystem$normalRespawnButton.active = canRespawn;
-        economySystem$keepInventoryButton.active = canKeepInventory;
+        dreamingFishCore$normalRespawnButton.active = canRespawn;
+        dreamingFishCore$keepInventoryButton.active = canKeepInventory;
 
-        EconomySystem.LOGGER.info("死亡界面按钮已刷新");
+        DreamingFishCore.LOGGER.info("死亡界面按钮已刷新");
     }
 
     /**
      * 注入到 render() 方法，使用压迫感风格渲染
      */
     @Inject(method = "render", at = @At("HEAD"), cancellable = true, remap = true)
-    private void economySystem$renderForge(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$renderForge(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         // 检查是否需要重新初始化按钮（数据包延迟到达的情况）
         if (DeathScreenDataStorage.needsReinit()) {
             DeathScreenDataStorage.setNeedsReinit(false);
@@ -352,22 +352,22 @@ public abstract class DeathScreenMixin extends Screen {
         poseStack.popPose();
 
         // ========== 死亡位置提示文字（按钮下方）==========
-        String posClickText = economySystem$showDeathPos ? "§7点击此处隐藏您的死亡位置" : "§7点击此处查看您当前死亡位置";
+        String posClickText = dreamingFishCore$showDeathPos ? "§7点击此处隐藏您的死亡位置" : "§7点击此处查看您当前死亡位置";
         int posClickTextWidth = font.width(posClickText);
         int posClickY = boxY + 222;  // 按钮底部和下边框中间
-        economySystem$posButtonX = centerX - posClickTextWidth / 2;
-        economySystem$posButtonY = posClickY;
-        economySystem$posButtonWidth = posClickTextWidth;
-        economySystem$posButtonHeight = 12;
+        dreamingFishCore$posButtonX = centerX - posClickTextWidth / 2;
+        dreamingFishCore$posButtonY = posClickY;
+        dreamingFishCore$posButtonWidth = posClickTextWidth;
+        dreamingFishCore$posButtonHeight = 12;
 
         // 鼠标悬停时文字变亮
-        boolean hovering = mouseX >= economySystem$posButtonX && mouseX < economySystem$posButtonX + economySystem$posButtonWidth &&
-                           mouseY >= economySystem$posButtonY && mouseY < economySystem$posButtonY + economySystem$posButtonHeight;
+        boolean hovering = mouseX >= dreamingFishCore$posButtonX && mouseX < dreamingFishCore$posButtonX + dreamingFishCore$posButtonWidth &&
+                           mouseY >= dreamingFishCore$posButtonY && mouseY < dreamingFishCore$posButtonY + dreamingFishCore$posButtonHeight;
         int textColor = hovering ? 0xFFAAAAFF : 0xFF888888;
         guiGraphics.drawCenteredString(this.font, posClickText, centerX, posClickY, textColor);
 
         // ========== 死亡位置显示 ==========
-        if (economySystem$showDeathPos) {
+        if (dreamingFishCore$showDeathPos) {
             String posText = String.format("§c死亡位置: §7X: §c%d §7Y: §c%d §7Z: §c%d",
                     (int)data.deathX(), (int)data.deathY(), (int)data.deathZ());
             String dimText = "§7维度: §c" + formatDimension(data.dimension());
@@ -392,14 +392,14 @@ public abstract class DeathScreenMixin extends Screen {
         }
 
         // ========== 渲染按钮 ==========
-        if (economySystem$normalRespawnButton != null) {
-            economySystem$normalRespawnButton.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (dreamingFishCore$normalRespawnButton != null) {
+            dreamingFishCore$normalRespawnButton.render(guiGraphics, mouseX, mouseY, partialTick);
         }
-        if (economySystem$keepInventoryButton != null) {
-            economySystem$keepInventoryButton.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (dreamingFishCore$keepInventoryButton != null) {
+            dreamingFishCore$keepInventoryButton.render(guiGraphics, mouseX, mouseY, partialTick);
         }
-        if (economySystem$titleScreenButton != null) {
-            economySystem$titleScreenButton.render(guiGraphics, mouseX, mouseY, partialTick);
+        if (dreamingFishCore$titleScreenButton != null) {
+            dreamingFishCore$titleScreenButton.render(guiGraphics, mouseX, mouseY, partialTick);
         }
     }
 
@@ -407,12 +407,12 @@ public abstract class DeathScreenMixin extends Screen {
      * 注入到 mouseClicked() 方法，处理死亡位置按钮点击
      */
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true, remap = true)
-    private void economySystem$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    private void dreamingFishCore$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         // 检查是否点击了死亡位置按钮
-        if (mouseX >= economySystem$posButtonX && mouseX < economySystem$posButtonX + economySystem$posButtonWidth &&
-            mouseY >= economySystem$posButtonY && mouseY < economySystem$posButtonY + economySystem$posButtonHeight) {
+        if (mouseX >= dreamingFishCore$posButtonX && mouseX < dreamingFishCore$posButtonX + dreamingFishCore$posButtonWidth &&
+            mouseY >= dreamingFishCore$posButtonY && mouseY < dreamingFishCore$posButtonY + dreamingFishCore$posButtonHeight) {
             // 切换显示状态
-            economySystem$showDeathPos = !economySystem$showDeathPos;
+            dreamingFishCore$showDeathPos = !dreamingFishCore$showDeathPos;
             cir.setReturnValue(true);
         }
     }

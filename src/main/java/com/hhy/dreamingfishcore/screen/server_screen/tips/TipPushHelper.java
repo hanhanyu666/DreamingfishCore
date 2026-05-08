@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.screen.server_screen.tips;
 
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.tip_system.Packet_SendTipToClient;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,13 +32,13 @@ public class TipPushHelper {
      */
     public static void sendTipToPlayer(ServerPlayer targetPlayer, String tipText, int displayDuration) {
         if (targetPlayer == null || tipText == null || tipText.isEmpty()) {
-//            EconomySystem.LOGGER.warn("Tip 推送失败：目标玩家或文本为空");
+//            DreamingFishCore.LOGGER.warn("Tip 推送失败：目标玩家或文本为空");
             return;
         }
         // 构建数据包并发送给指定玩家
         Packet_SendTipToClient tipPacket = new Packet_SendTipToClient(tipText, displayDuration);
-        EconomySystem_NetworkManager.sendToClient(tipPacket, targetPlayer);
-//        EconomySystem.LOGGER.info("已给玩家 {} 推送 Tip：{}", targetPlayer.getScoreboardName(), tipText);
+        DreamingFishCore_NetworkManager.sendToClient(tipPacket, targetPlayer);
+//        DreamingFishCore.LOGGER.info("已给玩家 {} 推送 Tip：{}", targetPlayer.getScoreboardName(), tipText);
     }
 
     /**
@@ -56,26 +56,26 @@ public class TipPushHelper {
      */
     public static void broadcastTipToAllPlayers(String tipText, int displayDuration) {
         if (tipText == null || tipText.isEmpty()) {
-//            EconomySystem.LOGGER.warn("全服 Tip 推送失败：文本为空");
+//            DreamingFishCore.LOGGER.warn("全服 Tip 推送失败：文本为空");
             return;
         }
         // 获取服务器实例
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) {
-//            EconomySystem.LOGGER.error("全服 Tip 推送失败：无法获取服务器实例");
+//            DreamingFishCore.LOGGER.error("全服 Tip 推送失败：无法获取服务器实例");
             return;
         }
         // 获取所有在线玩家
         Collection<ServerPlayer> onlinePlayers = server.getPlayerList().getPlayers();
         if (onlinePlayers.isEmpty()) {
-//            EconomySystem.LOGGER.info("全服 Tip 推送：当前无在线玩家，无需推送");
+//            DreamingFishCore.LOGGER.info("全服 Tip 推送：当前无在线玩家，无需推送");
             return;
         }
         // 构建数据包并批量发送
         Packet_SendTipToClient tipPacket = new Packet_SendTipToClient(tipText, displayDuration);
         for (ServerPlayer player : onlinePlayers) {
-            EconomySystem_NetworkManager.sendToClient(tipPacket, player);
+            DreamingFishCore_NetworkManager.sendToClient(tipPacket, player);
         }
-//        EconomySystem.LOGGER.info("已给全服 {} 名玩家推送 Tip：{}", onlinePlayers.size(), tipText);
+//        DreamingFishCore.LOGGER.info("已给全服 {} 名玩家推送 Tip：{}", onlinePlayers.size(), tipText);
     }
 }

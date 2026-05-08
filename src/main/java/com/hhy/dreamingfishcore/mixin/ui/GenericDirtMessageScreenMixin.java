@@ -28,7 +28,7 @@ public abstract class GenericDirtMessageScreenMixin extends Screen {
     }
 
     @Inject(method = "renderBackground", at = @At("HEAD"), cancellable = true)
-    private void economySystem$renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void dreamingFishCore$renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         ci.cancel();
 
         VirtualCoordinateHelper.calculateVirtualSize(this, vs);

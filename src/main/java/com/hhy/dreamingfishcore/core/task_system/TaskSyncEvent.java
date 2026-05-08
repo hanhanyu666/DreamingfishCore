@@ -1,15 +1,15 @@
 package com.hhy.dreamingfishcore.core.task_system;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.story_system.StoryStageManager;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.task_system.Packet_SyncFullTaskData;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class TaskSyncEvent {
     @SubscribeEvent
     public static void onPlayerLogging(PlayerEvent.PlayerLoggedInEvent event) {
@@ -27,12 +27,12 @@ public class TaskSyncEvent {
             );
 
             //向当前登录玩家发送数据包
-            EconomySystem_NetworkManager.sendToClient(
+            DreamingFishCore_NetworkManager.sendToClient(
                     player,
                     syncPacket
             );
 
-            EconomySystem.LOGGER.info("已向玩家 {}({}) 同步全量任务数据",
+            DreamingFishCore.LOGGER.info("已向玩家 {}({}) 同步全量任务数据",
                     player.getDisplayName().getString(),
                     playerUUID);
         }

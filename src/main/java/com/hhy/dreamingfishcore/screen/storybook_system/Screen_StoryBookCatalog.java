@@ -1,7 +1,7 @@
 package com.hhy.dreamingfishcore.screen.storybook_system;
 
 import com.hhy.dreamingfishcore.core.storybook_system.StoryBookEntryViewData;
-import com.hhy.dreamingfishcore.network.EconomySystem_NetworkManager;
+import com.hhy.dreamingfishcore.network.DreamingFishCore_NetworkManager;
 import com.hhy.dreamingfishcore.network.packets.storybook_system.Packet_UpdateStoryBookOrder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -508,7 +508,7 @@ public class Screen_StoryBookCatalog extends Screen {
         for (StoryCard card : allCards) {
             orderedIds.add(card.entry.getFragmentId());
         }
-        EconomySystem_NetworkManager.sendToServer(new Packet_UpdateStoryBookOrder(orderedIds));
+        DreamingFishCore_NetworkManager.sendToServer(new Packet_UpdateStoryBookOrder(orderedIds));
         dirtyOrder = false;
     }
 

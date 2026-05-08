@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.core.playerattributes_system.health;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,7 +36,7 @@ public class PlayerCustomHealthManager {
             // 未过冷却时间，直接返回失败
             if (currentTime < cooldownEndTime) {
                 long remainingCooldown = (cooldownEndTime - currentTime) / 1000; // 转换为秒
-//                EconomySystem.LOGGER.info("玩家 {} 药品冷却中，剩余{}秒", player.getScoreboardName(), remainingCooldown);
+//                DreamingFishCore.LOGGER.info("玩家 {} 药品冷却中，剩余{}秒", player.getScoreboardName(), remainingCooldown);
                 return false;
             }
         }
@@ -45,7 +45,7 @@ public class PlayerCustomHealthManager {
         ItemStack heldItemStack = player.getMainHandItem();
         // 校验物品栈是否为空 + 物品是否有耐久度 + 耐久度足够消耗
         if (heldItemStack.isEmpty() || !heldItemStack.isDamageableItem() || heldItemStack.getDamageValue() + durabilityCost > heldItemStack.getMaxDamage()) {
-//            EconomySystem.LOGGER.warn("玩家 {} 物品耐久不足或无法消耗耐久", player.getScoreboardName());
+//            DreamingFishCore.LOGGER.warn("玩家 {} 物品耐久不足或无法消耗耐久", player.getScoreboardName());
             return false;
         }
 
@@ -59,7 +59,7 @@ public class PlayerCustomHealthManager {
             MEDICINE_COOLDOWN_MAP.put(playerUUID, currentTime + cooldownMillis);
             // 消耗主手物品（1个），若需要副手可自行修改
             heldItemStack.hurtAndBreak(durabilityCost, player, EquipmentSlot.MAINHAND);
-//            EconomySystem.LOGGER.info("玩家 {} 药品回血成功：+{}血量，冷却{}毫秒",
+//            DreamingFishCore.LOGGER.info("玩家 {} 药品回血成功：+{}血量，冷却{}毫秒",
 //                    player.getScoreboardName(), healAmount, cooldownMillis);
         }
 

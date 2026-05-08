@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.server.notice;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.login_system.PlayerLoginData;
 import com.hhy.dreamingfishcore.core.login_system.PlayerLoginDataManager;
 import com.hhy.dreamingfishcore.screen.server_screen.tips.TipPushHelper;
@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 新手教程（简化版：引导玩家查看帮助）
  */
-@EventBusSubscriber(modid = EconomySystem.MODID)
+@EventBusSubscriber(modid = DreamingFishCore.MODID)
 public class NewPlayerGuide {
     // 固定15秒时长（显示时间） & 15秒延迟（推送间隔，解决堆叠）
     private static final long SECONDS = 15000;
@@ -37,7 +37,7 @@ public class NewPlayerGuide {
         Thread existingThread = GUIDE_THREADS.get(playerUUID);
         if (existingThread != null && existingThread.isAlive()) {
             existingThread.interrupt();
-            EconomySystem.LOGGER.info("中断玩家 {} 的旧教程线程", player.getName().getString());
+            DreamingFishCore.LOGGER.info("中断玩家 {} 的旧教程线程", player.getName().getString());
         }
 
         // 第一条：欢迎与快捷键提示
@@ -61,9 +61,9 @@ public class NewPlayerGuide {
                 // 设置该玩家完成了新手教程
                 newPlayerLoginData.setHasCompletedNewPlayerGuidence(true);
                 PlayerLoginDataManager.saveLoginData(playerUUID, newPlayerLoginData);
-                EconomySystem.LOGGER.info("玩家 {} 新手教程已完成，已标记", playerUUID);
+                DreamingFishCore.LOGGER.info("玩家 {} 新手教程已完成，已标记", playerUUID);
             } catch (InterruptedException e) {
-                EconomySystem.LOGGER.info("玩家 {} 新手教程线程被中断", playerUUID);
+                DreamingFishCore.LOGGER.info("玩家 {} 新手教程线程被中断", playerUUID);
                 Thread.currentThread().interrupt();
             } finally {
                 // 教程结束或中断后，从Map中移除
@@ -88,9 +88,9 @@ public class NewPlayerGuide {
         if (player != null) {
             // 玩家在线，发送消息（即使死亡也能收到）
             TipPushHelper.sendTipToPlayer(player, message, (int) SECONDS);
-            EconomySystem.LOGGER.info("已向玩家 {} 发送新手教程消息", player.getName().getString());
+            DreamingFishCore.LOGGER.info("已向玩家 {} 发送新手教程消息", player.getName().getString());
         } else {
-            EconomySystem.LOGGER.info("玩家 {} 已离线，跳过新手教程消息", playerUUID);
+            DreamingFishCore.LOGGER.info("玩家 {} 已离线，跳过新手教程消息", playerUUID);
         }
     }
 
@@ -108,7 +108,7 @@ public class NewPlayerGuide {
 
         if (guideThread != null && guideThread.isAlive()) {
             guideThread.interrupt();
-            EconomySystem.LOGGER.info("玩家 {} 退出，中断其教程线程", player.getName().getString());
+            DreamingFishCore.LOGGER.info("玩家 {} 退出，中断其教程线程", player.getName().getString());
         }
     }
 }

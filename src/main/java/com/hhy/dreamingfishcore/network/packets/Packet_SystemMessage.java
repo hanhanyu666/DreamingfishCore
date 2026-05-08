@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.network.packets;
 
-import com.hhy.dreamingfishcore.EconomySystem;
+import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.screen.server_screen.customsystemui.SystemMessageDisplay;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
  */
 public class Packet_SystemMessage implements net.minecraft.network.protocol.common.custom.CustomPacketPayload {
 
-    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SystemMessage> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.EconomySystem.MODID, "packet_system_message"));
+    public static final net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<Packet_SystemMessage> TYPE = new net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.hhy.dreamingfishcore.DreamingFishCore.MODID, "packet_system_message"));
     public static final net.minecraft.network.codec.StreamCodec<net.minecraft.network.RegistryFriendlyByteBuf, Packet_SystemMessage> STREAM_CODEC = net.minecraft.network.codec.StreamCodec.of((buf, packet) -> Packet_SystemMessage.encode(packet, buf), Packet_SystemMessage::decode);
 
     @Override
@@ -80,7 +80,7 @@ public class Packet_SystemMessage implements net.minecraft.network.protocol.comm
                 SystemMessageDisplay.addMessage(message, borderColor);
             }
         } catch (Exception e) {
-            EconomySystem.LOGGER.error("显示系统消息失败", e);
+            DreamingFishCore.LOGGER.error("显示系统消息失败", e);
         }
     }
 }

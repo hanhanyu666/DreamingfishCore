@@ -1,6 +1,6 @@
 package com.hhy.dreamingfishcore.datagen.lang;
 
-import com.hhy.dreamingfishcore.item.EconomySystem_Items;
+import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.utils.Util_MessageKeys;
 import net.minecraft.data.DataGenerator;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -14,19 +14,19 @@ public class ZhCnLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.dreamingfishcore.tab", "DreamingfishCore");
         add("itemGroup.blueprint.tab", "梦鱼蓝图");
-        add(EconomySystem_Items.DREAMINGFISH.get(), "启程锦鲤");
+        add(DreamingFishCore_Items.DREAMINGFISH.get(), "启程锦鲤");
         add("item.dreamingfishcore.dreamingfish.tooltip", "来自梦鱼服的纪念信物。");
-        add(EconomySystem_Items.WORMHOLE_POTION.get(), "虫洞药水");
-        add(EconomySystem_Items.RECALL_POTION.get(), "回忆药水");
-        add(EconomySystem_Items.BLUEPRINT_ITEM.get(), "蓝图");
-        add(EconomySystem_Items.FRAGMENT_PAGE.get(), "故事碎片");
-        add(EconomySystem_Items.STORY_BOOK.get(), "随记本");
-        add(EconomySystem_Items.EASY_AID_KIT.get(), "简易急救包");
-        add(EconomySystem_Items.ADVANCED_AID_KIT.get(), "高级急救包");
-        add(EconomySystem_Items.PROFESSIONAL_AID_KIT.get(), "专业急救包");
-        add(EconomySystem_Items.REVIVAL_CHARM.get(), "复活护符");
-        add(EconomySystem_Items.GENE_RESURGENCE_POTION.get(), "基因复苏药剂");
-        add(EconomySystem_Items.SUPPORTER_HAT.get(), "赞助者帽子");
+        add(DreamingFishCore_Items.WORMHOLE_POTION.get(), "虫洞药水");
+        add(DreamingFishCore_Items.RECALL_POTION.get(), "回忆药水");
+        add(DreamingFishCore_Items.BLUEPRINT_ITEM.get(), "蓝图");
+        add(DreamingFishCore_Items.FRAGMENT_PAGE.get(), "故事碎片");
+        add(DreamingFishCore_Items.STORY_BOOK.get(), "随记本");
+        add(DreamingFishCore_Items.EASY_AID_KIT.get(), "简易急救包");
+        add(DreamingFishCore_Items.ADVANCED_AID_KIT.get(), "高级急救包");
+        add(DreamingFishCore_Items.PROFESSIONAL_AID_KIT.get(), "专业急救包");
+        add(DreamingFishCore_Items.REVIVAL_CHARM.get(), "复活护符");
+        add(DreamingFishCore_Items.GENE_RESURGENCE_POTION.get(), "基因复苏药剂");
+        add(DreamingFishCore_Items.SUPPORTER_HAT.get(), "赞助者帽子");
 
         add(Util_MessageKeys.TPA_SELF_ERROR, "你不能向自己发送传送请求。");
         add(Util_MessageKeys.TPA_NO_POTION, "你需要一个虫洞药水才能发送传送请求。");
