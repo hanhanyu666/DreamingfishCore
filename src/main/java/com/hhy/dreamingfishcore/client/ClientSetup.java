@@ -1,27 +1,17 @@
 package com.hhy.dreamingfishcore.client;
 
-import com.google.common.collect.Maps;
 import com.hhy.dreamingfishcore.DreamingFishCore;
-import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
-import com.hhy.dreamingfishcore.entity.DreamingFishCore_ModelLayers;
-import com.hhy.dreamingfishcore.entity.entities.model.HiveZombieModel;
-import com.hhy.dreamingfishcore.entity.entities.render.HiveZombieRenderer;
-import com.hhy.dreamingfishcore.item.DreamingFishCore_Items;
 import com.hhy.dreamingfishcore.item.item_model.CustomRendererBakedModel;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 @EventBusSubscriber(modid = DreamingFishCore.MODID, value = Dist.CLIENT)
 public class ClientSetup {
@@ -30,20 +20,6 @@ public class ClientSetup {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         // 这里可以放一些客户端设置
-    }
-
-    // 注册模型层定义
-    @SubscribeEvent
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE, HiveZombieModel::createBodyLayer);
-        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_INNER_ARMOR, HiveZombieModel::createBodyLayer);
-        event.registerLayerDefinition(DreamingFishCore_ModelLayers.HIVE_ZOMBIE_OUTER_ARMOR, HiveZombieModel::createBodyLayer);
-    }
-
-    // 注册渲染器
-    @SubscribeEvent
-    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(DreamingFishCore_Entities.HIVE_ZOMBIE.get(), HiveZombieRenderer::new);
     }
 
     // 修改模型烘焙结果

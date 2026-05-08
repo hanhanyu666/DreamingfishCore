@@ -3,7 +3,6 @@ package com.hhy.dreamingfishcore.core.playerattributes_system.infection;
 import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.entity.entities.HiveZombieEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
@@ -287,11 +286,6 @@ public class InfectionEventHandler {
         if (entity.getType() == EntityType.ZOMBIE_VILLAGER) {
             return true;
         }
-        // 检查是否是模组的 HiveZombie
-        if (entity instanceof HiveZombieEntity) {
-            return true;
-        }
-
         return false;
     }
 }

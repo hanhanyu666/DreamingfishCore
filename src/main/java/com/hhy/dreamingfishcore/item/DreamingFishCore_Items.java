@@ -3,9 +3,6 @@ package com.hhy.dreamingfishcore.item;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import com.hhy.dreamingfishcore.DreamingFishCore;
-import com.hhy.dreamingfishcore.armor.DreamingFishCore_ArmorMaterials;
-import com.hhy.dreamingfishcore.armor.armors.SupporterHat;
-import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import com.hhy.dreamingfishcore.item.items.*;
 import com.hhy.dreamingfishcore.item.items.medicine.Easy_Aid_Kit;
 import com.hhy.dreamingfishcore.item.items.Potion_RestoreUnInfected;
@@ -13,7 +10,6 @@ import com.hhy.dreamingfishcore.item.items.Item_RevivalCharm;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -33,22 +29,6 @@ public class DreamingFishCore_Items {
                     .fireResistant() // 可选，防火
             ));
 
-    // 注册虫洞药水
-    public static final DeferredHolder<Item, ? extends Item> WORMHOLE_POTION = ITEMS.register("wormhole_potion",
-            () -> new Potion_Wormhole(new Item.Properties()
-                    .stacksTo(1) // 堆叠数量为1
-                    .fireResistant())); // 可选，防火
-
-    // 注册回忆药水
-    public static final DeferredHolder<Item, ? extends Item> RECALL_POTION = ITEMS.register("recall_potion",
-            () -> new Potion_Recall(new Item.Properties()
-                    .stacksTo(1) // 堆叠数量为1
-                    .fireResistant())); // 可选，防火
-
-    // 注册赞助者帽子
-    public static final DeferredHolder<Item, ? extends Item> SUPPORTER_HAT = ITEMS.register("supporter_hat", () -> new SupporterHat(
-            DreamingFishCore_ArmorMaterials.SUPPORTER, ArmorItem.Type.HELMET, new Item.Properties()));
-
     // 注册启程锦鲤
     public static final DeferredHolder<Item, ? extends Item> DREAMINGFISH = ITEMS.register(
             "dreamingfish",
@@ -66,15 +46,6 @@ public class DreamingFishCore_Items {
                 }
             }
     );
-
-    // 注册丧尸刷怪蛋
-    public static final DeferredHolder<Item, ? extends Item> HIVE_ZOMBIE_SPAWN_EGG =
-            ITEMS.register("hive_zombie_spawn_egg",
-                    () -> new DeferredSpawnEggItem(
-                            DreamingFishCore_Entities.HIVE_ZOMBIE::get,
-                            0x3A6238,  // 基础颜色
-                            0x7F997D,  // 斑点颜色
-                            new Item.Properties()));
 
     // 自定义蓝图物品（可选，如果不想用地图）
     public static final DeferredHolder<Item, ? extends Item> BLUEPRINT_ITEM = ITEMS.register("blueprint",

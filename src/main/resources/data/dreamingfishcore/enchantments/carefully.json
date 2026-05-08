@@ -1,9 +1,0 @@
-{
-  "type": "dreamingfishcore:carefully",
-  "conditions": [
-    {
-      "condition": "minecraft:enchantable_item",
-      "item": "minecraft:diamond_sword"
-    }
-  ]
-}

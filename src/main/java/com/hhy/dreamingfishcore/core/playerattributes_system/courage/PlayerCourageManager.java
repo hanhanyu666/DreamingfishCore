@@ -4,7 +4,6 @@ import com.hhy.dreamingfishcore.DreamingFishCore;
 import com.hhy.dreamingfishcore.client.cache.ClientCacheManager;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesData;
 import com.hhy.dreamingfishcore.core.playerattributes_system.PlayerAttributesDataManager;
-import com.hhy.dreamingfishcore.entity.DreamingFishCore_Entities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,16 +98,6 @@ public class PlayerCourageManager {
         HOSTILE_ENTITY_TYPES.add(EntityType.ZOMBIE);
         HOSTILE_ENTITY_TYPES.add(EntityType.ZOMBIE_VILLAGER);
         HOSTILE_ENTITY_TYPES.add(EntityType.ZOMBIFIED_PIGLIN);
-    }
-
-    //延迟注册丧尸
-    @EventBusSubscriber(modid = DreamingFishCore.MODID)
-    public static class EntityRegisterHandler {
-        @SubscribeEvent
-        public static void registerEntityAttributes(FMLCommonSetupEvent event) {
-            DreamingFishCore.LOGGER.info("延迟注册丧尸");
-            HOSTILE_ENTITY_TYPES.add(DreamingFishCore_Entities.HIVE_ZOMBIE.get());
-        }
     }
 
     @SubscribeEvent

@@ -19,13 +19,9 @@ public class DreamingFishCore_CreativeTabs {
                     .title(Component.translatable("itemGroup.dreamingfishcore.tab")) // 物品栏名称
                     .icon(() -> new ItemStack(DreamingFishCore_Items.DREAMINGFISH.get())) // 设置图标
                     .displayItems((params, output) -> {
-                        output.accept(DreamingFishCore_Items.WORMHOLE_POTION.get());
-                        output.accept(DreamingFishCore_Items.RECALL_POTION.get());
                         output.accept(DreamingFishCore_Items.FRAGMENT_PAGE.get());
                         output.accept(DreamingFishCore_Items.STORY_BOOK.get());
-                        output.accept(DreamingFishCore_Items.SUPPORTER_HAT.get());
                         output.accept(DreamingFishCore_Items.DREAMINGFISH.get());
-                        output.accept(DreamingFishCore_Items.HIVE_ZOMBIE_SPAWN_EGG.get());
                         output.accept(DreamingFishCore_Items.EASY_AID_KIT.get());
                         output.accept(DreamingFishCore_Items.ADVANCED_AID_KIT.get());
                         output.accept(DreamingFishCore_Items.PROFESSIONAL_AID_KIT.get());

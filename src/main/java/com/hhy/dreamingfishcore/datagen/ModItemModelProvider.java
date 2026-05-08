@@ -39,9 +39,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        // simpleItem(DreamingFishCore_Items.SUPPORTER_HAT);
-        simpleItem(DreamingFishCore_Items.RECALL_POTION);
-        simpleItem(DreamingFishCore_Items.WORMHOLE_POTION);
         simpleItem(DreamingFishCore_Items.BLUEPRINT_ITEM);
         simpleItem(DreamingFishCore_Items.FRAGMENT_PAGE);
         simpleItem(DreamingFishCore_Items.STORY_BOOK);
@@ -53,7 +50,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(DreamingFishCore_Items.REVIVAL_CHARM);
         // 基因复苏药剂
         simpleItem(DreamingFishCore_Items.GENE_RESURGENCE_POTION);
-        trimmedArmorItem(DreamingFishCore_Items.SUPPORTER_HAT);
     }
 
     private ItemModelBuilder simpleItem(DeferredHolder<Item, ? extends Item> itemRegistryObject) {
